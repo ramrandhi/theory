@@ -2,6 +2,50 @@
 ALL GIT COMMANDS : 
 
 
+git version control systems are of 3 types
+  1. local version constrol systems            -> In this case the repository is within the system and if system crashes or sharing code not efficient
+  2. centralized version control systems     -> In this case there is only one centralized server and if the server fails its gone and no history available
+  3. distributed version control system -> here we have local repository and when we want to change to others we can do that easily
+  
+  to check the user name and email    -> git config --global --list
+  to change the username             -> git config --global user.name ""
+  to change the email                 -> git config --global email ""
+  
+  
+  git init          -> to initilize a project
+  git init -b main   -> to initialize the project with branch main insted of default branch name master
+  
+  git status         -> to check the status
+  git logs           -> to check the commits in the current directory
+  git commit -a -m "message"     -> here -a is used to directly commit with out staging the changes
+  git diff            -> it shows the changes made to the file(works when the files are not staged)
+  git diff --staged    -> it shows the changes in terminal but only the files that are staged
+  git rm --cached filename           -> to remove a file from repository and history
+  git tag -> to know the internal version of the repository 
+  => git tagging is of two types 1. annotated tagging, 2. lightweight tagging
+  -> annotated tagging is what bascially used as it gives as information about the specific user and specific user information for his commits
+  
+  git tag -a v1.0 -m "first annotated tagging created"
+  git show v1.0  -> gives the discription about the tagging v1.0
+  
+  git checkout -b feature1 or git checkout --branch feature1  -> to create a new branch with name feature1
+  git swich -c feature1 or git switch --create feature1  -> to create a new branch with name feature1
+  
+  git switch feature1 -> to switch to feature1 branch
+  git checkout feature  -> to switch to feature1 branch
+  
+  git branch -> to see all local branches
+  git branch --all  -> to see all the local and remote branches
+  
+  git branch -d branchName   -> to delete a branch
+  git branch --delete branchName  -> to delete a branch
+  
+  
+  SHORT CUT -> git switch -     -> to move from current branch to previous branch
+  
+  merge the above branch(feature1) to current or old branch(main / default) branch -> git merge feature1 (to do this we need to be in main branch)
+
+
 +----------------------------------+-------------------------------------------------------------+
 | Command                          | Description                                                 |
 +----------------------------------+-------------------------------------------------------------+
