@@ -1,0 +1,102 @@
+DOCKER : 
+		-> Docker is an open-source platform that allows you to automate the deployment, scaling and management of applications using containerization.
+		
+Docker Container -> it contains code, runtime, dependencies, system tools of application to work.
+VIRTUAL MACHINES : 
+1. VMs are like seperate computers inside the computer
+2. Each virtual machine behaves like seperate computer
+3. Virtual Machines are created and managed by virtualization software
+4. they provide a flexible and scalable way to utilize hardware resources
+
+Docker Architecture : 
+
+Docker cli 
+Docker API
+Docker Daemon -> 1. Docker Containers, 2. Docker Images
+
+Docker Registry -> this is the place where all the docker images are stored and they can be private or public if private only accessible by you if public everyone can access.
+
+Docker Images -> Docker Images are templates that define the container and its dependencies.
+Docker Containers -> Containers are runtime environments created from docker Images.
+Docker Engine -> The Docker Engine is the runtime that runs and manages containers
+DockerFile -> A DockerFile is a file that contains instructions to build a Docker Image like include dependencies and all other configurations
+Docker Hub -> Docker Hub is a cloud based registry that hosts a vast collection. (same as git hub)
+Docker Registry -> Docker Registry is a storage and distribution system for named Docker Images.
+
+
+DOCKERFILE :
+FROM openjdk:11                                             -> this says docker to use official open jdk 11 from docker hub.
+VOLUME /tmp                                                 -> 
+ADD target/my-app.jar my-app.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","/my-app.jar"]
+
+-> with spring boot we need create docker images in two ways.
+1. By using sping boots maven plugin to automatically configure the build the docker image for us.
+PROCESS :
+a). Cloud native buildPacks
+b). spring boot maven plugin        -> by springs inbuild maven dependencies it will be created without even explicit creation of docker image
+c). layering      -> It is a caching technique where when we build multiple dockerImages It will bee cached and next time we build again it taken less time to build.
+d). paketo buildPacks    -> paketo build packs is a customized build that gives jvm and all the required files to compile spring boot application into dockerImage
+e). result     -> result is docker image
+
+
+
+
+CONTAINERIZING OUT SPRING BOOT APPLICATION : 
+-> USING SPRING BOOT MAVEN DEPENDENCY TO CONTAINERIZING DOCKER APPLICATION : 
+./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=<IMAGE-NAME>
+or
+mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=ramrandhi/jobappimage  (For Windows)
+
+=> ./mvnw -> maven wrapper
+=> spring-boot:build-image -> maven goal that is provided by spring boot maven to build maven dependencies using cloud native build packs
+=> -Dspring-boot.build-image.imageName=  -> java system property that is being passed to spring boot image goal.
+=> -D here specifies the system property.
+
+
+-> mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=ramrandhi/jobappimage
+-> docker push ramrandhi/jobappimage
+// push docker image to repository
+-> docker pull ramrandhi/jobappimage
+// pull docker image from repository
+-> docker run -it -d -p <host-port>:<container-port> --name <name> <image>
+// -it -> interactive, -d -> detached mode (for running as a seperate process even if terminal closed docker runs), -p -> port mapping (map the port of container to that of host machine we can use)
+-> docker stop <container-id/container-name>
+// stop docker using container id or container name
+-> docker start <container-id/container-name>
+// start docker using container id or container name
+-> docker rm <container-id/container-name>
+// remove a stopped container using container id or container name
+-> docker rmi <image-id/image-name>
+// remove a docker image using image id or image name
+-> docker ps  
+// gives all the running containers
+-> docker ps -a 
+// shows all the containers aswellas running
+-> docker images
+// to list all the images on the host
+-> docker exec -it <container-name/container-id> bash
+// if we want to login to a running container the we can use this command
+-> docker build -t <username/image> .
+// used to build docker file which is already available in repository
+-> docker logs <container-name/container-id>
+// if we want to see the logs from the running container
+docker inspect <container-name/container-id>
+-> gives detailed information for a particular container
+
+
+DOCKER COMPOSE : This will be used to manage all the containers required for us and if we want can run all containers with one single command.
+
+
+
+
+
+
+docker run -d --name db -e POSTGRE_PASSWORD=admin@123 postgres
+docker run -d --name pgadmin -e PGADMIN_DEFAULT_EMAIL=admin@admin.com -e PGADMIN_DEFAULT_PASSWORD=admin@123 dpage/pgadmin4
+docker rm -f db pgadmin
+docker network create my-network
+docker run -d --name db --network my-network -e POSTGRES_PASSWORD=mysecretpassword postgres
+docker run -d --name pgadmin --network my-network -e PGADMIN_DEFAULT_EMAIL=user@domain.com -e PGADMIN_DEFAULT_PASSWORD=SuperSecret dpage/pgadmin4
+docker exec -it pgadmin ping db
