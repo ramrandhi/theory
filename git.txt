@@ -1,0 +1,62 @@
+
+ALL GIT COMMANDS : 
+
+
++----------------------------------+-------------------------------------------------------------+
+| Command                          | Description                                                 |
++----------------------------------+-------------------------------------------------------------+
+| git init                         | Initializes a new Git repository                           |
+| git clone <repo_url>              | Clones an existing repository                             |
+| git status                        | Shows the working directory status                        |
+| git add <file>                    | Stages a file for commit                                  |
+| git add .                         | Stages all modified and new files                         |
+| git commit -m "message"           | Commits staged changes with a message                     |
+| git commit --amend                | Amends the last commit                                    |
+| git push                          | Pushes changes to a remote repository                     |
+| git push -u origin <branch>       | Pushes a branch and sets it as upstream                   |
+| git pull                          | Fetches and merges changes from a remote repository       |
+| git fetch                         | Downloads objects and refs from another repository        |
+| git branch                        | Lists branches                                            |
+| git branch <name>                 | Creates a new branch                                      |
+| git branch -d <branch>            | Deletes a branch locally                                  |
+| git checkout <branch>             | Switches to a different branch                           |
+| git checkout -b <branch>          | Creates and switches to a new branch                     |
+| git merge <branch>                | Merges a branch into the current branch                   |
+| git rebase <branch>               | Reapplies commits on top of another base branch          |
+| git log                           | Shows commit history                                      |
+| git log --oneline                 | Shows a condensed commit history                         |
+| git diff                          | Shows changes between commits, branches, or working dir  |
+| git diff <branch>                 | Shows changes between current branch and another branch  |
+| git reset <file>                  | Unstages a file                                           |
+| git reset --hard <commit>         | Resets repository to a specific commit                   |
+| git reset --soft <commit>         | Moves HEAD to commit but keeps changes staged            |
+| git revert <commit>               | Creates a new commit to undo a previous commit           |
+| git stash                         | Saves changes temporarily                                |
+| git stash pop                     | Restores stashed changes                                 |
+| git stash list                    | Lists stashed changes                                    |
+| git stash drop                    | Deletes a stash                                          |
+| git remote -v                     | Shows remote repositories                               |
+| git remote add <name> <url>       | Adds a new remote repository                            |
+| git remote remove <name>          | Removes a remote repository                            |
+| git tag <name>                    | Creates a new tag                                       |
+| git tag                           | Lists all tags                                          |
+| git tag -d <tagname>              | Deletes a tag                                           |
+| git show <commit>                 | Displays details of a commit                           |
+| git blame <file>                  | Shows who modified each line of a file                 |
+| git rm <file>                     | Removes a file from the repository                     |
+| git config --global user.name "Name" | Sets the global username                               |
+| git config --global user.email "Email" | Sets the global email                              |
+| git cherry-pick <commit>          | Applies a specific commit to another branch            |
+| git show-ref                      | Shows references                                        |
+| git reflog                        | Shows a history of HEAD movements                      |
+| git bisect start                  | Starts a binary search to find a bad commit            |
+| git bisect bad                    | Marks the current commit as bad                        |
+| git bisect good                   | Marks the current commit as good                       |
+| git submodule add <url> <path>    | Adds a submodule                                        |
+| git submodule update --init       | Initializes and updates submodules                     |
+| git gc                            | Cleans up and optimizes the repository                 |
+| git fsck                          | Verifies the integrity of the repository               |
+| git clean -f                      | Removes untracked files                                |
+| git archive -o <file.zip> HEAD    | Creates an archive of the repository                   |
+| git grep "<pattern>"              | Searches for a pattern in files                        |
++----------------------------------+-------------------------------------------------------------+
