@@ -99,54 +99,550 @@ Supports messaging systems like Kafka and RabbitMQ, enabling seamless integratio
 12. Spring Cloud:
 A suite of tools for building microservices, including support for service discovery, circuit breakers, and API gateways.
 
-CIRCUIT BREAKERS : 
 
-	A circuit breaker is a design pattern commonly used in distributed systems to enhance the resilience and fault tolerance of applications. It acts as a safeguard to prevent an application from repeatedly trying to perform an operation that is likely to fail, thus avoiding unnecessary strain on system resources.
-
-	How it Works:
-	The circuit breaker monitors the interactions between services and tracks failures. It has three main states:
+HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
+		-> This framework is bascially used for mapping objects into particular table inside database using orm functionality;
+		Internal steps to make sure HIBERNATE work.
+		
+		Alien alien = new Alien();        // this is the Entity that is mapped to database.
+    	alien.setId(102);
+    	alien.setName("Rangoli");
+    	alien.setColor("red");
+		
+		
+		1. Configuration con = new Configuration().configure().addAnnotatedClass(Alien.class);
+		2. SessionFactory sf = con.buildSessionFactory();
+		3. Session session = sf.openSession();
+		4. Transaction tn = session.beginTransaction();
+		5. session.save(tn);
+		6. tn.commit();
+		
+	-> this is how hibernate works internally by using "hibernate.cfg.xml" file if we intensionally want to change the name we need add the name in configure() method in Configuration (Configuration con = new Configuration().configure("hibernate.xml").addAnnotatedClass(Alien.class))
 	
-	Closed:
-	In this state, the circuit breaker allows requests to flow through to the service.
-	It monitors the success and failure rates.
-	If failures exceed a predefined threshold within a specified time, the circuit breaker trips to the Open state.
+	-> How "hibernate.cfg.xml" file looks and different properties =>
 	
-	Open:
-	In this state, the circuit breaker blocks all requests to the service.
-	This prevents overloading the failing service and allows it time to recover.
-	After a certain time, the circuit breaker transitions to the Half-Open state to test the service.
+			<?xml version="1.0" encoding="UTF-8"?>
+		<!DOCTYPE hibernate-configuration PUBLIC
+			"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+			"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+		<hibernate-configuration>
+			<session-factory>
+				<!-- MySQL database connection settings -->
+				<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+				<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/practice</property>
+				<property name="hibernate.connection.username">hcn</property>
+				<property name="hibernate.connection.password">admin@123</property>
+				
+				<!-- Hibernate dialect -->
+				<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+				<!-- Other optional Hibernate properties -->
+				<property name="hibernate.show_sql">true</property>
+				<property name="hibernate.format_sql">true</property>
+				<property name="hibernate.hbm2ddl.auto">update</property>
+				
+			</session-factory>
+		</hibernate-configuration>
+		
+		Properties : 
+		
+		1. show_sql : true -> means we want to see what are the tables being created or updated or deleted inside the console
+		2. format_sql : true -> format the hibernate query into a more readable way.
+		3. i). hbm2ddl.auto : update -> everytime we run the application if the table exists if there are any entity level changes the table will be updated.
+			ii). hbm2ddl.auto : create -> everytime we run the application the table will be created again & again and the existing data will be lost. so always we need to use update.
+			
+			
+	Annotations:
 	
-	Half-Open:
-	In this state, the circuit breaker allows a limited number of test requests to the service.
-	If these requests succeed, the circuit breaker transitions back to Closed.
-	If they fail, it goes back to the Open state.
-	Benefits of Circuit Breakers:
-	Improved Resilience: Prevents cascading failures in distributed systems.
-	Resource Optimization: Reduces load on failing services and frees resources for other tasks.
-	Faster Recovery: Allows failing services time to recover before resuming normal operation.
-	Better User Experience: Provides fallback responses rather than letting requests hang indefinitely.
-	Real-World Analogy:
-	A circuit breaker in an electrical circuit cuts off power to prevent overload and damage. Similarly, a software circuit breaker "trips" to protect a system from continuous failed interactions.
-
-	Implementation in Spring Cloud:
-	Spring Cloud provides built-in support for circuit breakers via libraries like:
-
-	Resilience4j: A lightweight and modular framework for circuit breakers and other fault tolerance patterns.
+	Example: 
 	
-			@RestController
-		public class MyController {
+		@Entity
+		@Table
+		public class Alien {}      -> By default if we dont mention any name the hibernate uses class name as the table name.
+		
+		(i).	@Entity without name:
+				JPQL: Uses the class name (Alien).
+				Table: Uses the class name (converted to lowercase in most cases, e.g., alien).
+		
+		
+		(ii).  @Entity(name = "ALIEN")
+				@Table
+				public class Alien {}   -> name on @Entity is used for writing queries in jpql and not used by database tables and uses class name;
+				
+				@Entity(name = "ALIEN"):
+				JPQL: Uses the specified name (ALIEN).
+				Table: Still uses the class name (Alien or alien).
+		
+		
+		(iii).	@Entity
+				@Table(name = "ALIEN")
+				public class Alien {}   -> name on @Table is used by database table and is widely used and for jpql we need to use class name;
+				
+				@Table(name = "ALIEN"):
+				JPQL: Uses the class name (Alien).
+				Table: Uses the specified table name (ALIEN).
+				
+	@Transient -> this annotation is used to hide the particular variable from to not create in database;
+	@Embeddable  -> this annotation is used to reference another class whose reference is in main class 
+		Example : private FullName fullname;  (main class)
+		
+				@Embeddable
+				public class FullName {           -> child class whose reference resides in main class (Alien)
+					private String first_name;
+					private String last_name;
+				}
+				
+	
+	Mappings -> 4 types (i). one to one, (ii). one to many, (iii). many to one, (iv). many to many.
+	
+	@OneToOne -> This is a one-to-one relationship between two entities. In the database, one row in the first table corresponds to exactly one row in the second  table. The foreign key is typically stored in one of the tables (the parent table).
+	
+		Example : -> Here we referenced Student and Laptop where student having laptop object with onetoone relation to referene laptop class.
+		
+			@Entity
+			public class Student {
+				
+				@Id
+				@GeneratedValue(strategy = GenerationType.IDENTITY)
+				@Column(name="ID")
+				private Integer id;
+				
+				private String name;
+				private Integer marks;
+				
+				@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+				@JoinColumn(name = "LAPTOP_ID", referencedColumnName = "ID")
+				private Laptop laptop;
+			}
+	
+	
+	@OneToMany -> In this relationship, one entity (parent) can be related to multiple instances of another entity (child). The foreign key is stored in the child table to reference the parent.
+	
+		Example : -> One Student can have multiple Laptops, and the foreign key STUDENT_ID is stored in the Laptop table to establish the relationship.
+		
+			@Entity
+			public class Student {
+				
+				@Id
+				@GeneratedValue(strategy = GenerationType.IDENTITY)
+				@Column(name="ID")
+				private Integer id;
+				
+				private String name;
+				private Integer marks;
+				
+				@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+				@JoinColumn(name = "STUDENT_ID")
+				private List<Laptop> laptop = new ArrayList<>();
+			}
+	
+	@ManyToOne  -> This is the reverse of the One-to-Many relationship. Many child entities are related to one parent entity. The foreign key is stored in the child table.
+	
+		Example : -> Many Laptop entities can be associated with one Student, and the foreign key STUDENT_ID is stored in the Laptop table.
+		
+			@Entity
+			public class Student {
 
-			@GetMapping("/example")
-			@CircuitBreaker(name = "exampleService", fallbackMethod = "fallbackMethod")
-			public String exampleService() {
-				// Simulating a remote service call
-				return externalServiceCall();
+				@Id
+				@GeneratedValue(strategy = GenerationType.IDENTITY)
+				@Column(name="ID")
+				private Integer id;
+				
+				private String name;
+				private Integer marks;
+
+				@OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+				private List<Laptop> laptops = new ArrayList<>();
+			}
+		
+			@Entity
+			public class Laptop {
+
+				@Id
+				@GeneratedValue(strategy = GenerationType.IDENTITY)
+				@Column(name="ID")
+				private Integer id;
+				
+				private String model;
+				
+				@ManyToOne
+				@JoinColumn(name = "STUDENT_ID")  // Foreign key in the "Laptop" table refers to "Student" ID
+				private Student student;
 			}
 
-			public String fallbackMethod(Exception e) {
-				return "Fallback response due to service failure!";
+			
+			
+	@ManyToMany  -> Here we will be having a seperate table to store data from both the entities for a many to many relation.
+	
+		Example : -> Here we referenced Student and Laptop where student having laptop object with onetoone relation to referene laptop class.
+		
+			@Entity
+			public class Student {
+				
+				@Id
+				@GeneratedValue(strategy = GenerationType.IDENTITY)
+				@Column(name="ID")
+				private Integer id;
+				
+				private String name;
+				private Integer marks;
+				
+				@ManyToMany(cascade = CascadeType.ALL)
+				@JoinTable(name = "student_laptop", 
+					joinColumns = @JoinColumn(name = "student_id"), 
+					inverseJoinColumns = @JoinColumn(name = "laptop_id"))
+				private List<Laptop> laptop = new ArrayList<>();
 			}
-		}
+			
+			@Entity
+			public class Laptop {
+
+				@Id
+				@GeneratedValue(strategy = GenerationType.IDENTITY)
+				@Column(name="ID")
+				private Integer id;
+				
+				private String model;
+				
+				@ManyToMany(mappedBy = "laptop", cascade = CascadeType.ALL)
+				private List<Student> student = new ArrayList<>();
+			}
+			
+	EAGER LOADING AND LAZY LOADING : By default the hibernate fires query in lazy loaded manner and we need to explicitly need to make the hibernate eager load while fetching data.
+		(i). to make the hibernate to eager load the data we can use fetch=FetchType.EAGER.
+		(ii). by default Hibernate is lazy loaded because it things we only want data from one single table not from child table so it just queries to lazy load the data.
+		
+		Example : -> One Student can have multiple Laptops, and the foreign key STUDENT_ID is stored in the Laptop table to establish the relationship. so by using fetchType eager we can make sure that the parent table data and child table data is retrived from the database using hibernate.
+		
+			@Entity
+			public class Student {
+				
+				@Id
+				@GeneratedValue(strategy = GenerationType.IDENTITY)
+				@Column(name="ID")
+				private Integer id;
+				
+				private String name;
+				private Integer marks;
+				
+				@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
+				@JoinColumn(name = "STUDENT_ID")
+				private List<Laptop> laptop = new ArrayList<>();
+			}
+			
+			
+			
+	HIBERNATE CACHING: -> Hibernate provides several caching mechanisms to optimize the database by reducing the number of database queries. there are two levels of caching in hibernate. (i). First-Level cache (session cache), (ii). Second-Level cache (SessionFactory cache), (iii). quere cache.
+
+	1. First-Level cache (session cache) -> This is a cache technique which is enabled by default and cannot disable this cache. In this caching technique when inside an api call which we can take it as session when opened to make transactions when the api is fetching the data from same entity the data will be cached inside the session and that cache provides data without making db call until the session is closed. In between the session if the same entity is called multiple times hibernate will not query the database and returns data from the stored cache from that session.
+		(a). Transaction-scoped.
+		(b). Automatically managed by Hibernate.
+		(c). Cannot be disabled.
+		
+	2. Second-Level Cache (SessionFactory cache)  -> Second level cache technique is technique in which this cache is available for different sessions in the application until or unless the data is updated and we need to set that using @cache(usage = CacheConcurrencyStrategy.READ_WRITE) with this when the cache data is overwritten in the database then cache is marked as needed to be refreshed and this cache is not available until cached again or queried to database for updated data.
+	-> This is a Entity level cache so only entities marked with @Cacheable and @Cache(usage=CacheConcurrencyStrategy.READ_WRITE) can be cached to SessionFactory.
+	
+		(a). SessionFactory-scoped.
+		(b). Can be shared across sessions.
+		(c). Helps to avoid repeated queries across multiple transactions.
+		(d). Must be explicitly configured.
+		
+		1. READ_ONLY:
+			Best for data that doesn't change (e.g., reference or lookup data).
+			Suitable for highly read-intensive scenarios.
+			Updates to cached entities are not allowed.
+			
+		2. READ_WRITE:
+			Allows reading and writing of cached entities.
+			Ensures strong consistency by using transactional guarantees, typically with locks.
+			
+		3. NONSTRICT_READ_WRITE:
+			Data can be read from the cache and updated, but it doesn't guarantee strong consistency.
+			Some stale data may be present if one session updates the entity and another reads before the changes are flushed.
+			
+		4. TRANSACTIONAL:
+			Provides the strongest consistency guarantees using underlying transaction management.
+			Usually, it integrates with JTA (Java Transaction API) to maintain cache consistency in distributed systems.
+			
+		-> We need to use third-party cache provides for second_level cache most used are -> 1. EHCache, 2. Redis, 3. Infinispan, 4. Hazelcast
+		
+		Example : 
+				@Entity
+				@Cacheable
+				@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+				public class Alien {}
+	
+	2.1). Hibernate Caching with query -> 
+	
+	
+	Hibernate Query Language ->
+			We can do write queries with hql same as sql and also do joins, group by, and everything which is possible with sql queries.3
+			
+			
+			
+	HIBERNATE OBJECT STATES / PERSISTANCE LIFE CYCLES
+	
+	new -> Transient -> garbage collection
+	
+	Transient -> persistant (save() or persist()) -> detach()
+			
+
+   Difference between get and load methods in Hibernate :
+   1. Get will give you data when we make a get call directly and when data is not found in case of getById throws NullPointerException.
+   2. Load will give you data when we make a load call with the usage of that particular object if there is no useage load will not work and throws ObjectNOFound exception when the load with id not found.
+   
+   
+   WHAT IS JPA (Java Persistance API) :
+   
+   -> JPA is a specification in Java that defines a standard way to map Java objects to relational databases and manage database operations using Java. It provides a set of guidelines and principles for building ORM (Object-Relational Mapping) tools. Frameworks like Hibernate, EclipseLink, and OpenJPA are popular implementations of the JPA specification.
+   
+   -> JPA itself is not a framework or tool but a set of interfaces and rules. Frameworks like Hibernate provide the actual implementation, following the guidelines set by the JPA specification.
+   
+   
+   SPRING FRAMEWORK :
+   -> Spring framework can create two types of containers based on our requirements. 1). Bean Factory, 2). Application context.
+   -> Spring framework is bascially a 
+   
+	
+	SPRING CORE : 
+	
+	-> Spring core contains two types of scopes and spring framework a lot of scopes. But lets talk about spring core scopes here 
+		1. Singleton Scope : This Scope follows singleTon Design pattern meaning it has only one instance or gives only single object for any instances and it is by default behaviour of singleton scope. When we put @Component the singleTon scope will create a object when the container is initialized.
+
+		2. Prototype Scope : This Scope follows prototype Design pattern meaning it creates new object for every new instance with that class and it not by default available in spring and we need to enable this scope. only when we create a new object the new object will be created by spring for us to use by prototype scope.
+
+
+	-> Setter Injection : 
+			Definition: The dependency is injected into the class through a setter method after the object is created.
+
+			Use Case:
+
+			Best suited for optional dependencies (dependencies that might not always be required).
+			Allows you to modify dependencies post-object creation.
+			Useful when dependencies can change or are dynamically configured at runtime.
+			Advantages:
+
+			More flexible; you can set or modify dependencies as needed.
+			Better for complex configurations where some dependencies may be optional.
+	-> Constructor Injection: If there are values that are not being initialized dont go for constructor injection.
+	
+		Definition: The dependency is provided at the time of object creation through the constructor.
+
+			Use Case:
+
+			Best for mandatory dependencies (those required to create a fully initialized object).
+			Should not be used when certain dependencies might remain uninitialized or optional.
+			Advantages:
+
+			Ensures immutability: once the object is constructed, its state cannot be changed.
+			Guarantees that the object is in a fully initialized state after creation.
+			Drawback:
+
+			If there are optional dependencies, constructor injection is not suitable because it forces you to provide all dependencies upfront.
+	
+	@Autowired : 
+			@Autowired is a Spring annotation used for dependency injection. It allows Spring to resolve and inject the necessary beans automatically into a class.
+			
+			1. Injects Dependencies Automatically:
+
+				Spring scans the context and finds a matching bean by type (default behavior).
+				It then injects the bean into the annotated field, constructor, or setter method.
+			2. Injection Types:
+
+				Field Injection: Injecting directly into class fields.
+				Setter Injection: Injecting through a setter method.
+				Constructor Injection: Injecting through a constructor.
+				
+			a).  Field Injection
+				import org.springframework.beans.factory.annotation.Autowired;
+				import org.springframework.stereotype.Component;
+
+				@Component
+				public class MyService {
+					@Autowired
+					private MyRepository myRepository;
+
+					public void doSomething() {
+						myRepository.saveData();
+					}
+				}
+			
+			b). Setter Injection
+			
+				import org.springframework.beans.factory.annotation.Autowired;
+				import org.springframework.stereotype.Component;
+
+				@Component
+				public class MyService {
+					private MyRepository myRepository;
+
+					@Autowired
+					public void setMyRepository(MyRepository myRepository) {
+						this.myRepository = myRepository;
+					}
+
+					public void doSomething() {
+						myRepository.saveData();
+					}
+				}
+				
+			c). Constructor Injection
+			
+				import org.springframework.beans.factory.annotation.Autowired;
+				import org.springframework.stereotype.Component;
+
+				@Component
+				public class MyService {
+					private final MyRepository myRepository;
+
+					@Autowired
+					public MyService(MyRepository myRepository) {
+						this.myRepository = myRepository;
+					}
+
+					public void doSomething() {
+						myRepository.saveData();
+					}
+				}
+				
+		Key Points
+		
+			1. Default Behavior: By default, @Autowired performs injection by type.
+
+			->	If multiple beans of the same type exist, you can use the @Qualifier annotation to specify the bean.
+			
+			Example : 
+				@Autowired
+				@Qualifier("specificBean")
+				private MyRepository myRepository;
+				
+				
+			2. Required vs. Optional:
+			
+				By default, @Autowired is required, meaning Spring will throw an exception if no bean is found.
+				To make it optional, set required = false
+			Example : 
+				@Autowired(required = false)
+				private MyRepository myRepository;
+				
+			3. Circular Dependencies: If two beans depend on each other, Spring may throw a circular dependency error. Consider refactoring your design or use @Lazy.
+			
+			4. Primary Bean: If multiple beans of the same type exist and no @Qualifier is provided, you can mark one bean as the primary one using @Primary:
+			
+				Example : 
+				@Primary
+				@Component
+				public class DefaultRepository implements MyRepository {
+					// Implementation
+				}
+
+
+
+
+
+	
+	@Primary :
+		In Spring Framework, the primary annotation refers to @Primary, which is used to mark a bean as the preferred candidate for dependency injection when multiple beans of the same type exist.
+
+		Key Features of @Primary:
+		
+		1.Default Bean Selection:
+			When multiple beans of the same type are defined in the Spring context, @Primary helps Spring decide which bean to inject by default without requiring further qualification.
+		
+		2. Override with @Qualifier:
+			Even if a bean is marked as @Primary, you can override the default selection using the @Qualifier annotation.
+			
+		3. Usage in Configuration Classes:
+			Commonly used in @Configuration classes to specify which bean should be the primary choice when there are multiple beans of the same type.
+			
+		Exmaple : 
+		
+			@Configuration
+			public class AppConfig {
+
+				@Bean
+				public DataSource dataSource1() {
+					return new HikariDataSource(); // Bean 1
+				}
+
+				@Bean
+				@Primary
+				public DataSource dataSource2() {
+					return new BasicDataSource(); // Bean 2, marked as Primary
+				}
+			}
+			
+			Injecting beans with above configuration
+			
+			@Service
+			public class MyService {
+
+				private final DataSource dataSource;
+
+				public MyService(DataSource dataSource) {
+					this.dataSource = dataSource; // Injects dataSource2 (marked as @Primary)
+				}
+			}
+			
+		Overriding @Primary with @Qualifier:
+		
+			@Service
+			public class AnotherService {
+
+				private final DataSource dataSource;
+
+				public AnotherService(@Qualifier("dataSource1") DataSource dataSource) {
+					this.dataSource = dataSource; // Explicitly injects dataSource1
+				}
+			}
+			
+		When to Use @Primary:
+			Use @Primary when there is a logical default bean, and you want to avoid specifying @Qualifier everywhere.
+			Avoid overusing it in scenarios where it could lead to confusion or ambiguity.
+
+
+
+	
+	Spring boot jdbc -> Spring boot gives JdbcTemplate which gives all the methods for the connection with the database we can inject this jdbcTemplate class and use it's features.
+	
+		JdbcTemplate is a helper class provided by Spring that simplifies the usage of JDBC (Java Database Connectivity) for executing SQL queries, updates, and other database operations. It abstracts the repetitive boilerplate code like establishing connections, preparing statements, handling exceptions, and closing resources.
+
+		Key Features of JdbcTemplate:
+		
+		1. Simplified Database Access:
+			Automatically handles connection management.
+			Reduces boilerplate code for JDBC operations.
+		
+		2. Convenient Query Execution:
+			Supports all SQL operations: SELECT, INSERT, UPDATE, DELETE.
+			Provides methods for querying and mapping results to objects.
+		
+		3. Exception Handling:
+			Converts SQLExceptions into Spring's DataAccessException, a runtime exception hierarchy that simplifies error handling.
+		
+		4. Transaction Management:
+			Works seamlessly with Spring's transaction management.
+
+	
+	ModelAndView
+	Model
+	ModelMap
+	@ModelAttribute
+	
+	@ModelAttribute at method level this is the first method called when spring initializes and create a model for us.
+	
+	
+INTERSERVICE COMMUNICATION : communication between the microservices. ways to Implement Interservice communication.
+	-> SYNCHRONOUS COMMUNICATION : Synchronous communication mode uses synchronous request, response mechanism where a client waits for a response from the server before proceeding. this can be achieved through http protocols like rest or soap.
+	
+	1.REST TEMPLATE : 
+			1. Abstraction
+			2. versatility
+			3. conversion
+			4. error handling
+			5. Integration
+	
+	-> ASYNCHRONOUS COMMUNICATION : In Asynchronous communication microservices work asynchronously and can communicate with message queues or message brokers like rebitmq, apache kafka, aws simple queueing service.
 		
 EXCEPTION HANDLING IN SPRING BOOT : Spring internally has SpringErrorHandler class that can handle the minor exceptions but for specific exception that need to be implemented we need to use @ControllerAdvice to framework level for spring to intercept all the exceptions thrown at controller level.
 
@@ -279,3 +775,142 @@ SERVICE REGISTRY :
 OPEN FAIGN : 
 	 Feign is a declarative web service client designed to make writing Http clients easier.
 	 USES : 1. Ease Of Use, 2. Integration with Eureka, 3. Built-in Load Balancing with ribbon (Client Side), 4. Support for fallBacks and Circuit Breakers.
+	 
+	 1. <dependency>
+	      <groupId>org.springframework.cloud</groupId>
+	      <artifactId>spring-cloud-starter-openfeign</artifactId>
+	    </dependency>
+	 
+	2. @EnableFeignClients
+	   @SpringBootApplication
+
+	3. @FeignClient (for interface level)
+	 
+	 
+ZIPKIN : 
+	-> Zipkin is a distributed tracing system that helps gather and visualize latency data across microservices. Below is an explanation of how it works internally, along with a diagram.
+	
+	Zipkin Internal Components
+1. Instrumented Client / Service
+	Applications (microservices) are instrumented with Zipkin libraries.
+	These libraries generate tracing data and send it to Zipkin.
+	Communication can be via HTTP, Kafka, RabbitMQ, or gRPC.
+	
+2.Zipkin Collector
+
+	Receives trace data from instrumented services.
+	Data can be received via HTTP, Kafka, or other transport protocols.
+	Stores trace data in a database.
+	
+3.Storage Backend
+	Zipkin supports multiple databases like MySQL, Cassandra, Elasticsearch.
+	Stores the trace information for later retrieval.
+	
+4. Zipkin Query Service
+	Exposes APIs for fetching trace data.
+	Queries stored trace data from the backend.
+	
+5. Zipkin UI
+	A web-based interface to visualize traces.
+	Helps developers analyze request flow and identify bottlenecks.
+	
+=> Zipkin Internal Flow
+	A request is initiated from one service to another.
+	The Zipkin instrumentation records metadata (trace ID, span ID, timestamps).
+	Tracing data is sent to Zipkin Collector.
+	Zipkin Collector stores the traces in the storage backend.
+	Zipkin Query Service fetches the trace data when requested.
+	Zipkin UI visualizes the complete request flow.
+	
++----------------------------+
+|     Instrumented Service   |
+|        (Microservice A)    |
++------------+---------------+
+             |
+             | Trace Data (HTTP/gRPC/Kafka)
+             v
++----------------------------+
+|     Zipkin Collector       |
++------------+---------------+
+             |
+             | Stores Traces
+             v
++----------------------------+
+|      Storage Backend       |
+|  (MySQL / Cassandra / ES)  |
++------------+---------------+
+             |
+             | Query Requests
+             v
++----------------------------+
+|      Zipkin Query API      |
++------------+---------------+
+             |
+             | Fetches Data
+             v
++----------------------------+
+|        Zipkin UI           |
+|  (Visualizes Trace Data)   |
++----------------------------+
+
+-> for every request it creates a trace id and for every microservice that request interacts in microservice communication it creates span id so that zipkin analysis the data when span id passes through each microservice it calculates everything like speed data coming and all. 
+
+
+
+
+
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+CIRCUIT BREAKERS : 
+
+	A circuit breaker is a design pattern commonly used in distributed systems to enhance the resilience and fault tolerance of applications. It acts as a safeguard to prevent an application from repeatedly trying to perform an operation that is likely to fail, thus avoiding unnecessary strain on system resources.
+
+	How it Works:
+	The circuit breaker monitors the interactions between services and tracks failures. It has three main states:
+	
+	Closed:
+	In this state, the circuit breaker allows requests to flow through to the service.
+	It monitors the success and failure rates.
+	If failures exceed a predefined threshold within a specified time, the circuit breaker trips to the Open state.
+	
+	Open:
+	In this state, the circuit breaker blocks all requests to the service.
+	This prevents overloading the failing service and allows it time to recover.
+	After a certain time, the circuit breaker transitions to the Half-Open state to test the service.
+	
+	Half-Open:
+	In this state, the circuit breaker allows a limited number of test requests to the service.
+	If these requests succeed, the circuit breaker transitions back to Closed.
+	If they fail, it goes back to the Open state.
+	Benefits of Circuit Breakers:
+	Improved Resilience: Prevents cascading failures in distributed systems.
+	Resource Optimization: Reduces load on failing services and frees resources for other tasks.
+	Faster Recovery: Allows failing services time to recover before resuming normal operation.
+	Better User Experience: Provides fallback responses rather than letting requests hang indefinitely.
+	Real-World Analogy:
+	A circuit breaker in an electrical circuit cuts off power to prevent overload and damage. Similarly, a software circuit breaker "trips" to protect a system from continuous failed interactions.
+
+	Implementation in Spring Cloud:
+	Spring Cloud provides built-in support for circuit breakers via libraries like:
+
+	Resilience4j: A lightweight and modular framework for circuit breakers and other fault tolerance patterns.
+	
+			@RestController
+		public class MyController {
+
+			@GetMapping("/example")
+			@CircuitBreaker(name = "exampleService", fallbackMethod = "fallbackMethod")
+			public String exampleService() {
+				// Simulating a remote service call
+				return externalServiceCall();
+			}
+
+			public String fallbackMethod(Exception e) {
+				return "Fallback response due to service failure!";
+			}
+		}
