@@ -1,0 +1,281 @@
+Spring Boot application working :
+
+*** Running through command lines
+1. run spring boot application - mvn spring-boot:run
+2. build spring boot application - mvn clean install
+3. build artifact of spring boot application - mvn clean package
+4. Maven Not Detecting Dependencies - mvn clean install -U
+5. Want to Clear Cached Dependencies - rd /s /q C:\Users\YourUsername\.m2\repository
+6. to stop spring boot application - mvn spring-boot:stop
+7. to create docker image for spring boot application - mvn spring-boot:build-image
+
+Spring Boot web application, both the Spring IoC (Inversion of Control) container and the web servlet container (embedded web server) work in parallel but serve different purposes to run the application. They complement each other in the following way:
+
+1). SPRING IOC (INVERSION OF CONTROL) CONTAINER :
+
+The Spring IoC container is responsible for managing the beans and their dependencies in a Spring Boot application. The IoC container includes:
+
+Sping boot container types :
+
+a). Bean Factory - 
+	1. bean factory is the simplest container in spring where it provides the basic functionality like dependency injection and managing beans.
+	2. Bean factory lazy loads beans (only when they are requested and resolves the dependencies.
+	3. bean Factory is primarily used for small scale applications where all the features of application context is not required.
+	4. Example: XmlBeanFactory (deprecated) and programmatic configuration via BeanFactory.
+
+b). Application Context - (Application context is the extension of bean factory that adds more enterprise level features.
+	1. Application context eagerly loads all the beans at startup, unlike BeanFactory.
+	2. Supports event propagation, declarative mechanisms for creating beans, internationalization (I18N), and AOP (Aspect-Oriented Programming).
+	3. Offers additional functionality such as bean post-processing, lifecycle management, and integration with Spring’s web and transaction services.
+	
+	*. Types of application context - 
+	1. AnnotationConfigApplicationContext - loads the context using annotations (Typically used in spring boot).
+	2. ClassPathXMLApplicationContext - loads the context from XML Configuration file.
+	3. WebApplicationContext - A specialized ApplicationContext for web applications, integrated with Spring's MVC framework.
+	
+	
+2). WEB SERVLET CONTAINER (Embedded Web Server) : 
+
+a. the Web servlet container bascially handles http requests and responses in a web application. web servlet container works with the network side of the application where the api requests particularly the communicaition between the client and the server.
+b. by default web servlet container used apache tomcat as the web server.
+
+what is API ?
+-> set of rules and protocols that allow one software application to interact and communicate with another
+
+
+WHAT IS A API - > Api means application programming interface where api is used for exposing or storing data 
+3 types -> Internal APIS    -> which were used and is only for organization
+			External APIS   -> external apis are bascially for outside world to access
+			Partner Apis    -> apis that are having access to particular partnership organizations
+			
+			
+what are status codes ?
+status codes are bascially tells about the what is happened with the apis that are transfering data. 5 types.
+1XX  -> says about the request is processing by server and it is on going 
+2XX  -> the request is completed and understood
+3XX  -> the request has some issues so the request is redirected
+4XX  -> client specific error
+5XX  -> server specific error
+
+
+
+200 -> meaning successful
+201 -> created (posting data to server)
+204 -> no content (request successful but no content)
+301 -> moved permanently (requested resource is moved permanently or not available)
+400 -> bad request (server unable to understand the request due to bad parameters and similar things)
+401 -> unauthorized (we dont have authentication credintials)
+403 -> forbidden (request sent but it is restricted to give permissions to the request)
+404 -> not found (access some end point that doesnot exist)
+500 -> internal server error (due to some issue on server)
+
+Types of api requests
+1. get request, 2. post request, 3. put request, 4. delete request.
+
+
+Why do we need web framework ?
+Web framework is nothing but collection of tools and modules that is need to do standard tasks across every web application.
+
+SPRING FRAMEWORK
+1. Inversion of Control 
+-> manages life cycle and configuration of objects
+2. Data Access
+-> spring can connect with multiple databases using sping data access features
+3. Mvc framework
+-> spring uses model view control for seperation of layers which is model for storing data, view for sending response to client, control to access the end points
+4. Transaction Management
+-> spring provides unified way to provide transactions across objects
+5. spring security
+6. testing support
+7. initialization and localization
+8. Spring AOP (Aspect-Oriented Programming):
+Facilitates cross-cutting concerns like logging, security, and transaction management without modifying the application's core logic.
+9. Spring Boot:
+A sub-project of Spring Framework, it simplifies the development and deployment of Spring-based applications with features like auto-configuration and an embedded server.
+10. Spring WebFlux:
+A reactive programming model for building non-blocking, event-driven applications, suitable for high-performance use cases.
+11. Spring Integration and Messaging:
+Supports messaging systems like Kafka and RabbitMQ, enabling seamless integration with other systems.
+12. Spring Cloud:
+A suite of tools for building microservices, including support for service discovery, circuit breakers, and API gateways.
+
+CIRCUIT BREAKERS : 
+
+	A circuit breaker is a design pattern commonly used in distributed systems to enhance the resilience and fault tolerance of applications. It acts as a safeguard to prevent an application from repeatedly trying to perform an operation that is likely to fail, thus avoiding unnecessary strain on system resources.
+
+	How it Works:
+	The circuit breaker monitors the interactions between services and tracks failures. It has three main states:
+	
+	Closed:
+	In this state, the circuit breaker allows requests to flow through to the service.
+	It monitors the success and failure rates.
+	If failures exceed a predefined threshold within a specified time, the circuit breaker trips to the Open state.
+	
+	Open:
+	In this state, the circuit breaker blocks all requests to the service.
+	This prevents overloading the failing service and allows it time to recover.
+	After a certain time, the circuit breaker transitions to the Half-Open state to test the service.
+	
+	Half-Open:
+	In this state, the circuit breaker allows a limited number of test requests to the service.
+	If these requests succeed, the circuit breaker transitions back to Closed.
+	If they fail, it goes back to the Open state.
+	Benefits of Circuit Breakers:
+	Improved Resilience: Prevents cascading failures in distributed systems.
+	Resource Optimization: Reduces load on failing services and frees resources for other tasks.
+	Faster Recovery: Allows failing services time to recover before resuming normal operation.
+	Better User Experience: Provides fallback responses rather than letting requests hang indefinitely.
+	Real-World Analogy:
+	A circuit breaker in an electrical circuit cuts off power to prevent overload and damage. Similarly, a software circuit breaker "trips" to protect a system from continuous failed interactions.
+
+	Implementation in Spring Cloud:
+	Spring Cloud provides built-in support for circuit breakers via libraries like:
+
+	Resilience4j: A lightweight and modular framework for circuit breakers and other fault tolerance patterns.
+	
+			@RestController
+		public class MyController {
+
+			@GetMapping("/example")
+			@CircuitBreaker(name = "exampleService", fallbackMethod = "fallbackMethod")
+			public String exampleService() {
+				// Simulating a remote service call
+				return externalServiceCall();
+			}
+
+			public String fallbackMethod(Exception e) {
+				return "Fallback response due to service failure!";
+			}
+		}
+		
+EXCEPTION HANDLING IN SPRING BOOT : Spring internally has SpringErrorHandler class that can handle the minor exceptions but for specific exception that need to be implemented we need to use @ControllerAdvice to framework level for spring to intercept all the exceptions thrown at controller level.
+
+-> @ControllerAdvice -> Handles Exceptions from both RestController and Controller
+-> @ControllerAdvice(annotations = RestController.class) -> Handles Exceptions only comes from RestControllers.
+-> @ControllerAdvice(annotations = Controller.class) -> Handles Exceptions only from Controllers
+-> @Order(Ordered.HIGHEST_PRECEDENCE) -> this gives the higest priority to this current class annotated with @ControllerAdvice to handle i mean high priority.
+-> @ExceptionHandler(Exception.class) -> this is a method level annotation used to specify the type of exception that method should be handling
+
+1. It is a specialized annotation used to handle exceptions thrown by controllers.
+2. It works globally unless scoped to specific packages or controllers.
+3. You can define multiple exception handlers for different exception types.
+
+@Order(Ordered.HIGHEST_PRECEDENCE)
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleAllExceptions(Exception ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred");
+    }
+}
+
+-> Real time example -> 
+	@ExceptionHandler(ConstraintViolationException.class)
+	protected ResponseEntity<Object> handleConstraintViolation(javax.validation.ConstraintViolationException ex, WebRequest request) {
+		logger.error("Exception in handleConstraintViolation : ",ex);
+		
+		ServletWebRequest servletWebRequest = (ServletWebRequest) request;
+
+		ConfirmMessage confirmMessage = new ConfirmMessage();
+		confirmMessage.setConfirmMessageID(ServiceContext.getTransactionId());
+		confirmMessage.setCreationDateTime(new Timestamp(System.currentTimeMillis()));
+		confirmMessage.setRequestMethod(servletWebRequest.getHttpMethod());
+		confirmMessage.setStatusCode(HttpStatus.BAD_REQUEST);
+
+		List<UserMessage> messages = new ArrayList<UserMessage>();
+		for(ConstraintViolation cv : ex.getConstraintViolations()) {
+			UserMessage userMessage = new UserMessage();
+			userMessage.setDebugMessage("Constraint Violations For Group");
+			//userMessage.setAction(cv.getCode());
+			userMessage.setCodeValue(cv.getRootBeanClass().getSimpleName());
+			userMessage.setField(cv.getPropertyPath().toString());
+			userMessage.setMessageTxt(cv.getMessage());
+			messages.add(userMessage);
+			
+		}
+		confirmMessage.setUserMessages(messages);
+
+		return new ResponseEntity<>(confirmMessage, HttpStatus.BAD_REQUEST);
+	}
+
+-> For a class to Exception handler in spring it need to be having @ControlAdvice and to override default ResposeEntityExceptionHandler methods we need to extends ResponseEntityExceptionHandler class.
+
+@Order(Ordered.HIGHEST_PRECEDENCE)
+
+
+SPRING BOOT  -> Spring boot is a spring based framework which runs on java
+-> spring boot = spring + prebuild configuration + embeeded servers
+
+components of spring boot :
+1. spring boot starters -> these are a set of convinient dependencies that can be included in our machine
+2. Auto Configuration -> auto configuration attempts configuration automatically based on the dependencies that we added
+3. spring boot actuator -> monitoring the things like how many api calls are happening and something like will be taken care 
+4. embedded server
+5. spring boot devtools
+
+SPRING BOOT ARCHITECTURE :
+1. Presentation layers
+2. Service layers
+3. Data access layer
+
+SPRING BOOT ACTUATOR : 
+-> Spring boot acuator provides built-in production ready features to monitor and manage your application.
+FEATURES : 
+1. Built in endpoints                 ("/metrics")
+2. ability to view real time metrics
+3. customizable
+-> In spring boot actuator is used in tracking the application health, caches, application metrics etc.
+
+{
+  "_links": {
+    "self": {
+      "href": "http://localhost:8080/actuator",
+      "templated": false
+    },
+    "health": {
+      "href": "http://localhost:8080/actuator/health",
+      "templated": false
+    },
+    "health-path": {
+      "href": "http://localhost:8080/actuator/health/{*path}",
+      "templated": true
+    }
+  }
+}
+
+these are the basic end points that spring boot actuator exposes by default. if we want to expose all the end points then we can use "management.endpoints.web.exposure.include=*" with this all the actuator end points will be exposed and not recomanded because of the data leaks.
+
+Different end points and its usage
+1. /health -> shows application health information, useful for checking the status of the application such as database connectivity, disk space and custom health checks.
+2. /info -> Displays arbitrary application information, commonly used to display application version, git commit information etc.
+3. /metrics -> the show the information of the performance and behaviour of the running application.
+4. /loggers -> allows you to query and modify the logging level of your application's loggers (bascially used to change the log in levels of the user at run time)
+5. /beans -> provides a complete list of all the spring beans in your application
+6. /shutdown -> Allows your application to be gracefully shut down.
+
+
+Interservice Communication : 
+1. synchronous communication.
+-> by using RestTemplate we can communicate with other microservices
+
+2. asynchronous communication.
+
+SERVICE REGISTRY : 
+  -> A service registry is used in microservices architecture to enable dynamic service discovery
+  => Spring cloud eureka is the most popular service registry.
+  
+  @LoadBalanced -> load balanced in eureka service registry is used to locate the specific id of the service and is used in inter-service communication (rest template) in microservices architecture.
+
+	How Services Connected with Eureka Server ?
+	-> By using heartBeats signals that is requests to the eureka server at certain time intervals all microservices communicate with service registry that is eureka server.
+	
+
+OPEN FAIGN : 
+	 Feign is a declarative web service client designed to make writing Http clients easier.
+	 USES : 1. Ease Of Use, 2. Integration with Eureka, 3. Built-in Load Balancing with ribbon (Client Side), 4. Support for fallBacks and Circuit Breakers.
