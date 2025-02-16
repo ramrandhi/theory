@@ -785,6 +785,8 @@ OPEN FAIGN :
 	   @SpringBootApplication
 
 	3. @FeignClient (for interface level)
+
+-> It has builtin load Balancer where with FeignClient comes with ribbon a technology used for load balancing but when it comes to web Client or RestTemplate we need to annotate the the method where we declare webclient or restTemplate with @LoadBalanced to make them loadBalanced.
 	 
 	 
 ZIPKIN : 
@@ -855,7 +857,67 @@ ZIPKIN :
 
 -> for every request it creates a trace id and for every microservice that request interacts in microservice communication it creates span id so that zipkin analysis the data when span id passes through each microservice it calculates everything like speed data coming and all. 
 
+MICROMETER WORKING WITH ZIPKIN : (while micrometere gives application level metrics zipkin gives each request level metrics)
+	Micrometer provides insights that help you keep tabs on your applications performance.
+=> How micrometer helps :
+ 1. Helps you collect metrics from your application.
+ 2. Acts as a middleman or a bridge between your application and the metrics collection systems.
+ 3. it offers a vendor-neutral interface.
+ 4. you can abstract away the complexities of interacting with different metrics collection systems.
+ 5. micrometer simplifies the process of collecting metrics from your application.
 
+HOW TO USE :
+
+1. <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-tracing-bridge-brave</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.zipkin.reporter2</groupId>
+      <artifactId>zipkin-reporter-brave</artifactId>
+    </dependency>
+	<dependency>
+		<groupId>io.github.openfeign</groupId>   <!-- this dependency is because we are using openfeign -->
+		<artifactId>feign-micrometer</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-actuator</artifactId>
+	</dependency>
+
+-> Here in above dependencies micrometer-tracing-bridge-brave acts as an bridge that connects micrometer with brave, where micrometer is an metrics instrumentation library for jvm based applications and brave is a java tracing library which is compatible with zipkin.
+-> second dependency acts as an metrics collector which will send data to zipkin and zipkin uses that data for visualizaion.
+
+2. # zipkin
+management:
+  tracing:
+    sampling:
+      probability: 1.0  # 100% tracing if we keep this 0.6 this will track 60% of the requests currently 1.0 specifies we are tracking 100% requests.
+
+BEST PRACTICES FOR USE OF DISTRIBUTED TRACING WITH TOOLS LIKE ZIPKIN : 
+1. use consistent nameing conventions.
+2. secure your zipkin server.
+3. know that - distributed tracing does come with performanec impact due to computations required by microservice so put sampling rate to 0.6 that is 60% when in production.
+
+
+CONFIGURATION MANAGEMENT IN MICROSERVICES : 
+	-> means managing and controlling the congifurations of each microservice in the system.
+	-> Configuration may include details such as database connections, external service urls, caching settings, and more.
+	-> Challange : As the number of microservices increases in your architecture, managing the individual configurations can become a complex tast.
+	-> A centralized Config server provides a central place for managing configurations across all the microservices.
+	-> it simplifies configuration management and increases operational efficiency.
+
+	Features of a config server : 
+	1. centralized and versioned configuration.
+	2. dynamic updates.
+	3. security.
+	4. application and profile specific configuraion.
+
+	Benefits of a config server : 
+	1. single source of truth.
+	2. easier to manage and update configurations.
+	3. enhances security and control.
+	4. easy to deploy and scale microservices.
 
 
 
