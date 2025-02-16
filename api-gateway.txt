@@ -1,0 +1,14 @@
+API GATEWAY : 
+  ADVANTAGES: 
+  1. it encapsulates the internal system architecture.
+  2. Handles cross-cutting concerns like security, load balancing, rate limiting and analytics.
+  3. Can authenticate incoming requests and pass only valid requests to the services.
+  4. Can aggregate responses from different microservices.
+
+  API GATEWAY FUNCTIONS : 
+    1. Request routing.
+    2. load balancing.
+    3. authentication and authorization.
+    4. Rate limiting.
+    5. Request and response transformation.
+    6. Aggregation of data from multiple services.
