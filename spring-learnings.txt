@@ -919,6 +919,9 @@ CONFIGURATION MANAGEMENT IN MICROSERVICES :
 	3. enhances security and control.
 	4. easy to deploy and scale microservices.
 
+	SPRING CLOUD CONFIG SERVER : It is a part of the spring cloud project, a suite of tools specifically designed for building and manageing cloud-native applications.
+	
+
 
 
 	 
