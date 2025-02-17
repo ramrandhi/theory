@@ -1,0 +1,527 @@
+SOLID PRINCIPLES : 
+ -> solid principles are a set of five design principles that help developers create maintainable scalable, and robust object-oriented software. these principles were introduced by robert C Martin and are widely used in java and other object-oriented programming languages.
+
+1. SINGLE RESPONSIBILITY PRINCIPLE(SRP).
+2. OPEN/CLOSED PRINCIPLE (OCP).
+3. LISKOV SUBSTITUTION PRINCIPLE.
+4. INTERFACE SEGREGATION PRINCIPLE (ISP).
+5. DEPENDENCY INVERSION PRINCIPLE.
+
+1. Single Responsibility Principle (SRP) : 
+
+Definition: A class should have only one reason to change, meaning it should have only one responsibility.
+
+Explanation:
+Each class should focus on a single task or functionality. If a class has multiple responsibilities, changes in one part may affect other parts, making the system harder to maintain.
+
+// Violates SRP: Handles both Employee data and report generation
+class Employee {
+    private String name;
+    private double salary;
+
+    public Employee(String name, double salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+
+    public void printReport() {
+        System.out.println("Employee Report for " + name);
+    }
+}
+
+// Corrected: Separate concerns
+class Employee {
+    private String name;
+    private double salary;
+
+    public Employee(String name, double salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+
+    // Getter methods
+}
+
+class EmployeeReport {
+    public void printReport(Employee employee) {
+        System.out.println("Employee Report for " + employee.getName());
+    }
+}
+
+Benefits:
+1. Improves maintainability and readability.
+2. Reduces the impact of changes.
+
+
+2. Open/Closed Principle (OCP)
+Definition: 
+  -> Software entities (classes, modules, functions) should be open for extension but closed for modification.
+
+Explanation:
+  -> A class should allow new functionality without modifying existing code, which is usually achieved using abstraction and polymorphism.
+
+  // Violates OCP: Modification needed for new discount types
+class DiscountCalculator {
+    public double calculateDiscount(String type, double amount) {
+        if (type.equals("Christmas")) {
+            return amount * 0.1;
+        } else if (type.equals("NewYear")) {
+            return amount * 0.2;
+        }
+        return 0;
+    }
+}
+
+// Corrected: Using inheritance and polymorphism
+interface Discount {
+    double applyDiscount(double amount);
+}
+
+class ChristmasDiscount implements Discount {
+    public double applyDiscount(double amount) {
+        return amount * 0.1;
+    }
+}
+
+class NewYearDiscount implements Discount {
+    public double applyDiscount(double amount) {
+        return amount * 0.2;
+    }
+}
+
+class DiscountCalculator {
+    public double calculateDiscount(Discount discount, double amount) {
+        return discount.applyDiscount(amount);
+    }
+}
+
+
+Benefits:
+1. Reduces the need to modify existing code.
+2. Encourages scalability by allowing extensions.
+
+
+3. LISKOV SUBSTITUTION PRINCIPLE (LSP)
+Definition: 
+  -> Subtypes should be substitutable for their base types without altering the correctness of the program.
+
+Explanation:
+  -> A subclass should extend the behavior of a parent class without breaking existing functionality.
+
+  // Violates LSP: Square class changes the behavior of Rectangle
+class Rectangle {
+    protected int width, height;
+
+    public void setWidth(int width) { this.width = width; }
+    public void setHeight(int height) { this.height = height; }
+    public int getArea() { return width * height; }
+}
+
+class Square extends Rectangle {
+    @Override
+    public void setWidth(int width) {
+        this.width = this.height = width;
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.width = this.height = height;
+    }
+}
+
+-> In this case, Square does not behave correctly as a Rectangle. Setting width should not automatically change height.
+
+Correct Approach: Using composition instead of inheritance.
+
+interface Shape {
+    int getArea();
+}
+
+class Rectangle implements Shape {
+    protected int width, height;
+
+    public Rectangle(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    public int getArea() { return width * height; }
+}
+
+class Square implements Shape {
+    private int side;
+
+    public Square(int side) {
+        this.side = side;
+    }
+
+    public int getArea() { return side * side; }
+}
+
+Benefits:
+1. Ensures that derived classes can replace base classes without errors.
+2. Improves code reliability and reusability.
+
+
+4. INTERFACE SEGREGATION PRINCIPLE (ISP)
+Definition: 
+   -> Clients should not be forced to depend on interfaces they do not use.
+
+Explanation:
+   -> Instead of creating large, all-purpose interfaces, break them into smaller, more specific ones.
+
+// Violates ISP: Unnecessary methods for some classes
+interface Worker {
+    void work();
+    void eat();
+}
+
+class Robot implements Worker {
+    public void work() { System.out.println("Robot working"); }
+    public void eat() { throw new UnsupportedOperationException(); } // Robots don't eat
+}
+
+// Corrected: Using separate interfaces
+interface Workable {
+    void work();
+}
+
+interface Eatable {
+    void eat();
+}
+
+class Human implements Workable, Eatable {
+    public void work() { System.out.println("Human working"); }
+    public void eat() { System.out.println("Human eating"); }
+}
+
+class Robot implements Workable {
+    public void work() { System.out.println("Robot working"); }
+}
+
+Benefits:
+1. Reduces the impact of changes.
+2. Ensures classes only implement necessary functionality.
+
+
+5. DEPENDENCY INVERSION PRINCIPLE (DIP)
+Definition: 
+  -> High-level modules should not depend on low-level modules. Both should depend on abstractions.
+
+Explanation:
+  -> Instead of a class depending on specific implementations, it should rely on abstractions (interfaces or abstract classes). This makes code more flexible and easier to change.
+
+// Violates DIP: Direct dependency on a concrete class
+class WiredKeyboard {
+    public void type() { System.out.println("Typing with wired keyboard"); }
+}
+
+class Computer {
+    private WiredKeyboard keyboard;
+
+    public Computer() {
+        this.keyboard = new WiredKeyboard();
+    }
+
+    public void useKeyboard() {
+        keyboard.type();
+    }
+}
+
+// Corrected: Using abstraction
+interface Keyboard {
+    void type();
+}
+
+class WiredKeyboard implements Keyboard {
+    public void type() { System.out.println("Typing with wired keyboard"); }
+}
+
+class WirelessKeyboard implements Keyboard {
+    public void type() { System.out.println("Typing with wireless keyboard"); }
+}
+
+class Computer {
+    private Keyboard keyboard;
+
+    public Computer(Keyboard keyboard) {
+        this.keyboard = keyboard;
+    }
+
+    public void useKeyboard() {
+        keyboard.type();
+    }
+}
+
+Benefits:
+1. Increases flexibility and testability.
+2. Encourages loosely coupled code.
+
+
+
+Open sidebar
+
+ChatGPT
+
+You said:
+what are solid principles in java explain in detail each
+ChatGPT said:
+SOLID principles are a set of five design principles that help developers create maintainable, scalable, and robust object-oriented software. These principles were introduced by Robert C. Martin (Uncle Bob) and are widely used in Java and other object-oriented programming languages.
+
+1. Single Responsibility Principle (SRP)
+Definition: A class should have only one reason to change, meaning it should have only one responsibility.
+
+Explanation:
+Each class should focus on a single task or functionality. If a class has multiple responsibilities, changes in one part may affect other parts, making the system harder to maintain.
+
+Example:
+
+// Violates SRP: Handles both Employee data and report generation
+class Employee {
+    private String name;
+    private double salary;
+
+    public Employee(String name, double salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+
+    public void printReport() {
+        System.out.println("Employee Report for " + name);
+    }
+}
+
+// Corrected: Separate concerns
+class Employee {
+    private String name;
+    private double salary;
+
+    public Employee(String name, double salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+
+    // Getter methods
+}
+
+class EmployeeReport {
+    public void printReport(Employee employee) {
+        System.out.println("Employee Report for " + employee.getName());
+    }
+}
+Benefits:
+
+Improves maintainability and readability.
+Reduces the impact of changes.
+2. Open/Closed Principle (OCP)
+Definition: Software entities (classes, modules, functions) should be open for extension but closed for modification.
+
+Explanation:
+A class should allow new functionality without modifying existing code, which is usually achieved using abstraction and polymorphism.
+
+Example:
+
+// Violates OCP: Modification needed for new discount types
+class DiscountCalculator {
+    public double calculateDiscount(String type, double amount) {
+        if (type.equals("Christmas")) {
+            return amount * 0.1;
+        } else if (type.equals("NewYear")) {
+            return amount * 0.2;
+        }
+        return 0;
+    }
+}
+
+// Corrected: Using inheritance and polymorphism
+interface Discount {
+    double applyDiscount(double amount);
+}
+
+class ChristmasDiscount implements Discount {
+    public double applyDiscount(double amount) {
+        return amount * 0.1;
+    }
+}
+
+class NewYearDiscount implements Discount {
+    public double applyDiscount(double amount) {
+        return amount * 0.2;
+    }
+}
+
+class DiscountCalculator {
+    public double calculateDiscount(Discount discount, double amount) {
+        return discount.applyDiscount(amount);
+    }
+}
+Benefits:
+
+Reduces the need to modify existing code.
+Encourages scalability by allowing extensions.
+3. Liskov Substitution Principle (LSP)
+Definition: Subtypes should be substitutable for their base types without altering the correctness of the program.
+
+Explanation:
+A subclass should extend the behavior of a parent class without breaking existing functionality.
+
+Example:
+
+// Violates LSP: Square class changes the behavior of Rectangle
+class Rectangle {
+    protected int width, height;
+
+    public void setWidth(int width) { this.width = width; }
+    public void setHeight(int height) { this.height = height; }
+    public int getArea() { return width * height; }
+}
+
+class Square extends Rectangle {
+    @Override
+    public void setWidth(int width) {
+        this.width = this.height = width;
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.width = this.height = height;
+    }
+}
+In this case, Square does not behave correctly as a Rectangle. Setting width should not automatically change height.
+
+Correct Approach: Using composition instead of inheritance.
+
+interface Shape {
+    int getArea();
+}
+
+class Rectangle implements Shape {
+    protected int width, height;
+
+    public Rectangle(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    public int getArea() { return width * height; }
+}
+
+class Square implements Shape {
+    private int side;
+
+    public Square(int side) {
+        this.side = side;
+    }
+
+    public int getArea() { return side * side; }
+}
+Benefits:
+
+Ensures that derived classes can replace base classes without errors.
+Improves code reliability and reusability.
+4. Interface Segregation Principle (ISP)
+Definition: Clients should not be forced to depend on interfaces they do not use.
+
+Explanation:
+Instead of creating large, all-purpose interfaces, break them into smaller, more specific ones.
+
+Example:
+
+// Violates ISP: Unnecessary methods for some classes
+interface Worker {
+    void work();
+    void eat();
+}
+
+class Robot implements Worker {
+    public void work() { System.out.println("Robot working"); }
+    public void eat() { throw new UnsupportedOperationException(); } // Robots don't eat
+}
+
+// Corrected: Using separate interfaces
+interface Workable {
+    void work();
+}
+
+interface Eatable {
+    void eat();
+}
+
+class Human implements Workable, Eatable {
+    public void work() { System.out.println("Human working"); }
+    public void eat() { System.out.println("Human eating"); }
+}
+
+class Robot implements Workable {
+    public void work() { System.out.println("Robot working"); }
+}
+Benefits:
+
+Reduces the impact of changes.
+Ensures classes only implement necessary functionality.
+5. Dependency Inversion Principle (DIP)
+Definition: High-level modules should not depend on low-level modules. Both should depend on abstractions.
+
+Explanation:
+Instead of a class depending on specific implementations, it should rely on abstractions (interfaces or abstract classes). This makes code more flexible and easier to change.
+
+Example:
+
+// Violates DIP: Direct dependency on a concrete class
+class WiredKeyboard {
+    public void type() { System.out.println("Typing with wired keyboard"); }
+}
+
+class Computer {
+    private WiredKeyboard keyboard;
+
+    public Computer() {
+        this.keyboard = new WiredKeyboard();
+    }
+
+    public void useKeyboard() {
+        keyboard.type();
+    }
+}
+
+// Corrected: Using abstraction
+interface Keyboard {
+    void type();
+}
+
+class WiredKeyboard implements Keyboard {
+    public void type() { System.out.println("Typing with wired keyboard"); }
+}
+
+class WirelessKeyboard implements Keyboard {
+    public void type() { System.out.println("Typing with wireless keyboard"); }
+}
+
+class Computer {
+    private Keyboard keyboard;
+
+    public Computer(Keyboard keyboard) {
+        this.keyboard = keyboard;
+    }
+
+    public void useKeyboard() {
+        keyboard.type();
+    }
+}
+Benefits:
+
+Increases flexibility and testability.
+Encourages loosely coupled code.
+
+
+
+CONCLUSION : 
+SOLID principles help in designing maintainable, scalable, and flexible software.
+
+1. SRP prevents bloated classes.
+2. OCP allows adding features without modifying existing code.
+3. LSP ensures that derived classes work as expected.
+4. ISP prevents unnecessary dependencies.
+5. DIP promotes dependency on abstractions, not concrete implementations.
+
+
