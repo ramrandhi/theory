@@ -957,6 +957,11 @@ RESILIENCE4J :
 	-> we might have a service which can handle only a certain number of requests in given time.
 	-> RateLimiter module allows us to enforce restrictions and protect our services from too many requests.
 
+	USE CASES :
+		1. Limits apis to make certain amount of calls and limits continuous api calls.
+		2. web scraping - making bulk attempts of api requests to down the server.
+		3. login attempts if user is entering wrong password and trying to login again and again rate limiter stops that user for certain time.
+
   3. BULKHEAD :
 	-> Isolates failures and prevents them from cascading through the system.
 	-> Limits the amount of parallel executions or concurrent calls to prevent system resources from being exhausted.
@@ -964,14 +969,6 @@ RESILIENCE4J :
   4. CIRCUITBREAKER : 
 	-> used to prevent a network or service failure from cascading to other services.
 	-> Circuit breaker trips or opens and prevents further calls to the service.
-
-
-
-
-	 
-	 
-	 
-	 
 	 
 	 
 	 
@@ -1023,3 +1020,6 @@ CIRCUIT BREAKERS :
 				return "Fallback response due to service failure!";
 			}
 		}
+
+
+MESSAGE QUEUES : 
