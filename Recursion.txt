@@ -1,0 +1,44 @@
+RECURSION : A function calling itself is called Recursion.
+
+WHY RECURSION : 
+1. we can divide the problem into smaller problems so that we can work easily.
+2. we can convert recursion solution into iteration(loops) and vice versa
+3. space complexity increases with increase in function calls inside the stack as functions are stored in stack memory.
+
+public class Recursion {
+    public static void main(String[] args) {
+        message(1);
+    }
+    public static void message(int n) {
+        if(n == 5) {
+            System.out.println(n);
+            return;
+        }
+        System.out.println(n);
+        message(n+1);
+    }
+}
+
+-> if we can divide the problem into multiple smaller problems it is called recurrence relation.
+
+HOW TO UNDERSTOOD AND APPROACH A PROBLEM :
+STEP 1 :
+1. Identify if you can break the problem into small problems.
+2. write recursive relation if needed.
+3. draw recursive tree.
+4. about the tree.
+    1. see the flow of function, how they are getting in stack.
+    2. identify and focus on left tree calls and right tree calls.
+    3. draw the tree and postion again and again using pen and paper.
+    4. use a debugger to see the flow.
+5. see how the values are returned at each step see  where the fucntion calls come out in the end, you will come out of the main function.
+
+STEP 2: variables.
+1. Arguments.
+2. return type.
+3. body of the function.
+
+
+TYPES OF RECURRENCE RELATIONS: 
+1. LINEAR RECURRENCE RELATION - (fibonacci) - linear space complexity
+2. DIVIDEING AND CONCURRENCE RECURRECE RELATION - (binary search) - reduced by a factor.
