@@ -1,0 +1,3 @@
+TIME COMPLEXITY: 
+-> it is the relation between time grows as the input grows.
+-> o(1) < o(log n) < o(n) < o(2n).
