@@ -42,3 +42,14 @@ STEP 2: variables.
 TYPES OF RECURRENCE RELATIONS: 
 1. LINEAR RECURRENCE RELATION - (fibonacci) - linear space complexity
 2. DIVIDEING AND CONCURRENCE RECURRECE RELATION - (binary search) - reduced by a factor.
+
+2 TYPES OF RECURSION PROBLEMS: 
+1. Linear time recursion.
+2. divide and conqure recursion.
+
+2. DIVIDE AND CONQURE RECURRENCE RELATION : 
+FORM : 
+t(x) = a1t(b1x + e1(x)) + a2t(b2x + e2x)+ ....... + akt(akx + ekx) + g(x);
+
+**HOW TO SOLVE PROBLEMS: 
+**AKRABAZZI FORMULA : 
