@@ -1032,17 +1032,4 @@ MESSAGE QUEUES :
 	5. Time Decoupling
 
 RABBITMQ (Message Broker) : 
-	
 
-
-SPRING SECURITY: 
-1. AUTHENTICATION - Authenticaion is proving who you are.
-2. AUTHORIZATION  -  Authorization is about what you're allowed to do after you've proven who you are.
-
-kEY SECURITY PRINCIPLES :
-1. Least Privilige.
-2. Secure by Design.
-3. Fail safe defaults.
-4. secure Communication.
-5. input validation.
-6. Auditing and Logging.
