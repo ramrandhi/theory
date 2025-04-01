@@ -1,0 +1,49 @@
+SPRING FILTERS:
+  In Spring boot applications a filter is a class that has the first access to the incoming api request. so it can be used in
+  different application use cases like spring boot logging, authentication, authorization etc.
+
+WORKING FLOW:
+  1. How request flows. (below all are chain of filters or filter chains)
+    --> LoggingFilter -> AuthenticationFilter -> AuthorizationFilter -> CompressionFilter -> DispatcherServlet -> HandlerMapping  -> Interceptor(PreHandle) ->  @RestController
+  2. How response goes back.
+    <-- LoggingFilter <- AuthenticationFilter <- AuthorizationFilter <- CompressionFilter <- DispatcherServlet  <- viewResolver(IfApplicable)  <- Interceptor(PostHandle, AfterCompletion)
+
+
+
+we can implement filters in mainly in 3 different ways.
+1.  USING @WebFilter and Implementing Filter interface.
+    @Order(1)
+    @WebFilter(urlPatterns = "/*")
+    public class LoggingFilter implements Filter { ... }
+
+    @Order(2)
+    @WebFilter(urlPatterns = "/*")
+    public class AuthFilter implements Filter { ... }
+
+2.  USING NORMAL @Component with implementing Filter Interface.
+    @Component
+    public class LoggingFilter implements Filter {
+        @Override
+        public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+                throws IOException, ServletException {
+            System.out.println("Request received at LoggingFilter");
+            
+            // Continue to the next filter in the chain
+            chain.doFilter(request, response);
+            
+            System.out.println("Response leaving LoggingFilter");
+        }
+    }
+
+3. Using configuration class with FilterRegistrationBean
+    @Configuration
+    public class FilterConfig {
+        @Bean
+        public FilterRegistrationBean<LoggingFilter> loggingFilter() {
+            FilterRegistrationBean<LoggingFilter> registrationBean = new FilterRegistrationBean<>();
+            registrationBean.setFilter(new LoggingFilter());
+            registrationBean.addUrlPatterns("/*");  // Apply to all requests
+            registrationBean.setOrder(1);  // Define execution order
+            return registrationBean;
+        }
+    }
