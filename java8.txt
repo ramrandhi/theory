@@ -1,0 +1,49 @@
+1. Lambda Expressions
+
+-> Allows you to write anonymous methods in a concise way.
+
+Syntax:
+    (parameter) -> expression
+
+Example:
+List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+names.forEach(name -> System.out.println(name));
+
+2. Functional Interfaces
+
+-> An interface with just one abstract method. Java 8 introduced many such interfaces in java.util.function.
+
+@FunctionalInterface
+interface MyFunctionalInterface {
+    void execute();
+}
+
+
+3. Method References
+Shortcut for lambda expressions calling a method.
+
+Example:
+names.forEach(System.out::println);
+
+
+4. Default Methods in Interfaces
+Interfaces can now have method implementations using default.
+
+Example:
+
+interface MyInterface {
+    default void show() {
+        System.out.println("Default implementation");
+    }
+}
+
+5. Streams API
+Allows functional-style operations on collections (map, filter, reduce, etc.)
+
+Example:
+List<String> list = Arrays.asList("a", "bb", "ccc");
+list.stream()
+    .filter(s -> s.length() > 1)
+    .map(String::toUpperCase)
+    .forEach(System.out::println);
+

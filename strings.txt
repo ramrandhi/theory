@@ -1,0 +1,117 @@
+Character and Substring Extraction
+
+char charAt(int index)
+int codePointAt(int index)
+int codePointBefore(int index)
+int codePointCount(int beginIndex, int endIndex)
+String substring(int beginIndex)
+String substring(int beginIndex, int endIndex)
+
+Comparison Methods
+
+boolean equals(Object anObject)
+boolean equalsIgnoreCase(String anotherString)
+int compareTo(String anotherString)
+int compareToIgnoreCase(String anotherString)
+boolean regionMatches(int toffset, String other, int ooffset, int len)
+boolean regionMatches(boolean ignoreCase, int toffset, String other, int ooffset, int len)
+
+Searching and Indexing
+
+boolean contains(CharSequence s)
+boolean startsWith(String prefix)
+boolean startsWith(String prefix, int toffset)
+boolean endsWith(String suffix)
+int indexOf(int ch)
+int indexOf(int ch, int fromIndex)
+int indexOf(String str)
+int indexOf(String str, int fromIndex)
+int lastIndexOf(int ch)
+int lastIndexOf(int ch, int fromIndex)
+int lastIndexOf(String str)
+int lastIndexOf(String str, int fromIndex)
+
+Case Conversion
+
+String toLowerCase()
+String toLowerCase(Locale locale)
+String toUpperCase()
+String toUpperCase(Locale locale)
+
+Trimming and Stripping
+
+String trim()
+String strip()
+String stripLeading()
+String stripTrailing()
+
+String Replacement and Modification
+
+String replace(char oldChar, char newChar)
+String replace(CharSequence target, CharSequence replacement)
+String replaceAll(String regex, String replacement)
+String replaceFirst(String regex, String replacement)
+String concat(String str)
+String repeat(int count)
+
+Splitting and Joining
+
+String[] split(String regex)
+String[] split(String regex, int limit)
+static String join(CharSequence delimiter, CharSequence... elements)
+static String join(CharSequence delimiter, Iterable<? extends CharSequence> elements)
+
+Formatting and Conversion
+
+String format(String format, Object... args)
+String format(Locale locale, String format, Object... args)
+char[] toCharArray()
+byte[] getBytes()
+byte[] getBytes(Charset charset)
+void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin)
+
+Checking Properties
+
+boolean isEmpty()
+boolean isBlank()
+int length()
+
+Miscellaneous Methods
+
+IntStream chars()
+IntStream codePoints()
+String intern()
+Object clone() (not supported in String because String is a final class)
+
+
+Example:
+
+public class StringMethodsExample {
+    public static void main(String[] args) {
+        String str = "Hello, World!";
+
+        // Character extraction
+        System.out.println(str.charAt(0));  // Output: H
+
+        // Substring
+        System.out.println(str.substring(7));  // Output: World!
+
+        // Case conversion
+        System.out.println(str.toLowerCase());  // Output: hello, world!
+
+        // Search
+        System.out.println(str.indexOf("World"));  // Output: 7
+
+        // Replacement
+        System.out.println(str.replace("World", "Java"));  // Output: Hello, Java!
+
+        // Splitting
+        String[] parts = str.split(", ");
+        System.out.println(parts[0]);  // Output: Hello
+
+        // Trimming
+        System.out.println("  Hello  ".trim());  // Output: Hello
+    }
+}
+
+

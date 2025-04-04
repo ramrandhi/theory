@@ -1,0 +1,53 @@
+int[] arr = new int[5];       // Declaration and initialization
+arr[0] = 10;                  // Assign value
+int val = arr[2];             // Access value
+int length = arr.length;      // Get length
+
+2. Arrays class : 
+import java.util.Arrays;
+
+Method	Description
+Arrays.toString(arr)                Returns a string representation of array
+Arrays.sort(arr)	                Sorts the array
+Arrays.copyOf(arr, newLength)	    Copies array to a new one with a different size
+Arrays.copyOfRange(arr, from, to)	Copies part of the array
+Arrays.fill(arr, val)	            Fills array with the given value
+Arrays.equals(arr1, arr2)	        Checks if two arrays are equal
+Arrays.deepEquals(arr1, arr2)	    Checks equality of nested arrays
+Arrays.binarySearch(arr, key)	    Performs binary search (sorted arrays)
+Arrays.setAll(arr, i -> i * i)	    Fills array using lambda
+Arrays.asList(arr)	                Converts array to List (for object arrays)
+Arrays.stream(arr)	                Converts array to stream (for Java 8+)
+Arrays.hashCode(arr)	            Returns hash code
+Arrays.deepHashCode(arr)	        Hash code for nested arrays
+
+3. Array Methods via Streams (Java 8+)
+
+int[] numbers = {1, 2, 3, 4, 5};
+int sum = Arrays.stream(numbers).sum();
+OptionalDouble avg = Arrays.stream(numbers).average();
+int[] evens = Arrays.stream(numbers).filter(n -> n % 2 == 0).toArray();
+int[] squares = Arrays.stream(numbers).map(n -> n * n).toArray();
+
+ 4. Multidimensional Arrays
+
+ int[][] matrix = new int[3][3];
+System.out.println(Arrays.deepToString(matrix));  // prints nested arrays
+
+// Iterating
+for (int[] row : matrix) {
+    for (int val : row) {
+        System.out.print(val + " ");
+    }
+}
+
+5. Conversion Utilities
+
+From	    To	            Method
+Array	    List	    Arrays.asList(arr)
+List	    Array	    list.toArray(new Type[0])
+Array	    Stream	    Arrays.stream(arr)
+Stream	    Array	    stream.toArray()
+
+
+
