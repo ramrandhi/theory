@@ -1,0 +1,7 @@
+QUICK SORT :
+
+
+notes:
+1. not stable
+2. in-place that is why preferred for arrays insted of merge sort. as merge sort takes O(N) extra space.
+3. merge sort is better in linkedlists due to memory allocation(not continuous).

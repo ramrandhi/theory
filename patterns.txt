@@ -1,0 +1,61 @@
+So, without further ado, let me list all these patterns:
+
+Sliding Window
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*KjGfvdhs8sG6h4d72M1ScA.png
+
+Islands (Matrix Traversal)
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*9AUj3ZGAdw3pRPhK-987tQ.png
+
+Two Pointers
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*2za0-wllk-VfnZDbqyUwyw.png
+
+Fast & Slow Pointers
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*2bnzwCBxVnfUSXeU-zAb1A.png
+
+Merge Intervals
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*_spGJhtYPxaUnC9Xa-mF0g.png
+
+Cyclic Sort
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*EEvPzyIiZqerHfQCjfgrAQ.png
+
+In-place Reversal of a LinkedList
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*EH-MW6lGo_aM44WiQD-wFA.png
+
+Tree Breadth-First Search
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*bEGCMPbEmK6yz_6cVIHcsA.png
+
+Tree Depth First Search
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*AEyvEa-Iukr2MK2gGFfQ7g.png
+
+Two Heaps
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*QuDyKs6ISfcYApB1p5ibOg.png
+
+Subsets
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*OPBjswfAhkW2dnhDoEzCQQ.png
+
+Modified Binary Search
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*g_pEhpRkdo-M8225ZK3iQg.png
+
+Bitwise XOR
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*6-pQRAEp3UGyVm_Y40phzQ.png
+
+Top ‘K’ Elements
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*RiL5lOgJvS6QG5-HyfEwZQ.png
+
+K-way Merge
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*sb4wGg6MhXHDmaiBSFLWCg.png
+
+Topological Sort
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*L5cEBg-40sXbCym6EegndQ.png
+
+0/1 Knapsack
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*GDyV-1IM4YGzJpWdkyL14w.png
+
+Fibonacci Numbers
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*fXrUc7ddw2jJW6Ha2gWDMA.png
+
+Palindromic Subsequence
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*9Re4-eDXcrEAtO0-ec2RZw.png
+
+Longest Common Substring
+https://miro.medium.com/v2/resize:fit:640/format:webp/1*pa_tURlHATyPQIDpt9wpAQ.png
