@@ -1,0 +1,49 @@
+EASY:
+    1. Bfs (Breadth First Search)
+    2. Dfs (Depth First Search)
+    3. Binary Search
+    4. Bubble Sort
+    5. Insertion Sort
+    6. Radix Sort
+    7. Bucket Sort
+    8. Counting Sort
+    9. Preorder, Inorder, Postorder Traversal of a tree
+    10. Two pointer technique
+    11. Slow and fast pointer technique
+    12. Greedy algorithm
+
+Intermediate:
+    1. Dijkstra's algorithm
+    2. Bellman-Ford algorithm
+    3. Floyd-Warshall algorithm
+    4. Prim's algorithm
+    5. Kruskal's algorithm
+    6. Topological Sort
+    7. Floyd's cycle detection algorithm
+    8. Quick Sort
+    9. Merge Sort
+    10. Heap Sort
+    11. Sliding window technique
+    12. Backtracking algorithms (e.g., N-Queens, Sudoku Solver)
+    13. Kadane's algorithm (for maximum subarray sum)
+    14. Longest Increaseing Subsequence (LIS)
+
+Hard: 
+    1. Dynamic Programming (DP) algorithms (e.g., Knapsack, Longest Common Subsequence, Coin Change)
+    2. Bit Manipulation techniques
+    3. String Manipulation (Longest common Subsequence, KMP algorithm for substring search)
+    4. More Strings and Arrays problems (e.g., permutations, combinations)
+    5. Graph algorithms (e.g., A* search algorithm, Network flow algorithms)
+    6. More Types under Dynamic Programming (e.g., DP on trees, DP on graphs)
+    7. o/1 Knapsack problem
+
+SOME OTHER iMPORTANT ALGORITHMS:
+    1. Rabin-Karp algorithm for substring search
+    2. Segment Trees and Fenwick Trees (Binary Indexed Trees)
+    3. Advanced Data Structures (e.g., Disjoint Set Union, Suffix Trees, Suffix Arrays)
+    4. Advanced Graph Algorithms (e.g., Tarjan's algorithm for strongly connected components, Johnson's algorithm for all pairs shortest paths)
+    5. Matrix Exponentiation for fast computation of Fibonacci numbers and other recurrence relations
+    6. Convex Hull algorithms (e.g., Graham's scan, Jarvis's march)
+    7. Game Theory algorithms (e.g., Minimax algorithm, Alpha-Beta pruning)
+    8. Randomized algorithms (e.g., Quickselect for finding the k-th smallest element)
+    9. Trie data structure for efficient prefix searching
