@@ -1,49 +1,550 @@
 1. Lambda Expressions
 
--> Allows you to write anonymous methods in a concise way.
+    -> Allows you to write anonymous methods in a concise way.
 
-Syntax:
-    (parameter) -> expression
+    Syntax:
+        (parameter) -> expression
 
-Example:
-List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
-names.forEach(name -> System.out.println(name));
+    Example:
+    List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+    names.forEach(name -> System.out.println(name));
+
+    -> A Lambd Expression can only be called with Funcitonal Interfaces. i.e.. the interfaces with only one abstract method.
+
+    1. Runnable
+    2. Callable
+    3. Comparator
+    4. Consumer<T>
+    5. Supplier<T>
+    6. Predicate<T>
+    7. Function<T,R>
+
+    USE CASES OF LAMBDA EXPRESSIONS:
+        1. Replaceing the anonymous inner classes.
+        // Traditional way.
+        eg: Runnable run = new Runnable() {
+            public void run() {
+                System.out.println("inside run");
+            }
+        };
+        // with lambda expression
+        Runnable r = () -> System.out.println("inside run");
+
+        2. Sorting collections
+
+        // Traditional way.
+        List<String> names = Arrays.asList("Charlie", "Alice", "Bob");
+        Collections.sort(names, new Comparator<String>() {
+            void compare(String a, String b) {
+                return a.compareTo(b);
+            }
+        });
+        // with lambda expression
+        Collection.sort(names, (a,b) -> a.compareTo(b));
+        
+
+        3. Functional Interfaces: Predicate, Consumer, Supplier, Function
+
+        // Predicate
+        Predicate<String> isLong = s -> s.length() > 5;
+
+        // Consumer
+        Consumer<String> printer = s -> System.out.println(s);
+
+        // Supplier
+        Supplier<Double> random = () -> Math.random();
+
+        // Function
+        Function<String, Integer> stringToLength = s -> s.length();
+
 
 2. Functional Interfaces
 
--> An interface with just one abstract method. Java 8 introduced many such interfaces in java.util.function.
+    -> An interface with just one abstract method and can have multiple static and default methods inside the interface.
+    -> Java 8 introduced many such interfaces in java.util.function.
+    1. Predicate<T>
+        Used to evaluate a condition — returns a boolean.
+        Method: boolean test(T t)
+        Predicate<String> isLong = s -> s.length() > 5;
+        System.out.println(isLong.test("HelloWorld")); // true
 
-@FunctionalInterface
-interface MyFunctionalInterface {
-    void execute();
-}
+        ✅ Common Use:
+        Filtering in Streams
+        List<String> list = Arrays.asList("apple", "banana", "kiwi");
+        list.stream()
+            .filter(s -> s.length() > 4)
+            .forEach(System.out::println); // apple, banana
+
+    2. Consumer<T>
+        Takes an argument and returns nothing. Used for performing actions.
+        Method: void accept(T t)
+
+        Consumer<String> printer = s -> System.out.println("Hi " + s);
+        printer.accept("Alice"); // Hi Alice
+
+        ✅ Use Case:
+        Side effects like logging, printing, saving.
+        list.forEach(s -> System.out.println("Name: " + s));
+
+    3. Supplier<T>
+        Takes no argument, returns a value.
+        Method: T get()
+
+        Supplier<Double> random = () -> Math.random();
+        System.out.println(random.get());
+
+        ✅ Use Case:
+        Lazy value generation, UUIDs, timestamps
+
+    4. Function<T, R>
+        Takes one input and returns a result.
+        Method: R apply(T t)
+        Function<String, Integer> lengthFn = s -> s.length();
+        System.out.println(lengthFn.apply("banana")); // 6
+
+        ✅ Use Case:
+        Transforming data in stream pipelines
+        list.stream()
+            .map(String::toUpperCase)
+            .forEach(System.out::println);
+
+
+    5. BiFunction<T, U, R>
+        Like Function, but takes two arguments.
+        Method: R apply(T t, U u)
+        BiFunction<Integer, Integer, Integer> sum = (a, b) -> a + b;
+        System.out.println(sum.apply(5, 3)); // 8
+
+    6. UnaryOperator<T>
+        Special case of Function<T, T> — input and output types are the same.
+        Method: T apply(T t)
+        UnaryOperator<String> toUpper = s -> s.toUpperCase();
+        System.out.println(toUpper.apply("apple")); // APPLE
+
+    7. BinaryOperator<T>
+        Special case of BiFunction<T, T, T> — both arguments and return type are the same.
+        Method: T apply(T t1, T t2)
+        BinaryOperator<Integer> max = (a, b) -> a > b ? a : b;
+        System.out.println(max.apply(10, 20)); // 20
+
+    Other Useful Functional Interfaces:
+    1. BiConsumer<T, U>
+        BiConsumer<String, Integer> printEntry = (name, age) -> System.out.println(name + " is " + age);
+        printEntry.accept("John", 30);
+
+    2. ToIntFunction<T>, ToDoubleFunction<T>, etc. (Used for primitive returns, avoids boxing.)
+        ToIntFunction<String> strLength = s -> s.length();
+        System.out.println(strLength.applyAsInt("hello")); // 5
+
+    3. BooleanSupplier
+        BooleanSupplier isWeekend = () -> {
+            DayOfWeek day = LocalDate.now().getDayOfWeek();
+            return day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY;
+        };
+        System.out.println(isWeekend.getAsBoolean());
+
+
+
+
+    Example of Functional Interface:
+    @FunctionalInterface
+    interface MyFunctionalInterface {
+        void execute();
+    }
 
 
 3. Method References
-Shortcut for lambda expressions calling a method.
+    Shortcut for lambda expressions calling a method.
 
-Example:
-names.forEach(System.out::println);
+    Example:
+    names.forEach(System.out::println);
+
+    Types:
+    1. object::instanceMethod
+    2. Class::staticMethod
+    3. Class::instanceMethod
 
 
-4. Default Methods in Interfaces
-Interfaces can now have method implementations using default.
+4. Default and Static Methods in Interfaces
+    Interfaces can now have method implementations using default.
 
-Example:
+    Example:
 
-interface MyInterface {
-    default void show() {
-        System.out.println("Default implementation");
+    interface MyInterface {
+        default void show() {
+            System.out.println("Default implementation");
+        }
+        static void showMe() {
+            System.out.println("Static Method Implementation");
+        }
     }
-}
+
+
 
 5. Streams API
-Allows functional-style operations on collections (map, filter, reduce, etc.)
+    Allows functional-style operations on collections (map, filter, reduce, etc.)
+->  The Stream API in Java 8+ allows you to process collections (like List, Set) using declarative functional-style 
+    pipelines. It helps make code more readable, concise, and efficient.
 
+    Example:
+    List<String> list = Arrays.asList("a", "bb", "ccc");
+    list.stream()
+        .filter(s -> s.length() > 1)
+        .map(String::toUpperCase)
+        .forEach(System.out::println);
+
+    PLACES WHERE WE CAN USE STREAMS:
+        1. 1. Collections (List, Set, Queue, etc.)
+            These are the most common sources.
+            List<String> list = List.of("A", "B", "C");
+            list.stream().forEach(System.out::println);
+            Set<Integer> set = Set.of(1, 2, 3);
+            set.stream().forEach(System.out::println);
+
+        2. Arrays
+            Use Arrays.stream() or Stream.of():
+            int[] numbers = {1, 2, 3, 4};
+            Arrays.stream(numbers).forEach(System.out::println);
+            String[] names = {"John", "Jane"};
+            Stream.of(names).forEach(System.out::println);
+
+        3. Maps (Map<K,V>)
+            You can't stream a Map directly, but you can stream over:
+            entrySet()
+            keySet()
+            values()
+            Map<String, Integer> map = Map.of("A", 1, "B", 2);
+            map.entrySet().stream()
+                .filter(e -> e.getValue() > 1)
+                .forEach(e -> System.out.println(e.getKey() + " = " + e.getValue()));
+
+        4. Streams of Custom Values
+            Use Stream.of(...) for fixed elements.
+            Stream.of("apple", "banana", "cherry")
+                .forEach(System.out::println);
+
+        5. Infinite or Generated Streams
+            Use Stream.generate() or Stream.iterate():
+            // Infinite random numbers (use limit to prevent infinite loop)
+            Stream.generate(Math::random)
+                .limit(5)
+                .forEach(System.out::println);
+            // Stream of even numbers
+            Stream.iterate(0, n -> n + 2)
+                .limit(5)
+                .forEach(System.out::println); // 0 2 4 6 8
+
+        6. Files (via Files.lines)
+            Read a file line-by-line as a stream:
+            Path path = Paths.get("example.txt");
+            Files.lines(path)
+                .filter(line -> line.contains("error"))
+                .forEach(System.out::println);
+
+        7. Primitive Streams
+            For performance, Java provides specialized streams:
+            IntStream
+            LongStream
+            DoubleStream
+            IntStream.range(1, 5).forEach(System.out::println); // 1 2 3 4
+
+        8. Stream Builders
+            Create a stream manually:
+            Stream<String> stream = Stream.<String>builder()
+                .add("one")
+                .add("two")
+                .build();
+
+            stream.forEach(System.out::println);
+
+**** Key Stream Operations with Examples: 
+
+     1. filter(Predicate<T>)
+    Filters elements based on a condition.
+    List<String> names = List.of("John", "Jane", "Tom", "Alice");
+    names.stream()
+        .filter(name -> name.startsWith("J"))
+        .forEach(System.out::println); // John, Jane
+
+    2. map(Function<T, R>)
+    Transforms each element.
+    List<String> names = List.of("apple", "banana");
+    names.stream()
+        .map(String::toUpperCase)
+        .forEach(System.out::println); // APPLE, BANANA
+
+    3. collect(Collector)
+    Collects the result into a collection, map, string, etc.
+    List<String> upperNames = names.stream()
+        .map(String::toUpperCase)
+        .collect(Collectors.toList());
+
+    4. forEach(Consumer<T>)
+    Applies an action to each element.
+    names.forEach(System.out::println);
+
+    5. reduce(BinaryOperator<T>)
+    Reduces the stream to a single value.
+    List<Integer> nums = List.of(1, 2, 3, 4);
+    int sum = nums.stream()
+        .reduce(0, Integer::sum);
+    System.out.println(sum); // 10
+
+     6. sorted() / sorted(Comparator)
+    Sorts the stream elements.
+    List<String> unsorted = List.of("Bob", "Alice", "Charlie");
+
+    unsorted.stream()
+        .sorted()
+        .forEach(System.out::println); // Alice, Bob, Charlie
+
+    Custom sort:(Descending order)
+
+    unsorted.stream()
+        .sorted((a, b) -> b.compareTo(a))
+        .forEach(System.out::println); // Charlie, Bob, Alice
+
+    7. distinct()
+    Removes duplicates.
+    List<Integer> nums = List.of(1, 2, 2, 3, 3, 4);
+    nums.stream()
+        .distinct()
+        .forEach(System.out::println); // 1 2 3 4
+
+    8. limit(n)
+    Limits the stream to the first n elements.
+    nums.stream()
+        .limit(3)
+        .forEach(System.out::println); // 1 2 2
+
+    9. skip(n)
+    Skips the first n elements.
+    nums.stream()
+        .skip(2)
+        .forEach(System.out::println); // 2 3 3 4
+
+    10. flatMap()
+    Flattens nested structures.
+    List<List<String>> listOfLists = List.of(
+        List.of("A", "B"),
+        List.of("C", "D")
+    );
+
+    listOfLists.stream()
+        .flatMap(List::stream)
+        .forEach(System.out::println); // A B C D
+
+    11. anyMatch(Predicate)
+    Returns true if any element matches.
+    boolean hasLongName = names.stream()
+        .anyMatch(name -> name.length() > 5);
+    System.out.println(hasLongName);
+
+     12. allMatch(Predicate)
+    Returns true if all elements match.
+    boolean allStartWithA = names.stream()
+        .allMatch(name -> name.startsWith("A"));
+
+    13. noneMatch(Predicate)
+    Returns true if none match the condition.
+    boolean noneStartWithZ = names.stream()
+        .noneMatch(name -> name.startsWith("Z"));
+
+    14. findFirst()
+    Returns the first element (Optional).
+    Optional<String> first = names.stream().findFirst();
+    first.ifPresent(System.out::println);
+
+    15. findAny()
+    Returns any element (useful in parallel streams).
+    Optional<String> any = names.stream().findAny();
+    any.ifPresent(System.out::println);
+
+     16. count()
+    Counts elements in the stream.
+    long count = names.stream()
+        .filter(name -> name.length() > 3)
+        .count();
+    System.out.println(count);
+
+    17. peek(Consumer<T>)
+    Used for debugging (like forEach, but doesn't consume the stream).
+    List<String> collected = names.stream()
+        .peek(System.out::println) // prints while streaming
+        .map(String::toUpperCase)
+        .collect(Collectors.toList());
+
+
+6. OPTIONAL CLASSES:
+    -> Optional<T> is a container object that may or may not contain a non-null value.
+    -> If the value is present, isPresent() returns true and you can get it.
+    -> If the value is absent, it helps you avoid NullPointerException.
+
+    CREATING OPTIONAL INSTANCES:
+
+    1. Optional.of(value)
+    Use when you're sure the value is not null.
+    Optional<String> name = Optional.of("Alice");
+
+    2. Optional.ofNullable(value)
+    Use when value may be null.
+    String str = null;
+    Optional<String> name = Optional.ofNullable(str);
+
+    3. Optional.empty()
+    Returns an empty Optional.
+    Optional<String> emptyOpt = Optional.empty();
+
+
+ -> Accessing Values:
+
+    get() – Gets the value (if present), otherwise throws NoSuchElementException
+    Optional<String> opt = Optional.of("Java");
+    System.out.println(opt.get()); // Java
+    Don't use get() directly without checking — prefer safer methods below 👇
+
+    isPresent() – Checks if a value is present
+    if (opt.isPresent()) {
+        System.out.println(opt.get());
+    }
+
+    ifPresent(Consumer<T>) – Executes action if value is present
+    opt.ifPresent(name -> System.out.println("Hello, " + name));
+
+    orElse(defaultValue) – Returns value or default if absent
+    String result = opt.orElse("Default");
+    System.out.println(result); // Java
+
+    orElseGet(Supplier) – Lazily provides default value
+    String result = opt.orElseGet(() -> "Generated Default");
+
+    orElseThrow(Supplier<Exception>) – Throws exception if empty
+    String value = opt.orElseThrow(() -> new RuntimeException("Value missing!"));
+
+
+ -> Transforming with map() and flatMap()
+
+    map() – Transform the value inside Optional
+    Optional<String> upper = opt.map(String::toUpperCase);
+    System.out.println(upper.get()); // JAVA
+
+7. Date and Time API (java.time package)
+ -> Replaces old Date, Calendar with a modern, immutable, and thread-safe API.
+
+ -> Core classes
+    LocalDate date = LocalDate.now();                // 2025-04-14
+    LocalTime time = LocalTime.now();                // 10:45:30.123
+    LocalDateTime dt = LocalDateTime.now();          // 2025-04-14T10:45:30
+    ZonedDateTime zdt = ZonedDateTime.now();         // with timezone
+ -> Formatting
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    String formatted = date.format(formatter);       // 14-04-2025
+ -> Parseing
+    LocalDate parser = LocalDate.parse("2025-04-16", formatter);
+ -> Period & Duration:
+    Period p = Period.between(LocalDate.of(2020, 1, 1), LocalDate.now());
+    System.out.println(p.getYears() + " years");
+
+    Duration d = Duration.between(LocalTime.now(), LocalTime.now().plusHours(2));
+    System.out.println(d.toHours() + " hours");
+
+8. Collectors Class
+ -> Used with streams to collect data into collections or summarizations.
+ Common Collectors:
+
+    List<String> names = Arrays.asList("a", "bb", "ccc");
+    // To List
+    List<String> collected = names.stream().collect(Collectors.toList());
+    // Joining
+    String joined = names.stream().collect(Collectors.joining(", "));  // a, bb, ccc
+    // Grouping
+    Map<Integer, List<String>> grouped = names.stream()
+        .collect(Collectors.groupingBy(String::length));
+    // Counting
+    long count = names.stream().collect(Collectors.counting());
+
+
+9. Parallel Streams
+ -> Run stream operations in parallel using multiple threads.
+ Example:
+    List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+    // Serial
+    list.stream().forEach(System.out::println);
+    // Parallel
+    list.parallelStream().forEach(System.out::println);
+
+
+10. Type Inference (Improved)
+ -> Compiler can infer types in more situations, especially with lambdas and generics.
+    List<String> list = new ArrayList<>(); // diamond operator with type inference
+
+    Stream.of(1, 2, 3)
+        .map(x -> x * 2) // compiler infers x is Integer
+        .forEach(System.out::println);
+
+11. Repeating Annotations
+ -> You can now use the same annotation multiple times on the same element.
 Example:
-List<String> list = Arrays.asList("a", "bb", "ccc");
-list.stream()
-    .filter(s -> s.length() > 1)
-    .map(String::toUpperCase)
-    .forEach(System.out::println);
+    @Hint("hint1")
+    @Hint("hint2")
+    class Demo {}
+
+    @Repeatable(Hints.class)
+    @interface Hint {
+        String value();
+    }
+
+    @interface Hints {
+        Hint[] value();
+    }
+
+12. TARGET-TYPE INFERENCE:
+ -> Compiler can infer the target type in lambda expressions or generic methods.
+ EXAMPLE:
+    // Interface
+    interface Converter<F, T> {
+        T convert(F from);
+    }
+
+    // Lambda (target type inferred)
+    Converter<String, Integer> converter = (from) -> Integer.valueOf(from);
+    System.out.println(converter.convert("123")); // 123
+
+13. CompletableFuture (Asynchronous Programming)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

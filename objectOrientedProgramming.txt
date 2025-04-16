@@ -1,0 +1,8 @@
+CLASS: A class is a grouped name of data types and functions.
+OBJECT: An object is actually where the data is being stored.
+
+Student s = new Student();
+-> Here left side part is created on compile time and right side where object is created is done at run time.
+
+early binding - execution that takes place at compile time (static binding, final methods. compile time binding, static polymorphism).
+late binding - execution that takes place at run time(virtual functions, dynamic binding, run time polymorphism).
