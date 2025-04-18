@@ -512,6 +512,64 @@ Example:
 
 13. CompletableFuture (Asynchronous Programming)
 
+-> CompletableFuture is part of java.util.concurrent and allows you to write non-blocking, asynchronous code.
+-> It can be used to run tasks in parallel and combine their results.
+-> It can also handle exceptions and provide a more readable way to work with asynchronous tasks compared to traditional Future.
+-> It is a powerful tool for building responsive applications, especially in web and microservices architectures.
+
+    Method           | Description
+    runAsync()       | Runs a task without return
+    supplyAsync()    | Runs a task that returns a result
+    thenApply()      | Transforms the result
+    thenAccept()     | Consumes the result
+    thenRun()        | Runs a new task after completion
+    exceptionally()  | Handles exceptions
+    thenCombine()    | Combines two futures
+    allOf() / anyOf()| Combines multiple futures
+
+
+    Example:
+    CompletableFuture.supplyAsync(() -> {
+        // Simulate a long-running task
+        try { Thread.sleep(1000); } catch (InterruptedException e) {}
+        return "Hello";
+    }).thenApply(result -> result + " World")
+      .thenAccept(System.out::println); // Hello World
+    // Output: Hello World
+    // The main thread continues while the CompletableFuture runs in the background.
+    // You can also combine multiple CompletableFutures:
+    CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> "Hello");
+    CompletableFuture<String> future2 = CompletableFuture.supplyAsync(() -> "World");
+    CompletableFuture<String> combined = future1.thenCombine(future2, (s1, s2) -> s1 + " " + s2);
+    combined.thenAccept(System.out::println); // Hello World
+    // You can also handle exceptions:
+    CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+        throw new RuntimeException("Error");
+    }).exceptionally(ex -> "Fallback value");
+    future.thenAccept(System.out::println); // Fallback value
+    // You can also wait for multiple futures to complete:
+    CompletableFuture<Void> allOf = CompletableFuture.allOf(future1, future2);
+    allOf.thenRun(() -> System.out.println("All tasks completed"));
+    // Output: All tasks completed
+    // You can also use CompletableFuture with a timeout:
+    CompletableFuture<String> futureWithTimeout = CompletableFuture.supplyAsync(() -> {
+        try { Thread.sleep(2000); } catch (InterruptedException e) {}
+        return "Hello";
+    }).orTimeout(1, TimeUnit.SECONDS);
+    // This will throw a TimeoutException if the task takes longer than 1 second.
+    // You can also use CompletableFuture with a delay:
+    CompletableFuture<String> delayedFuture = CompletableFuture.supplyAsync(() -> {
+        try { Thread.sleep(2000); } catch (InterruptedException e) {}
+        return "Hello";
+    }).completeOnTimeout("Fallback value", 1, TimeUnit.SECONDS);
+    // This will return "Fallback value" if the task takes longer than 1 second.
+    // You can also use CompletableFuture with a delay and a timeout:
+    CompletableFuture<String> delayedFutureWithTimeout = CompletableFuture.supplyAsync(() -> {
+        try { Thread.sleep(2000); } catch (InterruptedException e) {}
+        return "Hello";
+    }).completeOnTimeout("Fallback value", 1, TimeUnit.SECONDS);
+
+
 
 
 
