@@ -1,0 +1,58 @@
+Java Collections Tree :
+
+✅ Interface vs Class Legend:
+📘 Interface: Iterable, Collection, List, Set, Queue, Map, etc.
+
+📦 Class: ArrayList, HashSet, LinkedList, HashMap, etc.
+
+🌳 Java Collections Framework Tree
+
+                        ┌────────────┐
+                        │ Iterable<E>│   ← Interface (root)
+                        └─────┬──────┘
+                              │
+                    ┌────────▼────────┐
+                    │ Collection<E>   │ ← Interface
+                    └────────┬────────┘
+       ┌─────────────────────┼────────────────────┐
+       │                     │                    │
+┌──────▼─────┐        ┌──────▼──────┐      ┌──────▼──────┐
+│ List<E>    │        │ Queue<E>    │      │ Set<E>      │ ← Interfaces
+└────┬───────┘        └─────┬───────┘      └─────┬───────┘
+     │                      │                    │
+     │                      │                    │
+     ▼                      ▼                    ▼
+ArrayList            LinkedList              HashSet       ← Classes
+Vector               PriorityQueue           LinkedHashSet
+Stack                ArrayDeque              TreeSet
+
+                                        (TreeSet implements NavigableSet)
+
+
+
+🗂 Map Hierarchy (Separate from Collection) 
+
+                        ┌──────────────┐
+                        │ Map<K, V>    │ ← Interface
+                        └────┬─────────┘
+                             │
+          ┌──────────────────┼────────────────────┐
+          ▼                  ▼                    ▼
+     HashMap             LinkedHashMap         TreeMap     ← Classes
+     WeakHashMap         IdentityHashMap       Hashtable
+                                               └───┐
+                                                  ▼
+                                               Properties
+
+Interface   | Common Implementing Classes           | Description
+List        | ArrayList, LinkedList, Vector         | Ordered, allows duplicates
+Set         | HashSet, LinkedHashSet, TreeSet       | No duplicates, unordered or sorted
+Queue       | PriorityQueue, ArrayDeque             | FIFO structures, used in scheduling
+Map         | HashMap, TreeMap, Hashtable           | Key-value pairs
+
+
+Limitations of Array/ArrayList:
+- Fixed size: Once an array is created, its size cannot be changed.
+- This can lead to wasted space or the need to create a new array and copy elements if the size needs to change.
+- Performance: Inserting or deleting elements in the middle of an array can be slow, as it requires shifting elements.
+- Type safety: Arrays can hold only one type of data, and if you try to store a different type, it will throw a runtime error.

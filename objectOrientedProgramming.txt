@@ -6,3 +6,83 @@ Student s = new Student();
 
 early binding - execution that takes place at compile time (static binding, final methods. compile time binding, static polymorphism).
 late binding - execution that takes place at run time(virtual functions, dynamic binding, run time polymorphism).
+
+
+Genarics: 
+1. public class GenericClass<T> {} -> here T is a type parameter.
+2. public <T> void method(T t) {} -> here T is a type parameter.
+
+Wild Cards:
+1. Upper Bound Wildcard: <? extends ClassName> 
+   - This means that the type can be ClassName or any subclass of ClassName.
+   - Example: List<? extends Number> can hold List<Integer>, List<Double>, etc.
+2. Lower Bound Wildcard: <? super ClassName>
+   - This means that the type can be ClassName or any superclass of ClassName.
+   - Example: List<? super Integer> can hold List<Number>, List<Object>, etc.
+
+3. Unbounded Wildcard: <?>
+   - This means that the type can be any type.
+   - Example: List<?> can hold List<Integer>, List<String>, etc.
+4. Bounded Wildcard: <? extends ClassName & InterfaceName>
+   - This means that the type can be ClassName or any subclass of ClassName and must implement InterfaceName.
+   - Example: List<? extends Number & Comparable> can hold List<Integer>, List<Double>, etc. but also must implement Comparable.
+
+SHALLOW COPY:
+- A shallow copy of an object is a new object that is a copy of the original object, but it does not create copies of the objects that are referenced by the original object.
+- In other words, a shallow copy creates a new object, but the fields of the new object are references to the same objects as the fields of the original object.
+- This means that if the original object is modified, the shallow copy will also reflect those changes.
+- Shallow copies are typically created using the clone() method or by using copy constructors that copy the values of the fields directly.
+
+Example:
+   class Person implements Cloneable {
+      String name;
+      Address address;
+
+      Person(String name, Address address) {
+         this.name = name;
+         this.address = address;
+      }
+
+      public Object clone() throws CloneNotSupportedException {
+         return super.clone(); // Shallow copy
+      }
+   }
+   class Address {
+      String city;
+
+      Address(String city) {
+         this.city = city;
+      }
+   }
+
+DEEP COPY:
+- A deep copy of an object is a new object that is a copy of the original object, and it creates copies of all the objects that are referenced by the original object.
+- In other words, a deep copy creates a new object and also creates new objects for all the fields of the original object.
+- This means that if the original object is modified, the deep copy will not reflect those changes.
+- Deep copies are typically created using the clone() method or by using copy constructors that create new instances of the referenced objects.
+- Deep copies are more expensive in terms of memory and performance compared to shallow copies, as they require creating new instances of all referenced objects.
+- Deep copies are useful when you want to ensure that changes to the original object do not affect the copied object, especially when dealing with mutable objects.
+
+Example:
+   class Person implements Cloneable {
+      String name;
+      Address address;
+
+      Person(String name, Address address) {
+         this.name = name;
+         this.address = address;
+      }
+
+      public Object clone() throws CloneNotSupportedException {
+         Person cloned = (Person) super.clone(); // Shallow
+         cloned.address = new Address(this.address.city); // Deep copy of nested object
+         return cloned;
+      }
+   }
+   class Address {
+      String city;
+
+      Address(String city) {
+         this.city = city;
+      }
+   }

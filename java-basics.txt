@@ -1,3 +1,220 @@
+Enums:
+    Enums are by default public, static and final.
+    since they are final we cannot create child enums
+    type is week
+    below are enum constants
+    enums can implement interfaces by implementing methods but not extend classes.
+    ordinal to know the position, values() method to iterate, value to know the value.
 
+    Examples:
 
+    enum Week {
+        MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+    }
+    public class EnumExample {
+        public static void main(String[] args) {
+            Week today = Week.MONDAY;
+            System.out.println("Today is: " + today);
+        }
+    }
+    // Enum with methods
+    enum Day {
+        MONDAY("Monday"), TUESDAY("Tuesday"), WEDNESDAY("Wednesday"), THURSDAY("Thursday"), FRIDAY("Friday"), SATURDAY("Saturday"), SUNDAY("Sunday");
+
+        private String dayName;
+
+        Day(String dayName) {
+            this.dayName = dayName;
+        }
+
+        public String getDayName() {
+            return dayName;
+        }
+    }
+    public class EnumWithMethodsExample {
+        public static void main(String[] args) {
+            Day today = Day.MONDAY;
+            System.out.println("Today is: " + today.getDayName());
+        }
+    }
+    // Enum with switch case
+    enum Color {
+        RED, GREEN, BLUE
+    }
+    public class EnumSwitchExample {
+        public static void main(String[] args) {
+            Color color = Color.RED;
+
+            switch (color) {
+                case RED:
+                    System.out.println("Color is Red");
+                    break;
+                case GREEN:
+                    System.out.println("Color is Green");
+                    break;
+                case BLUE:
+                    System.out.println("Color is Blue");
+                    break;
+                default:
+                    System.out.println("Unknown Color");
+            }
+        }
+    }
+    // Enum with constructor
+    enum Size {
+        SMALL(1), MEDIUM(2), LARGE(3);
+
+        private int sizeValue;
+
+        Size(int sizeValue) {
+            this.sizeValue = sizeValue;
+        }
+
+        public int getSizeValue() {
+            return sizeValue;
+        }
+    }
+    public class EnumConstructorExample {
+        public static void main(String[] args) {
+            Size size = Size.MEDIUM;
+            System.out.println("Size value is: " + size.getSizeValue());
+        }
+    }
+    // Enum with fields
+    enum Direction {
+        NORTH(0), EAST(90), SOUTH(180), WEST(270);
+
+        private int angle;
+
+        Direction(int angle) {
+            this.angle = angle;
+        }
+
+        public int getAngle() {
+            return angle;
+        }
+    }
+    public class EnumFieldsExample {
+        public static void main(String[] args) {
+            Direction direction = Direction.EAST;
+            System.out.println("Direction angle is: " + direction.getAngle());
+        }
+    }
+    // Enum with toString method
+    enum Season {
+        WINTER, SPRING, SUMMER, FALL;
+
+        @Override
+        public String toString() {
+            return "Season: " + name();
+        }
+    }
+    public class EnumToStringExample {
+        public static void main(String[] args) {
+            Season season = Season.SUMMER;
+            System.out.println(season);
+        }
+    }
+    // Enum with ordinal method
+    enum Month {
+        JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER;
+    }
+    public class EnumOrdinalExample {
+        public static void main(String[] args) {
+            Month month = Month.MARCH;
+            System.out.println("Month ordinal is: " + month.ordinal());
+        }
+    }
+    // Enum with values method
+    enum Planet {
+        MERCURY, VENUS, EARTH, MARS, JUPITER, SATURN, URANUS, NEPTUNE;
+    }
+    public class EnumValuesExample {
+        public static void main(String[] args) {
+            Planet[] planets = Planet.values();
+            for (Planet planet : planets) {
+                System.out.println(planet);
+            }
+        }
+    }
+    // Enum with valueOf method
+    enum Animal {
+        DOG, CAT, BIRD;
+    }
+    public class EnumValueOfExample {
+        public static void main(String[] args) {
+            Animal animal = Animal.valueOf("CAT");
+            System.out.println("Animal is: " + animal);
+        }
+    }
+    // Enum with compareTo method
+    enum TrafficLight {
+        RED, YELLOW, GREEN;
+    }
+    public class EnumCompareToExample {
+        public static void main(String[] args) {
+            TrafficLight light1 = TrafficLight.RED;
+            TrafficLight light2 = TrafficLight.GREEN;
+
+            if (light1.compareTo(light2) < 0) {
+                System.out.println(light1 + " comes before " + light2);
+            } else {
+                System.out.println(light1 + " comes after " + light2);
+            }
+        }
+    }
+    // Enum with static method
+    enum Operation {
+        ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION;
+
+        public static double calculate(double a, double b, Operation operation) {
+            switch (operation) {
+                case ADDITION:
+                    return a + b;
+                case SUBTRACTION:
+                    return a - b;
+                case MULTIPLICATION:
+                    return a * b;
+                case DIVISION:
+                    return a / b;
+                default:
+                    throw new UnsupportedOperationException("Operation not supported");
+            }
+        }
+    }
+    public class EnumStaticMethodExample {
+        public static void main(String[] args) {
+            double result = Operation.calculate(10, 5, Operation.ADDITION);
+            System.out.println("Result of addition: " + result);
+        }
+    }
+    // Enum with interface
+    interface Shape {
+        double area();
+    }
+    enum Circle implements Shape {
+        INSTANCE;
+
+        private double radius;
+
+        Circle() {
+            this.radius = 1.0; // Default radius
+        }
+
+        public void setRadius(double radius) {
+            this.radius = radius;
+        }
+
+        @Override
+        public double area() {
+            return Math.PI * radius * radius;
+        }
+    }
+    public class EnumInterfaceExample {
+        public static void main(String[] args) {
+            Circle circle = Circle.INSTANCE;
+            circle.setRadius(5.0);
+            System.out.println("Area of circle: " + circle.area());
+        }
+    }
 
