@@ -9,7 +9,7 @@
     List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
     names.forEach(name -> System.out.println(name));
 
-    -> A Lambd Expression can only be called with Funcitonal Interfaces. i.e.. the interfaces with only one abstract method.
+    -> A Lambda Expression can only be called with Funcitonal Interfaces. i.e.. the interfaces with only one abstract method.
 
     1. Runnable
     2. Callable
