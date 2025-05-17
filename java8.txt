@@ -194,7 +194,7 @@
         .forEach(System.out::println);
 
     PLACES WHERE WE CAN USE STREAMS:
-        1. 1. Collections (List, Set, Queue, etc.)
+        1.  Collections (List, Set, Queue, etc.)
             These are the most common sources.
             List<String> list = List.of("A", "B", "C");
             list.stream().forEach(System.out::println);
