@@ -57,4 +57,24 @@ DOCKER IMages:
 docker run -d --name zookeeper -p 2181:2181 -e ZOOKEEPER_CLIENT_PORT=2181 -e ZOOKEEPER_TICK_TIME=2000 confluentinc/cp-zookeeper:7.5.0
 docker run -d --name kafka -p 9092:9092 -e KAFKA_BROKER_ID=1 -e KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 -e KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 --link zookeeper confluentinc/cp-kafka:7.5.0
 
+CREATE TOPICS INSIDE RUNNING KAFKA USING DOCKER: (Commands not very important)
+to create cli we need to run : docker exec -it kafka bash
+CREATE PARTITION: kafka-topics --create --topic my-topic --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1
+                  kafka-topics --create --topic new-topic --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1
+
+TO SEE ALL THE PARTITIONS INSIDE THE TOPIC : kafka-topics --list --bootstrap-server localhost:9092
+TO CHECK THE DETAILS OF THE PARTITIONS INSIDE A TOPIC : kafka-topics --describe --topic my-topic --bootstrap-server localhost:9092
+
+TO CHECK ALL THE PARTITIONS INSIDE THE TOPIC: kafka-topics --describe --topic my-topic --bootstrap-server localhost:9092
+
+-> In Kafka, consumers that share the same group.id will form a consumer group, and Kafka will ensure that each partition of a topic is consumed by only one consumer in 
+   the group (this is called load balancing).
+
+SPRING CLOUD STREAM: 
+    Lets you write plain java functions and then "bind" them to messaging destinations(topics, queues) without writing any broker-specific code.
+    -> So it bascially works with either kafka or rabbitmq without changeing code as code was internally implemented and supports various messaging systems like kafka.
+
+
+
+
 
