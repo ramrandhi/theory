@@ -1,0 +1,4 @@
+LinedList Patterns:
+    1. Cycle detection pattern(slow and fast pointer).
+    2. InPlace Reversal
+    3. recursion using recursion.
