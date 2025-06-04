@@ -1,0 +1,346 @@
+STACK : (LIFO)
+Methods (last in first in) :
+    push(Object o) - adds an element to Stack.
+    pop() - retrives an element by removing it from stack.
+    peek() - retrives an element by not removing it.
+    isEmpty() - returns boolean with emptyness of stack.
+    search(Object o) - Returns the 1-based position from the top of the stack of the specified object, or -1 if not found.
+
+    we can also work aroung with vector methods as stack extends vector.
+        add(E e)
+        get(int index) - Returns the object position from the bottom of the stack of the specified index, or throw ArrayIndexOutOfBoundsException error if out of bound.
+        remove(int index)
+        size()
+        clear()
+        contains(Object o)
+        etc...
+
+
+TREES:
+  1. Trees
+  2. Binary Trees
+  3. Binary Search Trees.
+
+🌳 Tree vs. Binary Tree vs. Binary Search Tree (BST)
+  1. Tree (General Tree)
+  =>Each node can have any number of children (not limited to two).
+  =>No specific rules about where data goes.
+  =>Example use: file systems, DOM in HTML, org charts.
+
+       A
+     / | \
+    B  C  D
+      / \
+     E   F
+
+  2. Binary Tree
+=>Each node has at most 2 children: left and right.
+=>No requirement on the values of nodes.
+=>Can store data in any order.
+=>Left child can be smaller or larger than the parent — no rules enforced.
+
+       10
+      /  \
+     5    20
+    / \
+   3   7
+
+  3. Binary Search Tree (BST)
+  => A binary tree with a special rule:
+    => Left child < parent < Right child
+    => This rule must hold for every node in the tree.
+  => Because of this rule, search, insert, and delete operations are efficient (O(log n) on average if balanced).
+
+       10
+      /  \
+     5    15
+    / \     \
+   2   7     20
+
+| Feature           | Tree           | Binary Tree        | Binary Search Tree (BST)           |
+| ----------------- | -------------- | ------------------ | ---------------------------------- |
+| Children per node | Any number     | Max 2 (left/right) | Max 2 (left/right)                 |
+| Data ordering     | No rule        | No rule            | Left < Node < Right                |
+| Efficiency        | Varies         | Varies             | Efficient for search (if balanced) |
+| Use case          | Hierarchy, DOM | Base structure     | Fast search / sort operations      |
+
+
+
+
+
+  WHY BINARY TREES: 
+  1. They can Insert, Find and Delete in O(log N) time.
+  2. ordered storage: right side of the node is always greater than left side node data.
+  3. cost efficient: if we add more nodes and remove more nodes it dynamically adjusts and restructuring like arraylist is not required.
+
+  *** Binary trees takes O(N) when trees are unbalanced binary tree(tree with only one node).
+
+          10
+       /
+      8
+     /
+    6
+   /
+  4
+   \
+    5
+
+Here It takes O(N) times to search an element or node in the tree. we can solve that using SELF BALANCING TREES.
+
+use Cases of Binary Trees:
+  1. file system.
+  2. Databases.
+  3. Algorithms/ Networking.
+  4. Complex Mathemetical problems.
+  5. Decision Trees. (machine learning Algorithms)
+  6. Compression of files.
+  7. future data structures like heaps, graphs.
+
+
+Properties: 
+ 1. Node data, Node left, Node right.
+ 2. size - total number of nodes.
+ 3. child and parent
+ 4. siblings
+ 5. edge: two nodes connected by a line is called edge.
+ 6. height: maximum number of edges from the Leaf node and the root node. (from that node to the leaf nodes where maximum edges counts).
+ 7. leaf Nodes: the last nodes in the tree.
+ 8. level: height of that root - height of node. (root level is always 0).
+ 9. ancestor and descendent: there is a path that we can find from a to b then a becomes ancestor of b and b is descendent.
+ 10. Degree: A Degree meaning how many child nodes you have. at max degree can be 2.
+
+ TYPES OF BINARY TREES:
+  1. Complete Binary Tree: apart from the last level all the levels are filled but the last level is full from left to right.
+              1
+            /   \
+          2     3
+         / \   /
+        4   5 6
+
+  2. Full Binary Tree (or) Strict Binary Tree : Each Node has either zero or two children and no single child node.
+  USE CASE: Compression / segment trees.
+            1
+          /   \
+        2     3
+        / \   / \
+      4   5 6   7
+
+  3. Perfect Binary Trees: all the internal nodes has 2 children and all the leaf nodes are on the same level.
+              1
+            /   \
+          2     3
+          / \   / \
+        4   5 6   7
+
+
+  4. Height Balanced Tree: Average Height O(log N). (Height difference should be less than 1 between leaf nodes from entire tree).
+              4
+            /   \
+          2     6
+          / \   /
+        1   3 5
+
+  5. skewed Binary Tree: every node has only single tree. average height is O(N). eg: linked list.
+    Right Skewed             Left Skewed
+    1                        1
+     \                      /
+      2                    2
+       \                  /
+        3                3
+         \              /
+          4            4
+
+  6. Ordered Binary Tree: Every Node has some property that it follows. eg: binary search tree (left should be smaller and right should be bigger).
+
+              8
+            /   \
+          4     10
+         / \      \
+        2   6     20
+
+  PROPERTIES THAT WILL HELP IN SOME QUESTIONS:
+  1. Perfect binary tree if height = h, then total nodes = 2^(n+1) - 1;
+  2. Leaf Nodes in perfect Binary Tree  = 2^h.
+   => so internal nodes  = 2^(n-1) - 1 - 2^h = 2^(n) - 1;
+  3. if we have N number of levels then how many minimum levels we have = log(N+1) levels atleast.
+    => if we have N number of nodes the minimum possible height is log(N+1) minimum levels.
+  4. If we have strict binary tree, N leaf nodes then internal nodes = N - 1;
+    => and Number of Leaf Nodes = Number of internal Nodes + 1;
+  5. Number of Leaf Nodes = 1 + Number of internal Nodes with 2 children.(not includeing root node).
+
+
+  BINARY TREE IMPLEMENTATION(can be done on two ways based on tree): 
+   1. Linked Representation: same like Linked List.
+   2. Sequential Representation: Using Array having size and all. (used in heads and string binary tree).
+
+
+   *** TRAVERSAL METHODS:
+    => PRE-ORDER TRAVERSAL: First the root node is traversed the left part of the tree and then goes to the right side of the tree. (Root Node -> L -> R).
+      WHEN WE USE PRE ORDER TRAVERSAL:
+        1. When we have to create a copy of a binary tree.
+        2. Used for evaluating Mathemetical expressions or make a copy.
+        3. in Serialization also it helps.
+
+              8
+            /   \
+          4     10
+         / \      \
+        2   6     20
+
+        => it goes like 8, 4, 2, 6, 10, 20.
+
+    => IN-ORDER TRAVERSAL: First it goes like left part and goes until left part is null and prints first non-null left and then comes back (Left -> Root Node -> Right).
+      1. In Binary Search Tree if you want sorted order use In-Order Traversal.
+
+              8
+            /   \
+          4     10
+         / \      \
+        2   6     20
+
+        => it goes like 2, 4, 6, 8, 10, 20.
+
+    => POST-ORDER TRAVERSAL: It first prints the left side tree and then it prints the right side of the tree and at last node.
+      1. Delete a binary Tree. (How can we delete a root if we have children so post order traversal is used in this case).
+      2. Bottom-up calculation.(height).
+
+              8
+            /   \
+          4     10
+         / \      \
+        2   6     20
+
+        => it goes like 2, 6, 4, 20, 10, 8.
+
+*************
+QUESTIONS WILL BE ASKED FROM THESE FOUR TOPICS: (Breadth -> and depth ↓) (s for searching and t is for traversal)
+1. BFS -> Breadth first search
+2. DFS -> Depth first search
+3. BFT -> Breadth first Traversal
+4. DFT -> Depth First Search.
+
+
+AVL TREES: (This is used to balance the unbalaned tree).
+1. insert normally node (n).
+2. start from node (n) and find the node that makes the tree unbalanced, bottom up.
+3. using one of the 4 rules rotate.
+
+4 RULES: 
+  1. Left-Left (LL) Rotation
+    -> Occurs when a node is inserted into the left subtree of the left child.
+
+    Before Insertion:
+          30
+          /
+        20
+        /
+      10
+
+    Insert 5:
+          30
+          /
+        20
+        /
+      10
+      /
+    5
+
+    Unbalanced at node 30 — Left-Left Case
+
+    After Right Rotation on 30:
+          20
+          /  \
+        10   30
+        /
+      5
+
+  2. Right-Right (RR) Rotation
+    -> Occurs when a node is inserted into the right subtree of the right child.
+
+    Before Insertion:
+      10
+        \
+          20
+            \
+            30
+
+    Insert 50:
+      10
+        \
+          20
+            \
+            30
+              \
+                50
+
+    Unbalanced at node 10 — Right-Right Case
+
+    After Left Rotation on 10:
+          20
+          /  \
+        10   30
+                \
+                50
+
+  3. Left-Right (LR) Rotation
+    -> Occurs when a node is inserted into the right subtree of the left child.
+
+    Before Insertion:
+          30
+          /
+        20
+          \
+            15
+
+    Insert 15:
+          30
+          /
+        20
+          \
+            15
+
+    Unbalanced at node 30 — Left-Right Case
+
+    Step 1: Left Rotation on 20:
+          30
+          /
+        15
+        /
+      20
+
+    Step 2: Right Rotation on 30:
+          15
+          /  \
+        20   30
+
+  4. Right-Left (RL) Rotation
+    -> Occurs when a node is inserted into the left subtree of the right child.
+
+    Before Insertion:
+      10
+        \
+          20
+        /
+        25
+
+    Insert 25:
+      10
+        \
+          20
+        /
+        25
+
+    Unbalanced at node 10 — Right-Left Case
+
+    Step 1: Right Rotation on 20:
+      10
+        \
+        25
+          \
+          20
+
+    Step 2: Left Rotation on 10:
+          25
+          /  \
+        10   20
+
