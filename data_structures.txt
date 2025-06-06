@@ -344,3 +344,37 @@ AVL TREES: (This is used to balance the unbalaned tree).
           /  \
         10   20
 
+SEGEMENT TREES: ref: https://media.geeksforgeeks.org/wp-content/uploads/20240226171857/Segment-Tree-(1).webp
+  -> WHEN TO USE: When a problem is given on solving the range in between an array or anything then we can use segment trees.
+  -> Segment => perform query on a range(eg: sum, max, avg, min, prod etc...)
+  -> Segment tree performs this in O(log n) times.
+=> Segment trees is a binary tree which has interval informattion and opertaion it is performing.
+
+EXAMPLE: 
+=> Original Array: [1, 3, 5, 7, 9, 11]
+Segment Tree for Sum Queries.
+We'll build a segment tree for range sum queries. Segment trees are typically stored as arrays.
+
+TREE STRUCTURE OF SEGMENT TREE:
+
+                          [0:5]
+                           36
+                          /  \
+                   [0:2] 9    27 [3:5]
+                    / \        /    \
+            [0:1] 4   5[2:2] [3:4]16 11[5:5]
+             / \              / \
+       [0:0]1  [1:1]3   [3:3]7  [4:4]9
+
+EXAMPLE: Lets take the above tree and we need to find the sum of indexes from (2,4);
+CASES TO FIND:
+1. Node Interval is inside query interval. eg: (3,4) lies in same node.
+2. Node interval is completely outside the query inteval. eg: (5,5) from above.
+  eg: (node start index) > (query end index) or (Node end < query start) 
+  => In this case return the default value of the query. in this case 0.
+3. OVERLAPPING: some part is inside some part is outside then it is called overlapping. eg:(0,2) & (3,5).
+
+
+
+
+
