@@ -1,3 +1,8 @@
+BIGiNTEGER: (Storing large integers) (range =>  -2 ^ Integer.MAX_VALUE TO 2 ^ Integer.MIN_VALUE).
+BIGDECIMAL: 
+
+
+
 STRING BUFFER: Mutable sequence of characters.
   ADVANTAGES:
   1. Mutable meaning we can change the created object.
@@ -91,7 +96,7 @@ TREES:
   2. ordered storage: right side of the node is always greater than left side node data.
   3. cost efficient: if we add more nodes and remove more nodes it dynamically adjusts and restructuring like arraylist is not required.
 
-  *** Binary trees takes O(N) when trees are unbalanced binary tree(tree with only one node).
+  *** Binary trees takes O(N) when trees are unbalanced binary tree(tree with only one side continuous node).
 
           10
        /
@@ -189,7 +194,7 @@ Properties:
 
   BINARY TREE IMPLEMENTATION(can be done on two ways based on tree): 
    1. Linked Representation: same like Linked List.
-   2. Sequential Representation: Using Array having size and all. (used in heads and string binary tree).
+   2. Sequential Representation: Using Array having size and all. (used in heaps and string binary tree).
 
 
    *** TRAVERSAL METHODS:
@@ -235,7 +240,7 @@ QUESTIONS WILL BE ASKED FROM THESE FOUR TOPICS: (Breadth -> and depth ↓) (s fo
 1. BFS -> Breadth first search
 2. DFS -> Depth first search
 3. BFT -> Breadth first Traversal
-4. DFT -> Depth First Search.
+4. DFT -> Depth First Traversal.
 
 
 AVL TREES: (This is used to balance the unbalaned tree).
@@ -398,4 +403,14 @@ UPDATE IN SEGMENT TREES:
 2. if yes, then check child nodes if child reage is out, no change in value just return.
 3. int the end, you will reach leaf update leaf and recursion will update the tree.
 
+Breadth First Search: (this follows a binary tree structure).
+ => This will search from top to down in levels. (goes like 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 )
+              1
+            /   \
+          2     3
+         / \   /  \
+        4   5  6   7
+  WHEN TO USE BREADTH FIRST SEARCH:
+  1. when answer lies near the root node.
+  2. when you are asked to search by levels.
 
