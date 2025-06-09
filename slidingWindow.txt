@@ -8,7 +8,7 @@ What is the Sliding Window Technique?
 
   When to Use Sliding Window:
 
-  | Clue in the Problem                                | Example Problem                           |
+| Clue in the Problem                                | Example Problem                           |
 | -------------------------------------------------- | ----------------------------------------- |
 | Substring/subarray of fixed size                   | Max sum of subarray of size k             |
 | Longest/shortest subarray/substring with condition | Longest substring with K distinct chars   |
