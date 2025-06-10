@@ -214,6 +214,7 @@ Properties:
 
     => IN-ORDER TRAVERSAL: First it goes like left part and goes until left part is null and prints first non-null left and then comes back (Left -> Root Node -> Right).
       1. In Binary Search Tree if you want sorted order use In-Order Traversal.
+      WHEN TO USE: In In order traversal we go to leftmost first so if you want to find the smallest value in Binary search tree use In-order traversal.
 
               8
             /   \
@@ -226,6 +227,7 @@ Properties:
     => POST-ORDER TRAVERSAL: It first prints the left side tree and then it prints the right side of the tree and at last node.
       1. Delete a binary Tree. (How can we delete a root if we have children so post order traversal is used in this case).
       2. Bottom-up calculation.(height).
+      WHEN TO USE: when we want to delete a root node post order traversal will first delete left tree and right tree and then root this makes sure nodes is deleted and memory safe(or no memory leaks). 
 
               8
             /   \
@@ -403,7 +405,7 @@ UPDATE IN SEGMENT TREES:
 2. if yes, then check child nodes if child reage is out, no change in value just return.
 3. int the end, you will reach leaf update leaf and recursion will update the tree.
 
-Breadth First Search: (this follows a binary tree structure).
+Breadth First Search:(BFS) (this follows a binary tree structure).
  => This will search from top to down in levels. (goes like 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 )
               1
             /   \
