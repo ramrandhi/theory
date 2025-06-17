@@ -1,0 +1,70 @@
+Basic Arithmetic Operations
+
+| Method                     | Description                                                      |
+| -------------------------- | ---------------------------------------------------------------- |
+| `Math.abs(x)`              | Absolute value of `x`. Supports `int`, `long`, `float`, `double` |
+| `Math.max(x, y)`           | Returns the larger of `x` and `y`                                |
+| `Math.min(x, y)`           | Returns the smaller of `x` and `y`                               |
+| `Math.addExact(x, y)`      | Exact addition; throws exception on overflow                     |
+| `Math.subtractExact(x, y)` | Exact subtraction                                                |
+| `Math.multiplyExact(x, y)` | Exact multiplication                                             |
+| `Math.floorDiv(x, y)`      | Integer division with flooring                                   |
+| `Math.floorMod(x, y)`      | Floor modulus                                                    |
+
+Exponential and Logarithmic Functions
+
+| Method             | Description                           |
+| ------------------ | ------------------------------------- |
+| `Math.exp(x)`      | Returns *e^x*                         |
+| `Math.log(x)`      | Natural logarithm (base *e*)          |
+| `Math.log10(x)`    | Base-10 logarithm                     |
+| `Math.pow(x, y)`   | Returns *x^y*                         |
+| `Math.sqrt(x)`     | Square root of `x`                    |
+| `Math.cbrt(x)`     | Cube root of `x`                      |
+| `Math.hypot(x, y)` | √(x² + y²), avoids overflow/underflow |
+
+Trigonometric Functions
+
+| Method             | Description                                                         |
+| ------------------ | ------------------------------------------------------------------- |
+| `Math.sin(x)`      | Sine of `x` (radians)                                               |
+| `Math.cos(x)`      | Cosine of `x` (radians)                                             |
+| `Math.tan(x)`      | Tangent of `x` (radians)                                            |
+| `Math.asin(x)`     | Arc sine of `x`                                                     |
+| `Math.acos(x)`     | Arc cosine of `x`                                                   |
+| `Math.atan(x)`     | Arc tangent of `x`                                                  |
+| `Math.atan2(y, x)` | Arc tangent of `y/x` using signs of both args to determine quadrant |
+
+Angle Conversion
+
+| Method              | Description                 |
+| ------------------- | --------------------------- |
+| `Math.toDegrees(x)` | Converts radians to degrees |
+| `Math.toRadians(x)` | Converts degrees to radians |
+
+Rounding Functions
+
+| Method          | Description                                                                |
+| --------------- | -------------------------------------------------------------------------- |
+| `Math.ceil(x)`  | Rounds `x` up to the nearest integer                                       |
+| `Math.floor(x)` | Rounds `x` down to the nearest integer                                     |
+| `Math.round(x)` | Rounds to the nearest long (for float) or int (for double)                 |
+| `Math.rint(x)`  | Rounds to the nearest integer (returns double)                             |
+| `Math.ulp(x)`   | Returns the size of the unit in the last place (i.e., smallest difference) |
+
+Random Number Generation
+
+| Method          | Description                                                      |
+| --------------- | ---------------------------------------------------------------- |
+| `Math.random()` | Returns a double between `0.0` (inclusive) and `1.0` (exclusive) |
+
+Special Functions
+
+| Method                             | Description                                                                           |
+| ---------------------------------- | ------------------------------------------------------------------------------------- |
+| `Math.copySign(magnitude, sign)`   | Combines the magnitude of the first argument with the sign of the second              |
+| `Math.nextAfter(start, direction)` | Returns the floating-point number adjacent to `start` in the direction of `direction` |
+| `Math.nextUp(x)`                   | Returns the floating-point value next greater than `x`                                |
+| `Math.nextDown(x)`                 | Returns the floating-point value next less than `x`                                   |
+| `Math.signum(x)`                   | Returns the sign of `x`: -1.0, 0.0, or 1.0                                            |
+| `Math.scalb(x, scaleFactor)`       | Returns `x * 2^scaleFactor` efficiently                                               |

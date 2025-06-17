@@ -1,3 +1,12 @@
 Binary tree questions: 993, 101, 108, 98, 236, 105, 106, 297 and start from 4 hours 2 minuts
 Stacks and queues.
 videos: recursion and subsets - 32, 33, 34, 35, 36.
+
+
+
+1. Heaps and hashmap.
+2. java revision
+    => DSA revision.
+3. spring boot revision
+4. spring cloud revision
+5. spring security revision + oauth

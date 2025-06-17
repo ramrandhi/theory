@@ -451,7 +451,7 @@ HashMap<Integer> map = new HashMap<>();
 map.put("ram", 55);
 map.put("rajesh", 85);
 
-HASHCODE: hashcode is a method where a value of any type is given to it it returns the integer value of it.
+HASHCODE: hashcode is a method where a value of any type is given to it returns the integer value of it.
 HASHING: if the returned hashcode is large here hashing is added to hashcode and reduce it to smaller number to store in the hash table. because we cannot
 create a large table just to store that value.
 
@@ -462,6 +462,13 @@ and if two keys has same hasing value generated that is called collision.
 2. open addressing.
 
 => CHAINING: (chaining the elements like linked list inside the index to form all the elements)
+[
+  MAIN CONCEPT:
+  => In chaining it means there are a lot of collisions happening at a particular index so and in each index or bucket it uses a linkedlist to
+    to store all data inside the bucket using linkedlist if the new data goes collision on same index it increases the values that can be stored
+    in that index so if the size of linkedlist goes greaterthan 8 then red black tree(self balancing binary search tree is formed) to decrease 
+    the insertions, deletions, updation to reduce from O(N) (linkedlist) to O(log N) binary search trees. (after java 8).
+]
     => If collision we make an assumption that every key equally likely to be hashed to any slot in the table independent of all the keys that are hashed.
     => we call this as Simple uniform hashing. where, n = number of keys in table and m = size of table.
         load factor (alpha) = n/m; (expected key per slot).
@@ -483,15 +490,31 @@ and if two keys has same hasing value generated that is called collision.
 OPEN ADDRESSING: (one item per slot => m >= n)
  => So bascially open addressing means it probe or try to insert inside a open tray available.
  PROBING STRATEGIES: 
- 1. LINEAR PROBINHG: h(k,i) = (h(k)+i) % m;    ->  It jump linearly inside the bucket.
+ 1. LINEAR PROBINHG: If a bucket is occupied, look at the next bucket (index + 1) % capacity. Continue until an empty slot is found.
 
- 2. DOUBLE HASHING: h(k,i) = (h1(k) + i * h2(k)) % m;
+  Hash = 3
+  Index 3 is full → check 4 → full → check 5 → empty → insert
 
- 3. UNIFORM HASHING ASSUMPTION: every key is equally likely to have m factor permutations.
+2. Quadratic Probing: Instead of linearly searching, use a quadratic function to probe
+  index = (hash + i^2) % capacity, where i = 1, 2, 3...
+  Reduces clustering compared to linear probing.
+  =>Limitation: May not find an empty slot if the table is too full.
+
+ 3. DOUBLE HASHING: Uses a second hash function to determine the step size:
+ index = (hash1(key) + i * hash2(key)) % capacity
+ Very effective at spreading keys and reducing clustering.
 
  WHEN TO USE WHICH FROM CHAINNG AND OPEN ADDRESSING: 
  => open addressing is better cache performance. (because pointers not required).
  => chaining is used when less sensitive to hash functions.
+
+| Strategy          | Storage Location                 | Performance (avg) | Handles clustering | Memory Overhead      |
+| ----------------- | -------------------------------- | ----------------- | ------------------ | -------------------- |
+| Chaining          | Outside array (linked list/tree) | O(1) to O(log n)  | Yes                | More (extra objects) |
+| Linear Probing    | In array                         | O(1) when sparse  | No (suffers)       | Less                 |
+| Quadratic Probing | In array                         | O(1) when sparse  | Partially          | Less                 |
+| Double Hashing    | In array                         | O(1) when sparse  | Yes                | Less                 |
+
  
 
 
