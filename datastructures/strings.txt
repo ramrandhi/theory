@@ -115,3 +115,22 @@ public class StringMethodsExample {
 }
 
 
+
+
+STRING BUFFER: Mutable sequence of characters.
+  ADVANTAGES:
+  1. Mutable meaning we can change the created object.
+  2. Efficient because it wont be creating new objects everytime the object is modified.
+  3. thread safe because, no two threads can work on same object at the same time.(due to thread safety it is slower).
+  TYPES OF CONSTUCTORS:
+  // Constructor 1 (empty constructor)
+  StringBuffer sb1 = new StringBuffer();
+  // Constructor 2 (passing a string value through the constructor).
+  StringBuffer sb2 = new StringBuffer("kunal");
+  // Constructor 3 (we are setting the new size of 30, internally it is 16. string is sequence of characters new initially take 30 
+  // insted of 16 before resizing or doubling like arraylist).
+  StringBuffer sb3 = new StringBuffer(30);
+
+  METHODS:
+
+

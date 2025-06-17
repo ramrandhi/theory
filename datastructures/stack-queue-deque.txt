@@ -1,0 +1,16 @@
+STACK : (LIFO)
+Methods (last in first in) :
+    push(Object o) - adds an element to Stack.
+    pop() - retrives an element by removing it from stack.
+    peek() - retrives an element by not removing it.
+    isEmpty() - returns boolean with emptyness of stack.
+    search(Object o) - Returns the 1-based position from the top of the stack of the specified object, or -1 if not found.
+
+we can also work aroung with vector methods as stack extends vector.
+    add(E e)
+    get(int index) - Returns the object position from the bottom of the stack of the specified index, or throw ArrayIndexOutOfBoundsException error if out of bound.
+    remove(int index)
+    size()
+    clear()
+    contains(Object o)
+    etc...

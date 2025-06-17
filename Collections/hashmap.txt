@@ -1,0 +1,70 @@
+HASHMAP: 
+=> We can access data in constant amount of time. (O(1)).
+Example: 
+HashMap<Integer> map = new HashMap<>();
+map.put("ram", 55);
+map.put("rajesh", 85);
+
+HASHCODE: hashcode is a method where a value of any type is given to it returns the integer value of it.
+HASHING: if the returned hashcode is large here hashing is added to hashcode and reduce it to smaller number to store in the hash table. because we cannot
+create a large table just to store that value.
+
+so, for retriving data the data will be stored by generating a hash function and if the value is large, hashing is used to reduce the size of the generated hashcode.
+and if two keys has same hasing value generated that is called collision.
+=> for collision we have two ways to deal with it.
+1. chaining. 
+2. open addressing.
+
+=> CHAINING: (chaining the elements like linked list inside the index to form all the elements)
+[
+  MAIN CONCEPT:
+  => In chaining it means there are a lot of collisions happening at a particular index so and in each index or bucket it uses a linkedlist to
+    to store all data inside the bucket using linkedlist if the new data goes collision on same index it increases the values that can be stored
+    in that index so if the size of linkedlist goes greaterthan 8 then red black tree(self balancing binary search tree is formed) to decrease 
+    the insertions, deletions, updation to reduce from O(N) (linkedlist) to O(log N) binary search trees. (after java 8).
+]
+    => If collision we make an assumption that every key equally likely to be hashed to any slot in the table independent of all the keys that are hashed.
+    => we call this as Simple uniform hashing. where, n = number of keys in table and m = size of table.
+        load factor (alpha) = n/m; (expected key per slot).
+
+    HASH FUNCITONS:
+    1. DIVISION METHOD: h(k) = k % m; where m is size of array. sometimes they take prime number that is not too close to the power of 2 or 10;
+    2. Multiplication Method: h(k) = [(a*k)%2^w] >> (w-r);
+
+    UNIVERSAL HASHING: h(k) = [(a*k+b) % p] % m;  where a & b are random numbers (0,1,2,...p-1) where p is a large prime number.
+    SIZE OF TABLE: m = tita(n); all the time. where if m is small the table is slow and if table is big we are wasteing resources.
+    IDEA OF THE TABLE: start small and then grow big.
+    SIZE: 
+    ADDING=> When we add +1, for every rotation to double the size, the time it takes is n = o(1+2+3+...+n) = O(n^2);
+    MULTIPLY => when we multiply *2 (double the size) => m*=2;, the time it takes is n = o(1+2+4+8...n) = O(N).
+    => on an average if the add 1 item it takes o(1) amotized constant time.
+    => if the values is half the size thatis => n = m/2; we can shrink the size by half => m/2;
+    => when n = m/4 then half the size that is 0(1) amotized time.
+
+OPEN ADDRESSING: (one item per slot => m >= n)
+ => So bascially open addressing means it probe or try to insert inside a open tray available.
+ PROBING STRATEGIES: 
+ 1. LINEAR PROBINHG: If a bucket is occupied, look at the next bucket (index + 1) % capacity. Continue until an empty slot is found.
+
+  Hash = 3
+  Index 3 is full → check 4 → full → check 5 → empty → insert
+
+2. Quadratic Probing: Instead of linearly searching, use a quadratic function to probe
+  index = (hash + i^2) % capacity, where i = 1, 2, 3...
+  Reduces clustering compared to linear probing.
+  =>Limitation: May not find an empty slot if the table is too full.
+
+ 3. DOUBLE HASHING: Uses a second hash function to determine the step size:
+ index = (hash1(key) + i * hash2(key)) % capacity
+ Very effective at spreading keys and reducing clustering.
+
+ WHEN TO USE WHICH FROM CHAINNG AND OPEN ADDRESSING: 
+ => open addressing is better cache performance. (because pointers not required).
+ => chaining is used when less sensitive to hash functions.
+
+| Strategy          | Storage Location                 | Performance (avg) | Handles clustering | Memory Overhead      |
+| ----------------- | -------------------------------- | ----------------- | ------------------ | -------------------- |
+| Chaining          | Outside array (linked list/tree) | O(1) to O(log n)  | Yes                | More (extra objects) |
+| Linear Probing    | In array                         | O(1) when sparse  | No (suffers)       | Less                 |
+| Quadratic Probing | In array                         | O(1) when sparse  | Partially          | Less                 |
+| Double Hashing    | In array                         | O(1) when sparse  | Yes                | Less                 |

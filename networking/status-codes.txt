@@ -1,0 +1,68 @@
+Status codes in APIs are part of the HTTP protocol, used to indicate the success or failure of a request. They are grouped into five classes based on their purpose. Below is a comprehensive list of commonly used status codes and their meanings:
+
+1xx: Informational Responses
+These codes indicate that the server has received the request and is continuing the process.
+
+100 Continue: The server has received the request headers and the client can proceed to send the request body.
+101 Switching Protocols: The server is switching protocols as requested by the client.
+102 Processing: The server has received the request and is processing it, but no response is yet available (used in WebDAV).
+2xx: Success
+These codes indicate that the request was successfully received, understood, and processed.
+
+200 OK: The request was successful, and the response contains the requested data.
+201 Created: The request was successful, and a new resource was created as a result.
+202 Accepted: The request has been accepted for processing, but the processing is not yet complete.
+203 Non-Authoritative Information: The server is returning information from a third-party source.
+204 No Content: The request was successful, but there is no content to return.
+205 Reset Content: The server processed the request and requests the client to reset the document view.
+206 Partial Content: The server is delivering only part of the resource due to a range header sent by the client.
+3xx: Redirection
+These codes indicate that further action needs to be taken by the client to complete the request.
+
+300 Multiple Choices: Multiple options are available for the resource requested.
+301 Moved Permanently: The resource has been permanently moved to a new URL.
+302 Found: The resource is temporarily located at a different URL.
+303 See Other: The response can be found at a different URL and should be retrieved using a GET request.
+304 Not Modified: The resource has not been modified since the last request (used for caching).
+307 Temporary Redirect: The request should be repeated with another URL, but future requests should use the original URL.
+308 Permanent Redirect: Similar to 301, but the method and body should not be changed when reissuing the request.
+4xx: Client Errors
+These codes indicate that there was an error in the request sent by the client.
+
+400 Bad Request: The server cannot process the request due to client-side errors (e.g., malformed syntax).
+401 Unauthorized: Authentication is required and has failed or has not been provided.
+402 Payment Required: Reserved for future use (often associated with digital payment systems).
+403 Forbidden: The server understands the request but refuses to authorize it.
+404 Not Found: The requested resource could not be found on the server.
+405 Method Not Allowed: The HTTP method used is not allowed for the resource.
+406 Not Acceptable: The server cannot generate a response that matches the client’s Accept headers.
+407 Proxy Authentication Required: The client must authenticate with a proxy server.
+408 Request Timeout: The server timed out waiting for the request.
+409 Conflict: The request could not be completed due to a conflict with the current state of the resource.
+410 Gone: The resource is no longer available on the server and no forwarding address is provided.
+411 Length Required: The server requires a Content-Length header in the request.
+412 Precondition Failed: The server does not meet one of the preconditions specified by the client.
+413 Payload Too Large: The request payload is too large for the server to process.
+414 URI Too Long: The URI provided in the request is too long for the server to handle.
+415 Unsupported Media Type: The server does not support the media type in the request.
+416 Range Not Satisfiable: The range specified by the Range header cannot be fulfilled.
+417 Expectation Failed: The server cannot meet the requirements of the Expect header.
+418 I'm a Teapot: A playful code defined in RFC 2324 (Hyper Text Coffee Pot Control Protocol).
+422 Unprocessable Entity: The server understands the request but cannot process the instructions (often used in validation errors).
+429 Too Many Requests: The client has sent too many requests in a given period (rate limiting).
+5xx: Server Errors
+These codes indicate that the server failed to process a valid request due to an issue on its end.
+
+500 Internal Server Error: The server encountered an unexpected condition that prevented it from fulfilling the request.
+501 Not Implemented: The server does not support the functionality required to fulfill the request.
+502 Bad Gateway: The server received an invalid response from an upstream server.
+503 Service Unavailable: The server is currently unable to handle the request (e.g., maintenance or overload).
+504 Gateway Timeout: The server did not receive a timely response from an upstream server.
+505 HTTP Version Not Supported: The server does not support the HTTP protocol version used in the request.
+507 Insufficient Storage: The server is unable to store the representation needed to complete the request (used in WebDAV).
+511 Network Authentication Required: The client needs to authenticate to gain network access.
+How to Use Status Codes Effectively
+2xx: Use for successful responses, including creation, updates, and deletions.
+4xx: Use to indicate client-side issues, such as validation errors or authentication failures.
+5xx: Use to indicate server-side issues, such as downtime or unexpected conditions.
+Custom Codes: If needed, add details in the response body to clarify the error further. Avoid creating non-standard codes unless absolutely necessary.

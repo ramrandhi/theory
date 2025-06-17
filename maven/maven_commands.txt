@@ -1,0 +1,10 @@
+1. Run the Spring Boot Application                       - mvn spring-boot:run
+2. Clean the Project                                     - mvn clean
+3. Compile the Project                                   - mvn compile
+4. Run Tests                                             - mvn test
+5. Package the Application                               - mvn package
+6. Install to Local Maven Repository                     - mvn install
+7. Build + Run Together                                  - mvn clean install spring-boot:run
+8. Skip Tests During Build                               - mvn install -DskipTests
+9. Download All Dependencies                             - mvn dependency:resolve
+10. Run Integration Tests Separately                     - mvn verify -Pintegration
