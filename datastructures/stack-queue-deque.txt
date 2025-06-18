@@ -14,3 +14,57 @@ we can also work aroung with vector methods as stack extends vector.
     clear()
     contains(Object o)
     etc...
+
+ OVERVIEW:
+
+| Structure | Interface/Class     | Nature      | Order              | Allows Null          | Thread-Safe (default)           |
+| --------- | ------------------- | ----------- | ------------------ | -------------------- | ----------------------------    |
+| Queue     | `Queue` (Interface) | FIFO        | First-In-First-Out | Some implementations | ❌                              |
+| Deque     | `Deque` (Interface) | FIFO & LIFO | Double-Ended       | Some implementations | ❌                              |
+| Stack     | `Stack` (Class)     | LIFO        | Last-In-First-Out  | ✅                    | ❌ (but synchronized methods)  |
+
+Core Method Comparison
+
+| Method            | `Queue` | `Deque` | `Stack` | Description                                |
+| ----------------- | ------- | ------- | ------- | ------------------------------------------ |
+| `add(E e)`        | ✅       | ✅       | ❌       | Inserts element (throws exception if full) |
+| `offer(E e)`      | ✅       | ✅       | ❌       | Inserts element (returns false if full)    |
+| `remove()`        | ✅       | ✅       | ❌       | Removes and returns head (throws if empty) |
+| `poll()`          | ✅       | ✅       | ❌       | Removes and returns head (null if empty)   |
+| `element()`       | ✅       | ✅       | ❌       | Returns head (throws if empty)             |
+| `peek()`          | ✅       | ✅       | ❌       | Returns head (null if empty)               |
+| `push(E e)`       | ❌       | ✅       | ✅       | Inserts at front (Stack behavior)          |
+| `pop()`           | ❌       | ✅       | ✅       | Removes and returns top (LIFO)             |
+| `peekFirst()`     | ❌       | ✅       | ❌       | Returns front element                      |
+| `peekLast()`      | ❌       | ✅       | ❌       | Returns last element                       |
+| `offerFirst(E e)` | ❌       | ✅       | ❌       | Inserts at front                           |
+| `offerLast(E e)`  | ❌       | ✅       | ❌       | Inserts at end                             |
+| `pollFirst()`     | ❌       | ✅       | ❌       | Removes and returns first                  |
+| `pollLast()`      | ❌       | ✅       | ❌       | Removes and returns last                   |
+
+Common Implementations
+
+| Structure | Implementations                             | Notes                                   |
+| --------- | ------------------------------------------- | --------------------------------------- |
+| `Queue`   | `LinkedList`, `PriorityQueue`, `ArrayDeque` | `PriorityQueue` does not guarantee FIFO |
+| `Deque`   | `LinkedList`, `ArrayDeque`                  | `ArrayDeque` is faster than `Stack`     |
+| `Stack`   | `Stack` (extends `Vector`)                  | Consider using `Deque` instead          |
+
+When to Use What?
+
+| Use Case                                          | Recommended Structure |
+| ------------------------------------------------- | --------------------- |
+| FIFO task scheduling                              | `Queue`               |
+| LIFO behavior (undo, history)                     | `Deque` / `Stack`     |
+| Double-ended queueing (add/remove from both ends) | `Deque`               |
+| Priority-based processing                         | `PriorityQueue`       |
+
+ Deprecated Advice
+
+ ⚠️ Avoid using Stack for new code.
+Prefer using Deque (via ArrayDeque) for stack-like behavior:
+
+Deque<Integer> stack = new ArrayDeque<>();
+stack.push(1);
+stack.pop();
+
