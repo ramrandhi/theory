@@ -1,14 +1,52 @@
 HEAPS: 
 Properties:
 1. It actally stores data in an array but we need to visualize it in Binary Tree(Complete Binary Tree).
-2. Every Node value is greaterThan or equal to (>=) all of its children.
+2. a. Every Node value is greaterThan or equal to (>=) all of its children. (max Heap)
+   b. Every Node value is lessThan or equal to (<=) all of its children. (min Heap)
 3. root => i = 1;
 4. parent(i) = i/2;
 5. left = 2*i;
 6. right = 2*i + 1;
 7. height is log(n);
 
-UPHEAP:  
+1. MIN HEAP VS MAX HEAP
+
+    Heap Type: Min-Heap  
+    Property: Each parent ≤ its children
+
+    Heap Type: Max-Heap  
+    Property: Each parent ≥ its children
+
+2.  Clarify Indexing  (1-based indexing)  (If using 0-based, these formulas change:)
+    parent(i) = (i - 1) / 2
+    left(i) = 2*i + 1
+    right(i) = 2*i + 2
+
+3. Add Downheap (Heapify-down / Sift-down) (Upheap is only half the story. For deletion (like poll() or remove()), Downheap is used.)
+DOWNHEAP:
+- Used when removing the root.
+- Swap root with last element, then remove the last.
+- Restore heap property by comparing with children and swapping down.
+
+4. Mention Use Cases
+USE CASES:
+- Priority Queue
+- Dijkstra’s Algorithm
+- Heap Sort
+- Task Scheduling
+- Median Maintenance (using two heaps)
+
+5. Add Time Complexity Table
+
+OPERATION     | TIME COMPLEXITY
+--------------|------------------
+Insert        | O(log n)
+Delete min/max| O(log n)
+Peek min/max  | O(1)
+Build Heap    | O(n)
+
+
+UPHEAP:
 => The upheap operation (also called bubble-up or heapify-up) is used in a heap (usually a binary heap) when you insert a new element 
 and need to maintain the heap property.
 => we use ArrayList to make a priority Queue insted of insted of linkedlist because it takes O(n) where arraylist only takes O(log n).
