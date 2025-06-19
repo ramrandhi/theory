@@ -36,7 +36,8 @@ b). Application Context - (Application context is the extension of bean factory 
 	
 2). WEB SERVLET CONTAINER (Embedded Web Server) : 
 
-a. the Web servlet container bascially handles http requests and responses in a web application. web servlet container works with the network side of the application where the api requests particularly the communicaition between the client and the server.
+a. the Web servlet container bascially handles http requests and responses in a web application. web servlet container works with the network side of the application where the 
+	api requests particularly the communicaition between the client and the server.
 b. by default web servlet container used apache tomcat as the web server.
 
 what is API ?
@@ -135,7 +136,8 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 		5. session.save(tn);
 		6. tn.commit();
 		
-	-> this is how hibernate works internally by using "hibernate.cfg.xml" file if we intensionally want to change the name we need add the name in configure() method in Configuration (Configuration con = new Configuration().configure("hibernate.xml").addAnnotatedClass(Alien.class))
+	-> this is how hibernate works internally by using "hibernate.cfg.xml" file if we intensionally want to change the name we need add the name in configure() method in 
+		Configuration (Configuration con = new Configuration().configure("hibernate.xml").addAnnotatedClass(Alien.class))
 	
 	-> How "hibernate.cfg.xml" file looks and different properties =>
 	
@@ -330,7 +332,8 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 		(i). to make the hibernate to eager load the data we can use fetch=FetchType.EAGER.
 		(ii). by default Hibernate is lazy loaded because it things we only want data from one single table not from child table so it just queries to lazy load the data.
 		
-		Example : -> One Student can have multiple Laptops, and the foreign key STUDENT_ID is stored in the Laptop table to establish the relationship. so by using fetchType eager we can make sure that the parent table data and child table data is retrived from the database using hibernate.
+		Example : -> One Student can have multiple Laptops, and the foreign key STUDENT_ID is stored in the Laptop table to establish the relationship. so by using fetchType 
+					eager we can make sure that the parent table data and child table data is retrived from the database using hibernate.
 		
 			@Entity
 			public class Student {
@@ -350,14 +353,21 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 			
 			
 			
-	HIBERNATE CACHING: -> Hibernate provides several caching mechanisms to optimize the database by reducing the number of database queries. there are two levels of caching in hibernate. (i). First-Level cache (session cache), (ii). Second-Level cache (SessionFactory cache), (iii). quere cache.
+	HIBERNATE CACHING: -> Hibernate provides several caching mechanisms to optimize the database by reducing the number of database queries. there are two levels of caching in 
+						hibernate. (i). First-Level cache (session cache), (ii). Second-Level cache (SessionFactory cache), (iii). quere cache.
 
-	1. First-Level cache (session cache) -> This is a cache technique which is enabled by default and cannot disable this cache. In this caching technique when inside an api call which we can take it as session when opened to make transactions when the api is fetching the data from same entity the data will be cached inside the session and that cache provides data without making db call until the session is closed. In between the session if the same entity is called multiple times hibernate will not query the database and returns data from the stored cache from that session.
+	1. First-Level cache (session cache) -> This is a cache technique which is enabled by default and cannot disable this cache. In this caching technique when inside an api 
+											call which we can take it as session when opened to make transactions when the api is fetching the data from same entity the data will 
+											be cached inside the session and that cache provides data without making db call until the session is closed. In between the session if 
+											the same entity is called multiple times hibernate will not query the database and returns data from the stored cache from that session.
 		(a). Transaction-scoped.
 		(b). Automatically managed by Hibernate.
 		(c). Cannot be disabled.
 		
-	2. Second-Level Cache (SessionFactory cache)  -> Second level cache technique is technique in which this cache is available for different sessions in the application until or unless the data is updated and we need to set that using @cache(usage = CacheConcurrencyStrategy.READ_WRITE) with this when the cache data is overwritten in the database then cache is marked as needed to be refreshed and this cache is not available until cached again or queried to database for updated data.
+	2. Second-Level Cache (SessionFactory cache)  -> Second level cache technique is technique in which this cache is available for different sessions in the application until or 
+													unless the data is updated and we need to set that using @cache(usage = CacheConcurrencyStrategy.READ_WRITE) with this when the 
+													cache data is overwritten in the database then cache is marked as needed to be refreshed and this cache is not available until 
+													cached again or queried to database for updated data.
 	-> This is a Entity level cache so only entities marked with @Cacheable and @Cache(usage=CacheConcurrencyStrategy.READ_WRITE) can be cached to SessionFactory.
 	
 		(a). SessionFactory-scoped.
@@ -407,14 +417,18 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 
    Difference between get and load methods in Hibernate :
    1. Get will give you data when we make a get call directly and when data is not found in case of getById throws NullPointerException.
-   2. Load will give you data when we make a load call with the usage of that particular object if there is no useage load will not work and throws ObjectNOFound exception when the load with id not found.
+   2. Load will give you data when we make a load call with the usage of that particular object if there is no useage load will not work and throws ObjectNOFound exception when 
+	  the load with id not found.
    
    
    WHAT IS JPA (Java Persistance API) :
    
-   -> JPA is a specification in Java that defines a standard way to map Java objects to relational databases and manage database operations using Java. It provides a set of guidelines and principles for building ORM (Object-Relational Mapping) tools. Frameworks like Hibernate, EclipseLink, and OpenJPA are popular implementations of the JPA specification.
+   -> JPA is a specification in Java that defines a standard way to map Java objects to relational databases and manage database operations using Java. It provides a set of 
+		guidelines and principles for building ORM (Object-Relational Mapping) tools. Frameworks like Hibernate, EclipseLink, and OpenJPA are popular implementations of the JPA 
+		specification.
    
-   -> JPA itself is not a framework or tool but a set of interfaces and rules. Frameworks like Hibernate provide the actual implementation, following the guidelines set by the JPA specification.
+   -> JPA itself is not a framework or tool but a set of interfaces and rules. Frameworks like Hibernate provide the actual implementation, following the guidelines set by the 
+	  JPA specification.
    
    
    SPRING FRAMEWORK :
@@ -425,9 +439,11 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 	SPRING CORE : 
 	
 	-> Spring core contains two types of scopes and spring framework a lot of scopes. But lets talk about spring core scopes here 
-		1. Singleton Scope : This Scope follows singleTon Design pattern meaning it has only one instance or gives only single object for any instances and it is by default behaviour of singleton scope. When we put @Component the singleTon scope will create a object when the container is initialized.
+		1. Singleton Scope : This Scope follows singleTon Design pattern meaning it has only one instance or gives only single object for any instances and it is by default 
+		behaviour of singleton scope. When we put @Component the singleTon scope will create a object when the container is initialized.
 
-		2. Prototype Scope : This Scope follows prototype Design pattern meaning it creates new object for every new instance with that class and it not by default available in spring and we need to enable this scope. only when we create a new object the new object will be created by spring for us to use by prototype scope.
+		2. Prototype Scope : This Scope follows prototype Design pattern meaning it creates new object for every new instance with that class and it not by default available in 
+			spring and we need to enable this scope. only when we create a new object the new object will be created by spring for us to use by prototype scope.
 
 
 	-> Setter Injection : 
@@ -560,12 +576,14 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 
 	
 	@Primary :
-		In Spring Framework, the primary annotation refers to @Primary, which is used to mark a bean as the preferred candidate for dependency injection when multiple beans of the same type exist.
+		In Spring Framework, the primary annotation refers to @Primary, which is used to mark a bean as the preferred candidate for dependency injection when multiple beans of 
+		the same type exist.
 
 		Key Features of @Primary:
 		
 		1.Default Bean Selection:
-			When multiple beans of the same type are defined in the Spring context, @Primary helps Spring decide which bean to inject by default without requiring further qualification.
+			When multiple beans of the same type are defined in the Spring context, @Primary helps Spring decide which bean to inject by default without requiring further 
+			qualification.
 		
 		2. Override with @Qualifier:
 			Even if a bean is marked as @Primary, you can override the default selection using the @Qualifier annotation.
@@ -623,7 +641,8 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 	
 	Spring boot jdbc -> Spring boot gives JdbcTemplate which gives all the methods for the connection with the database we can inject this jdbcTemplate class and use it's features.
 	
-		JdbcTemplate is a helper class provided by Spring that simplifies the usage of JDBC (Java Database Connectivity) for executing SQL queries, updates, and other database operations. It abstracts the repetitive boilerplate code like establishing connections, preparing statements, handling exceptions, and closing resources.
+		JdbcTemplate is a helper class provided by Spring that simplifies the usage of JDBC (Java Database Connectivity) for executing SQL queries, updates, and other database 
+		operations. It abstracts the repetitive boilerplate code like establishing connections, preparing statements, handling exceptions, and closing resources.
 
 		Key Features of JdbcTemplate:
 		
@@ -651,23 +670,33 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 	
 	
 INTERSERVICE COMMUNICATION : communication between the microservices. ways to Implement Interservice communication.
-	-> SYNCHRONOUS COMMUNICATION : Synchronous communication mode uses synchronous request, response mechanism where a client waits for a response from the server before proceeding. this can be achieved through http protocols like rest or soap.
+	-> SYNCHRONOUS COMMUNICATION : Synchronous communication mode uses synchronous request, response mechanism where a client waits for a response from the server before proceeding.
+		 this can be achieved through http protocols like rest or soap.
 	
-	1.REST TEMPLATE : 
+	1.REST TEMPLATE : (old and almost not used)
 			1. Abstraction
 			2. versatility
 			3. conversion
 			4. error handling
 			5. Integration
 	
-	-> ASYNCHRONOUS COMMUNICATION : In Asynchronous communication microservices work asynchronously and can communicate with message queues or message brokers like rebitmq, apache kafka, aws simple queueing service.
+	-> ASYNCHRONOUS COMMUNICATION : In Asynchronous communication microservices work asynchronously and can communicate with message queues or message brokers like rebitmq, 
+		apache kafka, aws simple queueing service.
+
+	2. WebClient : 
+			1. Non-blocking
+			2. Reactive
+			3. Versatile
+			4. Error Handling
+			5. Integration with Reactive Streams
 		
-EXCEPTION HANDLING IN SPRING BOOT : Spring internally has SpringErrorHandler class that can handle the minor exceptions but for specific exception that need to be implemented we need to use @ControllerAdvice to framework level for spring to intercept all the exceptions thrown at controller level.
+EXCEPTION HANDLING IN SPRING BOOT : Spring internally has SpringErrorHandler class that can handle the minor exceptions but for specific exception that need to be implemented 
+									we need to use @ControllerAdvice to framework level for spring to intercept all the exceptions thrown at controller level.
 
 -> @ControllerAdvice -> Handles Exceptions from both RestController and Controller
 -> @ControllerAdvice(annotations = RestController.class) -> Handles Exceptions only comes from RestControllers.
 -> @ControllerAdvice(annotations = Controller.class) -> Handles Exceptions only from Controllers
--> @Order(Ordered.HIGHEST_PRECEDENCE) -> this gives the higest priority to this current class annotated with @ControllerAdvice to handle i mean high priority.
+-> @Order(Ordered.HIGHEST_PRECEDENCE) -> this gives the higest priority to this current class annotated with @ControllerAdvice to handle exceptions.
 -> @ExceptionHandler(Exception.class) -> this is a method level annotation used to specify the type of exception that method should be handling
 
 1. It is a specialized annotation used to handle exceptions thrown by controllers.
@@ -718,7 +747,8 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(confirmMessage, HttpStatus.BAD_REQUEST);
 	}
 
--> For a class to Exception handler in spring it need to be having @ControlAdvice and to override default ResposeEntityExceptionHandler methods we need to extends ResponseEntityExceptionHandler class.
+-> For a class to Exception handler in spring it need to be having @ControlAdvice and to override default ResposeEntityExceptionHandler methods we need to extends 
+	ResponseEntityExceptionHandler class.
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 
@@ -763,7 +793,8 @@ FEATURES :
   }
 }
 
-these are the basic end points that spring boot actuator exposes by default. if we want to expose all the end points then we can use "management.endpoints.web.exposure.include=*" with this all the actuator end points will be exposed and not recomanded because of the data leaks.
+these are the basic end points that spring boot actuator exposes by default. if we want to expose all the end points then we can use "management.endpoints.web.exposure.include=*" 
+with this all the actuator end points will be exposed and not recomanded because of the data leaks.
 
 Different end points and its usage
 1. /health -> shows application health information, useful for checking the status of the application such as database connectivity, disk space and custom health checks.
@@ -784,7 +815,8 @@ SERVICE REGISTRY :
   -> A service registry is used in microservices architecture to enable dynamic service discovery
   => Spring cloud eureka is the most popular service registry.
   
-  @LoadBalanced -> load balanced in eureka service registry is used to locate the specific id of the service and is used in inter-service communication (rest template) in microservices architecture.
+  @LoadBalanced -> load balanced in eureka service registry is used to locate the specific id of the service and is used in inter-service communication (rest template) in 
+  microservices architecture.
 
 	How Services Connected with Eureka Server ?
 	-> By using heartBeats signals that is requests to the eureka server at certain time intervals all microservices communicate with service registry that is eureka server.
@@ -804,11 +836,13 @@ OPEN FAIGN :
 
 	3. @FeignClient (for interface level)
 
--> It has builtin load Balancer where with FeignClient comes with ribbon a technology used for load balancing but when it comes to web Client or RestTemplate we need to annotate the the method where we declare webclient or restTemplate with @LoadBalanced to make them loadBalanced.
+-> It has builtin load Balancer where with FeignClient comes with ribbon a technology used for load balancing but when it comes to web Client or RestTemplate we need to annotate 
+the the method where we declare webclient or restTemplate with @LoadBalanced to make them loadBalanced.
 	 
 	 
 ZIPKIN : 
-	-> Zipkin is a distributed tracing system that helps gather and visualize latency data across microservices. Below is an explanation of how it works internally, along with a diagram.
+	-> Zipkin is a distributed tracing system that helps gather and visualize latency data across microservices. Below is an explanation of how it works internally, along with a 
+	diagram.
 	
 	Zipkin Internal Components
 1. Instrumented Client / Service
@@ -873,7 +907,8 @@ ZIPKIN :
 |  (Visualizes Trace Data)   |
 +----------------------------+
 
--> for every request it creates a trace id and for every microservice that request interacts in microservice communication it creates span id so that zipkin analysis the data when span id passes through each microservice it calculates everything like speed data coming and all. 
+-> for every request it creates a trace id and for every microservice that request interacts in microservice communication it creates span id so that zipkin analysis the data 
+when span id passes through each microservice it calculates everything like speed, data coming and all. 
 
 MICROMETER WORKING WITH ZIPKIN : (while micrometere gives application level metrics zipkin gives each request level metrics)
 	Micrometer provides insights that help you keep tabs on your applications performance.
