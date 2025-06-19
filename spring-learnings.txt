@@ -9,7 +9,8 @@ Spring Boot application working :
 6. to stop spring boot application - mvn spring-boot:stop
 7. to create docker image for spring boot application - mvn spring-boot:build-image
 
-Spring Boot web application, both the Spring IoC (Inversion of Control) container and the web servlet container (embedded web server) work in parallel but serve different purposes to run the application. They complement each other in the following way:
+Spring Boot web application, both the Spring IoC (Inversion of Control) container and the web servlet container (embedded web server) work in parallel but serve different purposes 
+to run the application. They complement each other in the following way:
 
 1). SPRING IOC (INVERSION OF CONTROL) CONTAINER :
 
