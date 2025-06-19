@@ -62,3 +62,129 @@ and need to maintain the heap property.
 | Before insert | `[1, 3, 6, 5, 9]`    |
 | After insert  | `[1, 3, 6, 5, 9, 2]` |
 | After upheap  | `[1, 3, 2, 5, 9, 6]` |
+
+
+======================================================================================================================
+By ChatGpt
+
+
+=========================
+HEAPS: Basics to Advanced
+=========================
+
+1. INTRODUCTION
+---------------
+A Heap is a special Tree-based data structure that satisfies the Heap Property.
+- It is a Complete Binary Tree (CBT).
+- Stored as an array for efficiency.
+- Two main types:
+    a. Min-Heap: Parent <= children.
+    b. Max-Heap: Parent >= children.
+
+2. REPRESENTATION (1-based vs 0-based)
+--------------------------------------
+If using 1-based indexing:
+- root: i = 1
+- parent(i) = i / 2
+- left(i) = 2 * i
+- right(i) = 2 * i + 1
+
+If using 0-based indexing (Java, Python):
+- root: i = 0
+- parent(i) = (i - 1) / 2
+- left(i) = 2 * i + 1
+- right(i) = 2 * i + 2
+
+3. PROPERTIES
+-------------
+- Complete Binary Tree: All levels are filled except possibly the last.
+- Heap Property: Each node is >= or <= children depending on type.
+- Stored as an Array.
+- Height of Heap: log(n)
+
+4. OPERATIONS AND COMPLEXITIES
+------------------------------
+Operation       | Time Complexity
+----------------|-----------------
+Insert          | O(log n)
+Delete (root)   | O(log n)
+Peek (min/max)  | O(1)
+Build Heap      | O(n)
+
+5. UPHEAP (Bubble-Up / Heapify-Up)
+----------------------------------
+- Used when inserting a new element.
+Steps:
+1. Add the element at the end.
+2. Compare with its parent.
+3. If it violates the heap property, swap it.
+4. Repeat until heap property is restored.
+
+Example (Min-Heap):
+Step             | Array Representation
+-----------------|------------------------
+Before insert    | [1, 3, 6, 5, 9]
+After insert(2)  | [1, 3, 6, 5, 9, 2]
+After upheap     | [1, 3, 2, 5, 9, 6]
+
+6. DOWNHEAP (Heapify-Down / Sift-Down)
+--------------------------------------
+- Used when deleting the root.
+Steps:
+1. Replace root with the last element.
+2. Remove the last element.
+3. Compare the new root with its children.
+4. Swap with the smaller (min-heap) or larger (max-heap) child if needed.
+5. Repeat until heap property is restored.
+
+Example (Min-Heap):
+Initial Heap: [1, 3, 2, 5, 9]
+After removing root (1), replace with 9: [9, 3, 2, 5]
+Downheap swaps: [2, 3, 9, 5]
+
+7. BUILDING A HEAP (Heapify)
+----------------------------
+- Convert an arbitrary array into a heap.
+- Bottom-up approach: O(n) time.
+  Start from last non-leaf node and apply downheap.
+
+8. APPLICATIONS OF HEAPS
+------------------------
+- Priority Queues
+- Dijkstra’s Algorithm
+- Huffman Coding
+- Heap Sort (O(n log n))
+- Task Scheduling / CPU Scheduling
+- Kth Largest/Smallest Element
+- Median Maintenance (Two heaps: Max-Heap & Min-Heap)
+
+9. JAVA PRIORITYQUEUE (Min-Heap by default)
+------------------------------------------
+PriorityQueue<Integer> pq = new PriorityQueue<>();
+pq.add(3);
+pq.add(1);
+pq.add(5);
+System.out.println(pq.poll()); // 1
+
+10. MAX-HEAP in JAVA (using Comparator)
+--------------------------------------
+PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+
+11. HEAP SORT (Using Max-Heap)
+------------------------------
+1. Build max heap.
+2. Swap root with last element.
+3. Reduce heap size and apply downheap.
+Time Complexity: O(n log n)
+
+12. COMMON INTERVIEW PROBLEMS
+-----------------------------
+- Merge K sorted arrays
+- Kth largest element
+- Stream median (with two heaps)
+- Find top K frequent elements
+
+=============================
+END OF HEAP NOTES (.txt)
+=============================
+// Note: This is a simplified version of heap concepts. For detailed implementations, refer to specific programming language documentation or textbooks.
