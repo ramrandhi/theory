@@ -3,7 +3,7 @@ SPRING SECURITY:
 WHAT IS SECURITY:
 1. Privacy Protection : protecting user data.
 2. Trust : application should be trust worthy with security.
-3. Integrity: How it it working.
+3. Integrity: How it is working.
 4. Compliance: there are some digital world laws that need to be complied by our application.
 
 
@@ -11,7 +11,7 @@ WHAT IS SECURITY:
 2. AUTHORIZATION  -  Authorization is about what you're allowed to do after you've proven who you are.
 
 kEY SECURITY PRINCIPLES :
-1. Least Privilige - to perform certail task users should have minimum permissions to do that task.
+1. Least Privilige - to perform certain task users should have minimum permissions to do that task.
 2. Secure by Design - security should be managed when the design is being created.
 3. Fail safe defaults - without requireing additional configurations they should be secure by default.
 4. secure Communication - whatever data that is incoming or outgoing that should be secured.
@@ -47,7 +47,7 @@ ABOVE DIAGRAM SECURITY FLOW:
     of username and password if they are correct then authentication provider created a complete object by populating more data from
     the fetched object like roles etc.
 4. That complete object is returned back to autentication manager and it returns back to authentication filters then the security
-    context is set. (Securit context is the context that will be available through out the request and it stores information about the
+    context is set. (Security context is the context that will be available through out the request and it stores information about the
     the authentication is stored).
 5. Security context will take care of the incoming requests that are coming from that client in that logged in time.
 

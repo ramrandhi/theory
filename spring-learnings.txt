@@ -99,6 +99,24 @@ Supports messaging systems like Kafka and RabbitMQ, enabling seamless integratio
 12. Spring Cloud:
 A suite of tools for building microservices, including support for service discovery, circuit breakers, and API gateways.
 
+4.TRANSACTIONAL MANAGEMENT
+	What is a Transaction in Java?
+	->	In Java, especially when working with databases, a transaction is a sequence of operations that should either complete entirely or 
+		not at all. Transactions ensure data consistency, integrity, and reliability.
+		For example:
+		Transferring money from one account to another: If money is debited from one account but not credited to the other, data becomes 
+		inconsistent. A transaction ensures both operations happen together.
+		ACID Properties of Transactions
+		Atomicity – All operations in a transaction succeed or none do.
+		Consistency – The system moves from one valid state to another.
+		Isolation – Transactions do not affect each other.
+		Durability – Once a transaction is committed, it's permanently recorded.
+	1. @Transactional works only with the public methods of a class.
+	2. @Transactional can be rolls back on uncheked exceptions to roll back on checked exceptions we need to explicitly mention the rollbackFor attribute.
+		eg: @Transactional(rollbackFor = Exception.class)
+	3. @Transactional doesn't work well with @Async methods because @Async methods are executed in a different thread, and the 
+		transaction context is not propagated to that thread. so use TransactionTemplate for async methods.
+
 
 HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 		-> This framework is bascially used for mapping objects into particular table inside database using orm functionality;
