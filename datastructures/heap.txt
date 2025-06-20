@@ -3,10 +3,10 @@ Properties:
 1. It actally stores data in an array but we need to visualize it in Binary Tree(Complete Binary Tree).
 2. a. Every Node value is greaterThan or equal to (>=) all of its children. (max Heap)
    b. Every Node value is lessThan or equal to (<=) all of its children. (min Heap)
-3. root => i = 1;
+3. root: i = 1 (1 based indexing)
 4. parent(i) = i/2;
-5. left = 2*i;
-6. right = 2*i + 1;
+5. left(i) = 2*i;
+6. right(i) = 2*i + 1;
 7. height is log(n);
 
 1. MIN HEAP VS MAX HEAP
@@ -17,10 +17,19 @@ Properties:
     Heap Type: Max-Heap  
     Property: Each parent ≥ its children
 
-2.  Clarify Indexing  (1-based indexing)  (If using 0-based, these formulas change:)
-    parent(i) = (i - 1) / 2
-    left(i) = 2*i + 1
-    right(i) = 2*i + 2
+2. REPRESENTATION (1-based vs 0-based)
+    --------------------------------------
+    If using 1-based indexing:
+    - root: i = 1
+    - parent(i) = i / 2
+    - left(i) = 2 * i
+    - right(i) = 2 * i + 1
+
+    If using 0-based indexing (Java, Python):
+    - root: i = 0
+    - parent(i) = (i - 1) / 2
+    - left(i) = 2 * i + 1
+    - right(i) = 2 * i + 2
 
 3. Add Downheap (Heapify-down / Sift-down) (Upheap is only half the story. For deletion (like poll() or remove()), Downheap is used.)
 DOWNHEAP:
