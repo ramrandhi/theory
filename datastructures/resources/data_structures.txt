@@ -1,0 +1,239 @@
+Leetcode has more than 3525 coding questions.
+
+But only a few make you learn the important patterns.
+
+Here are 25 of my favorite questions that will help you pass tech interviews:
+
+
+Graphs:
+
+0. Clone Graph: https://lnkd.in/dV2P2TEs
+1. Course Schedule: https://lnkd.in/de8Q3NBS
+2. 01 Matrix: https://lnkd.in/dV2P2TEs
+3. Number of Islands: https://lnkd.in/drT2MpTz
+4. Rotting Oranges: https://lnkd.in/dUQVwJ-d
+
+
+Arrays:
+
+5. Insert Interval: https://lnkd.in/dfcEDFwB
+6. 3Sum: https://lnkd.in/duGvuCjf
+7. Product of Array Except Self: https://lnkd.in/dkGkjQVk
+8. Combination Sum: https://lnkd.in/d3iStbGc
+9. Merge Intervals: https://lnkd.in/dmFZxrVQ
+
+
+Stacks:
+
+10. Evaluate Reverse Polish Notation: https://lnkd.in/d-y7Zw4C
+11. Min Stack: https://lnkd.in/dqbh7PeV
+12. Trapping Rain Water: https://lnkd.in/dS_svBAm
+
+
+Binary Trees:
+
+13. Binary Tree Level Order Traversal: https://lnkd.in/dM-VYbVB
+14. Lowest Common Ancestor of a Binary Tree: https://lnkd.in/dUvJykgA
+15. Serialize and Deserialize Binary Tree: https://lnkd.in/dW2cP5Wn
+
+
+Dynamic Programming:
+
+16. Maximum Subarray: https://lnkd.in/dvjYye6E
+17. Coin Change: https://lnkd.in/d7zZRg7H
+
+
+Binary Search:
+
+18. Search in Rotated Sorted Array: https://lnkd.in/dEuh3gie
+19. Time-Based Key-Value Store: https://lnkd.in/dbERGKUB
+
+
+Strings:
+
+20. Longest Substring Without Repeating Characters: https://lnkd.in/d_vZrZda
+21. Minimum Window Substring: https://lnkd.in/de8aeeQD
+
+
+Heap:
+
+22. K Closest Points to Origin: https://lnkd.in/dUtCqYf4
+23. Find Median from Data Stream: https://lnkd.in/ddDgWqUv
+
+Recursion:
+
+24. Permutations: https://lnkd.in/dTUqmAfy
+
+
+
+*****49 Leetcode Problems that will help you check if you’re interview ready or still need to work.
+
+
+
+- Minimum Number of Taps to Open to Water a Garden
+- Shortest Subarray with Sum at Least K
+- Minimum Number of Refueling Stops
+- Shortest Distance from All Buildings
+- Best Time to Buy and Sell Stock IV
+- Binary Tree Maximum Path Sum
+- Largest Rectangle in Histogram
+- Student Attendance Record II
+- Regular Expression Matching
+- Minimum Window Substring
+- Expression Add Operators
+- Sliding Window Maximum
+- Sliding Window Median
+- Find in Mountain Array
+- Binary Tree Cameras
+- Merge k Sorted Lists
+- Shortest Palindrome
+- Maximal Rectangle
+- Text Justification
+- Alien Dictionary
+- Jump Game IV
+- Range Module
+- Jump Game II
+- Bus Routes
+- LFU Cache
+- Self Crossing
+- Cherry Pickup
+- Word Search II
+- Dungeon Game
+- Basic Calculator
+- Wildcard Matching
+- Course Schedule III
+- The Skyline Problem
+- Max Points on a Line
+- First Missing Positive
+- Permutation Sequence
+- Palindrome Partitioning II
+- Strong Password Checker
+- Recover Binary Search Tree
+- Remove Invalid Parentheses
+- Median of Two Sorted Arrays
+- Frog Position After T Seconds
+- Range Sum Query 2D - Mutable
+- Minimum Window Subsequence
+- Longest Increasing Path in a Matrix
+- Count of Smaller Numbers After Self
+- String Transforms Into Another String
+- Shortest Path in a Grid with Obstacles Elimination
+- Longest Substring with At Most K Distinct Characters
+
+
+
+
+PATTERNS:
+
+1 // Basic Dynamic Programming
+
+→When to use:
+ Use when you notice recursive solutions with overlapping subproblems and repeated calculations. Storing solutions to subproblems (memoization or tabulation) leads to major efficiency gains.
+
+→Where:
+ Problems with redundant computations in recursion; optimal to store intermediate results.
+
+∟Practice Problems:
+
+→Fibonacci Number
+→Climbing Stairs
+→House Robber
+
+ 2 // Optimal Substructure
+
+→When to use:
+ Use when the optimal solution can be built by combining optimal solutions to its subproblems.
+
+→Where:
+ Problems where “breaking down” a big problem into smaller, similar problems leads to the overall solution.
+
+∟Practice Problems:
+
+→Maximum Subarray
+→Longest Increasing Subsequence
+→Coin Change
+
+—-
+
+ 3 // Interval/Range DP
+
+→When to use:
+ Use when the problem asks you to solve for intervals or ranges, and the answer for a range depends on its subranges.
+
+→Where:
+ Problems that involve merging, splitting, or making choices over intervals or subarrays.
+
+∟Practice Problems:
+
+→Minimum Falling Path Sum
+→Burst Balloons
+→Strange Printer
+
+ 4 // Knapsack Problems
+
+→When to use:
+ Use when you need to select items with weights/values to maximize/minimize some total without exceeding a limit.
+
+→Where:
+ Problems with choices under constraints (like weight, capacity, budget).
+
+∟Practice Problems:
+
+→0/1 Knapsack
+→Partition Equal Subset Sum
+→Target Sum
+
+ 5 // Prefix Sums
+
+→When to use:
+ Use when you need to repeatedly compute sums or counts over subarrays/ranges, and want fast queries after some preprocessing.
+
+→Where:
+ Problems that ask for sum, count, or aggregate in O(1) time after setup.
+
+∟Practice Problems:
+
+→Subarray Sum Equals K
+→Range Sum Query - Immutable
+→Count of Range Sum
+
+
+6 // Counting Problems
+
+→When to use:
+ Use when the goal is to count the number of ways to reach a result, subject to certain transitions or rules.
+
+→Where:
+ Problems about counting combinations, arrangements, or ways to reach a state.
+
+∟Practice Problems:
+
+→Unique Paths III
+→Distinct Subsequences
+→Count Numbers with Unique Digits
+
+ 7 // Interval Partitioning
+
+→When to use:
+ Use when the problem asks you to split intervals into non-overlapping groups or minimize overlaps.
+
+→Where:
+ Scheduling or grouping problems involving intervals.
+
+∟Practice Problems:
+→Non-overlapping Intervals
+→Partition Labels
+→Maximum Number of Non-Overlapping Subarrays With Sum Equals Target
+
+ 8 // Probability & Expectations
+
+→When to use:
+ Use when the problem asks for probabilities or expected values over a series of steps or decisions.
+
+→Where:
+ Problems about finding the likelihood of outcomes or expected results in stochastic processes.
+
+∟Practice Problems:
+→Knight Probability in Chessboard
+→Dice Roll Simulation
+→Predict the Winner

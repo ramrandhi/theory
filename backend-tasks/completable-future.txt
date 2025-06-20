@@ -1,0 +1,250 @@
+I am working on a backend task where:
+The UI triggers calls to Service A, Service B, and Service C.
+Service B internally calls an Employee Data API, providing PAN number, Mobile Number, and Full Name as input, and retrieves Employee Details (such as DOB, Name, and Mobile Number).
+Service C internally calls an Income Tax Information API, using the PAN number to retrieve ITR details (ITR1, ITR2, etc.).
+After receiving all three service responses, I need to combine the data and send a single combined response back to the UI.
+
+👉 What would be the best and most efficient way to implement this in Java?
+Using normal Threads and Runnables
+Using ExecutorService
+Using CompletableFuture
+Or any other recommended approach?
+
+I’m open to any suggestions, best practices, or real-world examples! Would love to
+
+what is the best approach?
+
+1. Maven Dependency (if not added already)
+<!-- Spring Webflux for WebClient -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-webflux</artifactId>
+</dependency>
+
+2. Configuration: WebClient Bean
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.client.WebClient;
+
+@Configuration
+public class WebClientConfig {
+
+    @Bean
+    public WebClient webClient() {
+        return WebClient.builder()
+                .build();
+    }
+}
+
+3. Service A, B, C Clients
+All services are called asynchronously using WebClient.
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
+@Service
+public class ServiceAClient {
+
+    private final WebClient webClient;
+
+    public ServiceAClient(WebClient webClient) {
+        this.webClient = webClient;
+    }
+
+    public CompletableFuture<ResponseA> getData() {
+        return webClient.get()
+                .uri("http://service-a/api/data")
+                .retrieve()
+                .bodyToMono(ResponseA.class)
+				.timeout(Duration.ofSeconds(5))   // ⏳ Timeout after 5 seconds
+                .retry(2)                         // 🔄 Retry 2 times if it fails
+                .toFuture();   // Convert Mono to CompletableFuture
+    }
+}
+
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
+@Service
+public class ServiceBClient {
+
+    private final WebClient webClient;
+
+    public ServiceBClient(WebClient webClient) {
+        this.webClient = webClient;
+    }
+
+    public CompletableFuture<EmployeeDetails> getEmployeeDetails(String pan, String mobile, String fullName) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("http://service-b/api/employee")
+                        .queryParam("pan", pan)
+                        .queryParam("mobile", mobile)
+                        .queryParam("fullName", fullName)
+                        .build())
+                .retrieve()
+                .bodyToMono(EmployeeDetails.class)
+				.timeout(Duration.ofSeconds(5))   // ⏳ Timeout after 5 seconds
+                .retry(2)                         // 🔄 Retry 2 times if it fails
+                .toFuture();
+    }
+}
+
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
+@Service
+public class ServiceCClient {
+
+    private final WebClient webClient;
+
+    public ServiceCClient(WebClient webClient) {
+        this.webClient = webClient;
+    }
+
+    public CompletableFuture<ITRDetails> getITRDetails(String pan) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("http://service-c/api/itr")
+                        .queryParam("pan", pan)
+                        .build())
+                .retrieve()
+                .bodyToMono(ITRDetails.class)
+				.timeout(Duration.ofSeconds(5))   // ⏳ Timeout after 5 seconds
+                .retry(2)                         // 🔄 Retry 2 times if it fails
+                .toFuture();
+    }
+}
+
+4. Aggregator Service to call A, B, and C together
+
+import org.springframework.stereotype.Service;
+import java.util.concurrent.CompletableFuture;
+
+@Service
+public class AggregatorService {
+
+    private final ServiceAClient serviceAClient;
+    private final ServiceBClient serviceBClient;
+    private final ServiceCClient serviceCClient;
+
+    public AggregatorService(ServiceAClient serviceAClient, ServiceBClient serviceBClient, ServiceCClient serviceCClient) {
+        this.serviceAClient = serviceAClient;
+        this.serviceBClient = serviceBClient;
+        this.serviceCClient = serviceCClient;
+    }
+
+    public CompletableFuture<CombinedResponse> getCombinedResponse(String pan, String mobile, String fullName) {
+
+        CompletableFuture<ResponseA> futureA = serviceAClient.getData();
+        CompletableFuture<EmployeeDetails> futureB = serviceBClient.getEmployeeDetails(pan, mobile, fullName);
+        CompletableFuture<ITRDetails> futureC = serviceCClient.getITRDetails(pan);
+
+        return CompletableFuture.allOf(futureA, futureB, futureC)
+                .thenApply(v -> {
+                    try {
+                        ResponseA a = futureA.get();
+                        EmployeeDetails b = futureB.get();
+                        ITRDetails c = futureC.get();
+                        return new CombinedResponse(a, b, c);
+                    } catch (Exception e) {
+                        throw new RuntimeException("Error combining service responses", e);
+                    }
+                });
+    }
+}
+
+
+5. Controller
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.concurrent.CompletableFuture;
+
+@RestController
+public class AggregatorController {
+
+    private final AggregatorService aggregatorService;
+
+    public AggregatorController(AggregatorService aggregatorService) {
+        this.aggregatorService = aggregatorService;
+    }
+
+    @GetMapping("/combined-data")
+    public CompletableFuture<CombinedResponse> getCombinedData(
+            @RequestParam String pan,
+            @RequestParam String mobile,
+            @RequestParam String fullName) {
+
+        return aggregatorService.getCombinedResponse(pan, mobile, fullName);
+    }
+}
+
+
+6. Models (POJOs)
+
+public class ResponseA {
+    private String field1;
+    private String field2;
+    // getters, setters
+}
+
+public class EmployeeDetails {
+    private String dob;
+    private String name;
+    private String mobile;
+    // getters, setters
+}
+
+public class ITRDetails {
+    private String itrType;
+    private String assessmentYear;
+    // getters, setters
+}
+
+public class CombinedResponse {
+    private ResponseA responseA;
+    private EmployeeDetails employeeDetails;
+    private ITRDetails itrDetails;
+
+    public CombinedResponse(ResponseA responseA, EmployeeDetails employeeDetails, ITRDetails itrDetails) {
+        this.responseA = responseA;
+        this.employeeDetails = employeeDetails;
+        this.itrDetails = itrDetails;
+    }
+    // getters, setters
+}
+
+
+(Optional but recommended) Global Exception Handling for timeouts and failures
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.util.concurrent.TimeoutException;
+import java.util.concurrent.CompletionException;
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(CompletionException.class)
+    public ResponseEntity<String> handleCompletionException(CompletionException ex) {
+        if (ex.getCause() instanceof TimeoutException) {
+            return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT)
+                    .body("External service timed out");
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Something went wrong: " + ex.getMessage());
+    }
+}
+

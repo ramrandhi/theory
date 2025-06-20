@@ -1,0 +1,288 @@
+Round 1: [00:41]
+ * Coding Questions (using Streams):
+   * Get a list of employee names who earn above the average salary [00:48]
+   * Create a map with employee ID as key and name as value [01:09]
+   * Get the highest salary by department [01:24]
+   * Count the occurrences of each character in a string (pure Java, no streams) [01:41]
+ * Theoretical Questions:
+   * Explanation of the usage and return types of various stream operations (e.g., collect, filter) [01:56]
+   * Difference between synchronized and concurrent hashmap [02:24]
+   * Fail-fast vs. fail-safe iterators [02:31]
+   * Fork-join pool in thread pools [02:31]
+   * Thread pool used by parallel streams [02:38]
+   * In-depth questions about HashMap (internal working, hashcode calculation, value overriding, collision, time complexity) [02:43]
+   * Design patterns (Singleton, Prototype, Abstract Factory, Factory, Builder) [03:04]
+   * SQL: JPA, custom queries, native queries, procedures, triggers, functions, GROUP BY, HAVING, LIKE [03:24]
+   * Abstract classes [03:45]
+   * SOLID principles with examples [03:45]
+   * JUnit: Mocking static methods, private methods, disadvantages of PowerMockito, usage of Mockito, verify, times, never invoked, any time invoked with any parameter, return, assertions [04:06]
+Round 2: [04:40]
+ * Coding Question:
+   * Given a list of transactions (each with a list of items), count the items with an amount less than 50 (focus on using flatMap and count) [04:52]
+ * Theoretical Questions:
+   * When to use flatMap, map, and filter [05:41]
+   * How to implement the coding question logic without streams (pure Java) [05:53]
+   * SOLID principles with real-time examples [06:00]
+   * Encapsulation and its purpose [06:07]
+   * Other OOP concepts [06:20]
+   * Inbuilt functional interfaces (Predicate, Supplier, Consumer) [06:25]
+   * Creating and using custom functional interfaces (e.g., custom Predicate) [06:34]
+   * SQL:
+     * Find the second-highest salary from an employee table [06:48]
+     * Given two tables (customer and order), find customers who have made zero orders [06:54]
+   * Spring Boot:
+     * Filters and interceptors (purpose, return type, custom creation, differences) [07:24]
+     * Spring Boot project flow [07:44]
+   * Java 8 Date/Time API (changes, immutability, calculating date differences) [07:52]
+   * CompletableFuture (what it is, how to use it instead of threads) [08:06]
+   * Try-with-resources (what it is, alternatives, how it works) [08:20]
+   * Spring:
+     * Dependency injection (types, why constructor injection is preferred) [08:25]
+   * Spring Boot:
+     * Eureka server (what it is, how to register services, load balancer operation) [08:40]
+     * API Gateway (routing, programmatic vs. YML configuration, properties, predicates) [08:54]
+   * Microservices:
+     * Design patterns (CQRS, Saga, Orchestrator vs. Choreography) [09:29]
+     * Microservices design principles [09:50]
+   * Sealed classes and records [09:57]
+   * Design patterns (again, with examples and implementation details) [10:05]
+   * Kafka:
+     * How to send events to Kafka (KafkaTemplate, KafkaListener, KafkaConsumer) [10:22]
+     * Kafka configuration and basic communication [10:37]
+   * RestTemplate vs. WebClient (differences, Mono, Flux, blocking vs. non-blocking requests) [11:03]
+   * Agile ceremonies [11:37]
+   * Scenario-based questions (handling junior developers, sprint planning disagreements, handling major changes near the end of a sprint, managing a large team) [11:51]
+Round 3: [13:14]
+ * TreeMap internal working [13:20]
+ * TreeSet and HashSet internal working [13:28]
+ * Coding Question:
+   * Calculate the number of days between two dates (dd/mm/yyyy format) without using any internal date/time libraries (pure Java 7) [13:34]
+ * Serialization and Deserialization in Java [14:46]
+   * Problems with serialization/deserialization [14:46]
+   * JEP 290 (serialization/deserialization filter) [14:56]
+   * Forgery attacks in serialization and how to avoid them [15:06]
+ * Microservices Design Patterns [15:19]
+   * CQRS [15:19]
+   * Sidecar [15:26]
+ * Logging in Microservices [15:26]
+   * Logging frameworks used [15:26]
+   * Trace ID and Span ID (what they are, how to use them for navigation across microservices) [15:34]
+   * Which is constant across services (Trace ID or Span ID) [15:47]
+ * Microservices Deployment Strategies [15:52]
+   * Blue-green deployment [15:59]
+ * Spring Boot Application Flow [16:04]
+   * Request flow from hit to response (DispatcherServlet, filters, interceptors, controllers, services, repositories) [16:04]
+   * Interceptor methods (preHandle, postHandle, afterCompletion) [16:11]
+   * Filter chain [16:18]
+ * Authentication and Authorization [16:25]
+   * Basic Auth, OAuth, JWT [16:25]
+   * JWT format (header, payload, signature) [16:33]
+   * Claims in JWT payload (audience, primary audience, secondary audience, scope) [16:39]
+   * How to use JWT and OAuth in microservices [16:46]
+ * Spring Annotations [16:52]
+   * @Autowired, @Resource, @Inject, @Component [16:52]
+   * Downsides of @Autowired and @Resource [16:58]
+   * When to use each annotation [16:58]
+   * Difference between @Inject, @Autowired, and @Resource [17:05]
+   * Scenario-based question: If an interface has three implementations, what happens if you autowire a list of that interface? [17:12]
+ * Java Memory Management [00:17:
+ 
+ 
+ 
+ 
+ 
+ 
+ ================================================================================================================================= 
+ 
+ 
+ 
+ 
+ Java Developer Roadmap for fresher and Experienced : 
+
+Fresher:  0:55
+1.What is JDK, JRE, JVM?
+2.What is a class, object, package?
+3.Abstract, interface, enum?
+4.Main method?
+5.Access modifiers/specifiers?(Method, class, variables)
+6.Conditional  statements, loops?
+7.Oops concepts(inheritance, polymorphism, encapsulation, abstraction)
+8.Constructors(default, parameterised, non parameterized)
+9.Collections(list, map, linkedlist, set)
+10.Strings(string manipulation)
+11.Exceptions(error vs exception)
+12.Keywords(extends, implements, final, finally, throw, throws, public, private, static)
+13.SQL Basics(PK, FK, Table, how to set data, how to fetch data)
+
+1 Year Exp: 10:05
+1.IntelliJ/Eclipse, Spring Tool Suite
+2.Call hierarchy, calling method, short cuts for opening class in eclipse, open call hierarchy.
+3.Java 8 theory(functional interface, lamda expressions, streams)
+4.Version control system(GIT, Central repository, SVN)
+5.Maven/Gradle(dependency management)
+6.Spring(dependency injection, Inversion of control, mvc)
+7.Threads(very very important)
+8.XML, JSON(soap req & rest )
+9.JUnits()
+10.JDBC(how to establish connection, Prepared statement, )
+11.Utils(String utils, string manipulations, list manipulations)
+12.Collections(different collections)
+13.Hash map internal working()
+14.SQL(Joins, foreign key, how to fetch data from two tables etc, difference btw drop & delete)
+
+Two Years Exp: 19:42
+1.Agile(Sprint planning, daily standup, iteration, business analyst)
+2.GIT / SVN(full knowledge)
+3.Maven(complete knowledge, groundId, artifact, jar, including real world example etc)
+4.Spring(All annotations)
+5.Spring boot(Theoretical concept,)
+6.Lamda expressions, functional interfaces, inbuild functional interfaces
+7.Streams
+8.Threads(full knowledge)
+9.Servlets
+10.SQL
+11.Jenkins(full knowledge)
+12.Unit Testing
+13.JUnits
+14.Agile
+15.Web services(rest vs soap)
+
+3/4 Year exp: 27:09
+1.Tomcat server
+2.Design patterns
+3.Singleton, design patterns
+4.Web services(rest web service, soap web service, SEIIMPL)
+5.Rest response codes(201, 404 etc)
+6.Response codes scenario based
+7.Java 8 (full knowledge)
+8.Java 17()
+9.SQL(MongoDB, Reddis, )
+10.Analysis & Development, Testing(In Agile there wont be testers)
+11.Logging libraries
+12.Spring boot
+13.OATH
+14.Microservices(Architecture, hibernate, kafka, )
+15.Docker & Kubernet
+
+
+
+===================================================================================================================================================
+
+
+
+Java Interview questions
+
+Oops concept with examples - inheritance, polymorphism and abstraction, encapsulation where have we used all these
+
+static, final, transient, volatile and immutability
+in which level we can use static, what is static block everything related to static
+final can we extend or overall, in which scenarios we use final and why we use final
+how to immutability, whether string is immutable or not, how to create custom immutable class
+inner classes, sub classes, nested classes and anonymous classes - how to write and what are its purposes
+
+exception handling, how to create custom exceptions, throw throws keyword, try catch finally, and what is try with resources and how to implement
+in catch how to do multilevel catching, finally block when will it execute,
+difference between error and exception, exception hierarchy 
+
+generics, what are generics, how to use generics and in which scenarios we use generics
+can we use only letter T in generics or can we use another letter also?
+
+java memory model, heap stack, in heap stack different areas, young generation, old generation, permanent generation, meta space 
+perm generation and meta space why and related, garbage collector
+how heap works in garbage collector and all about garbage collector
+when object created and how it will propagate through memory and life cycle
+what will be stored in stack and what will be stored in heap
+what is class loader
+
+Collections - extremely important 
+array, array list, internal working, hash-set and what is hash-table, hash-map, tree map and all its internal working, hash-map internal working is very important
+methods available in collection etc
+
+synchronised versions and concurrent versions of these collections
+copy on write array-list, copy on write array-set, concurrent hash-map very important 
+
+serialisation and deserialisation, why we use, in serialisation what role does transient keyword play,why serialisation concept comes into play and how serialisation concept can be broken, how to tamper this serialisation, in jdk 9 serial filter which provides security to serialisation , in place of serialisation how we use json and db extremely important
+
+java 8 features, functional interfaces, inbuilt functional interfaces like predicate, supplier, consumer not only this already existing ones like comparator, comparable, runnable.
+lambda expressions, custom functional interfaces, method reference and constructor reference
+Streams logic for streams, code in streams, dot-map, dot flat map, dot collect, ex.. Collectors.join and Collectors.groupingby and Collectors.summarizing
+
+we should know that what are all the parameters accepted by the functions and what they are returning respectively
+marker interface, where and why we use this, real time use cases for everything
+
+iterator, fail pass and fail safe
+
+design patterns, most important is singleton design pattern, builder design pattern, factory design pattern, abstract factory design pattern, decorator design
+
+in singleton what is double lock synchronisation, thread safe singleton, singleton breakage and enum related
+
+strings- string pool, is string immutable or not?, internal working and memory behaviour, string constant pool & string buffer and string builder
+
+Good to know topics
+
+Computable future, what is it and in which scenarios we use this
+
+Executors and thread pools, fixed thread pool, custom thread pool, what thread pool is used in parallel stream
+
+File IO operations, virtual threads, date time api.
+Multithreading and concurrency
+
+GIT- rebase, merge, how to resolve merge conflicts, push & pull, commit, remote & local. How to clone repository and how to check out branch, how to do stash. 
+
+Maven/griddle JUnit - unit testing, Sonarq.
+Mock and inject mock and how can we mock static method, how to mock final method & mock private methods, verify mock calls; how to assert exception, what is verify and time.
+
+Spring, spring boot & micro services
+Dependency injection - annotations - @component, @resource, @inject, @qualifier, @primary, @named, @autowired, @bean, @configuration, application context and xml related
+
+What is mvc pattern, how it is helpful dn what is inversion of control, different types of inversion of controls
+Bean scopes- singleton, prototype, global, session, request, where an we use all the and explain the real time example where we can use. Very important life cycle of bean, configuration through annotations and application context 
+
+Spring Security, how to do basic authentication and how to do authorisation, JWT, structure of JWT and what are claims, primary audience, scope, expire set. Oauth, auth flow
+
+JPA, Hibernate and their sessions, JPA pool, hibernate pool, entity manager, what is @transactional, in @transactional we have isolation levels and propagation levels, what are these and internal working & everything with respect to entity, how we will give primary key and join mappings.
+How can we write custom queries;
+In JPA what is first level catching and what is second level catching , what are interceptors, filters, dispatcher servlets, and what is the spring boot flow, how can we implement custom flow, methods in interceptor and how can we implement the custom interceptor. 
+
+Rest controller and method and combinations complete idea, response codes 
+How dispatcher servlets and rest controller are getting mapped, controller views 
+Custom exceptions in spring boot, how to return custom exception object. What is @springbootapplication
+Microservices - design patterns and design principals  saga design pattern & orchestras design pattern & choreographic design pattern, sqrs design pattern 
+
+How to implement API gateway, spring cloud gateway, how to use service registry, logging, distributed logging, span id, trace id, distributed tracing  
+Rate limiter and circuit breaker, half open state, open and closed state
+Rest template, web client, fein client, declarative rest client, spring cloud config server
+Transactional management in ms, events, no concept of role back only revert, Kafka
+Agile, agile cerimonies
+
+
+==================================================================================================================================
+
+
+
+Java Topics:
+------------
+Youtube Playlist: https://lnkd.in/dUNA6vsU
+Udemy course: https://lnkd.in/gkq4nRe9
+- Fundamentals: 4 pillars
+- Procedural vs OOPs
+- JDK vs JRE vs JVM
+- Classes
+- Variables
+- String Pool
+- String Immutability
+- Access Specifiers
+- Type Casting
+- Overloading and Overriding
+- Pass by value vs pass by reference
+- Garbage Collector
+- Understand Constructor
+- Operators
+- Control Flow Statements
+- Multithreading
+- Exception Handling
+- Generic Programming
+- Collections
+- Functional Interface
+- Lambda Expression
+- Stream APIs
