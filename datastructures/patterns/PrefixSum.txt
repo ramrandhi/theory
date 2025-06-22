@@ -1,0 +1,49 @@
+The Prefix Sum pattern is an essential technique to preprocess cumulative information, usually to answer range queries or perform efficient 
+subarray computations in linear time.
+
+🧠 When to Use Prefix Sum
+
+| Scenario                        | Strategy                                                 |
+| ------------------------------- | -------------------------------------------------------- |
+| Fast range sum                  | Precompute prefix sum: `prefix[i] = sum of nums[0..i-1]` |
+| Subarray sums                   | `prefix[j] - prefix[i] == k` → check using a HashMap     |
+| 2D grid region sum              | Build 2D prefix matrix                                   |
+| Balance checks (like 0/1 count) | Convert values to -1/+1, then use prefix sum             |
+| XOR prefix trick                | For problems involving bitwise segment analysis          |
+
+PROBLEMS:+
+
+🔹 CATEGORY 1: Basic 1D Prefix Sum
+| # | Problem                                        | Link                                                                     | Tip                                                  |
+| - | ---------------------------------------------- | ------------------------------------------------------------------------ | ---------------------------------------------------- |
+| 1 | **Running Sum of 1D Array**                    | [LeetCode 1480](https://leetcode.com/problems/running-sum-of-1d-array/)  | Easiest prefix sum starter — cumulative addition     |
+| 2 | **Find Pivot Index**                           | [LeetCode 724](https://leetcode.com/problems/find-pivot-index/)          | Compare leftSum vs rightSum using total sum          |
+| 3 | **Range Sum Query - Immutable**                | [LeetCode 303](https://leetcode.com/problems/range-sum-query-immutable/) | Precompute prefix sum array for fast range queries   |
+| 4 | **Subarray Sum Equals K**                      | [LeetCode 560](https://leetcode.com/problems/subarray-sum-equals-k/)     | Use HashMap to track running prefix sums seen so far |
+| 5 | **Contiguous Array**                           | [LeetCode 525](https://leetcode.com/problems/contiguous-array/)          | Convert 0s to -1s, then track sum using HashMap      |
+| 6 | **Equilibrium Index** (Not on LC, but classic) | Find index where sum to left = sum to right                              |                                                      |
+
+🔸 CATEGORY 2: Prefix Sum with Extra Logic
+
+| #  | Problem                                            | Link                                                                                           | Tip                                                  |
+| -- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| 7  | **Minimum Value to Get Positive Step by Step Sum** | [LeetCode 1413](https://leetcode.com/problems/minimum-value-to-get-positive-step-by-step-sum/) | Track running prefix sum and min to stay positive    |
+| 8  | **Maximum Size Subarray Sum Equals k**             | [LeetCode 325](https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/)              | Like #4, but return max length instead of count      |
+| 9  | **Number of Subarrays with Sum = K**               | [LeetCode 930](https://leetcode.com/problems/binary-subarrays-with-sum/)                       | Count subarrays with a target sum — prefix + hashmap |
+| 10 | **Sum of All Odd Length Subarrays**                | [LeetCode 1588](https://leetcode.com/problems/sum-of-all-odd-length-subarrays/)                | Brute force with prefix sum optimization             |
+
+🟢 CATEGORY 3: Prefix Sum in 2D Grids
+
+| #  | Problem                                   | Link                                                                                     | Tip                                                            |
+| -- | ----------------------------------------- | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| 11 | **Range Sum Query 2D - Immutable**        | [LeetCode 304](https://leetcode.com/problems/range-sum-query-2d-immutable/)              | Precompute prefix matrix: `sum[r][c]` includes top-left region |
+| 12 | **Matrix Block Sum**                      | [LeetCode 1314](https://leetcode.com/problems/matrix-block-sum/)                         | Use 2D prefix matrix to sum blocks in constant time            |
+| 13 | **Submatrix Sum Equals Target**           | [LeetCode 1074](https://leetcode.com/problems/number-of-submatrices-that-sum-to-target/) | Use 2D prefix sum + HashMap similar to 1D version              |
+| 14 | **Max Sum of Rectangle No Larger Than K** | [LeetCode 363](https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/)     | Advanced: reduce to 1D and use TreeSet for bounds              |
+
+🔺 CATEGORY 4: Prefix XOR & Bitwise Prefix
+
+| #  | Problem                                         | Link                                                                                  | Tip                                                     |
+| -- | ----------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| 15 | **Maximum XOR of Two Numbers in an Array**      | [LeetCode 421](https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/) | Trie + prefix XOR technique                             |
+| 16 | **Contiguous Array with Equal 0 and 1 (again)** | [LeetCode 525](https://leetcode.com/problems/contiguous-array/)                       | Repeating because 0 → -1 + prefix sum works beautifully |

@@ -1,0 +1,76 @@
+🧠 Slow & Fast Pointers – What You Learn from These:
+    How cycles work: detecting, starting point, length.
+    How to use speed difference to find mid-points.
+    How to use in number-based problems (Happy Number, Find Duplicate).
+    How to solve symmetry problems (palindrome, twin sum).
+    How to apply in both linked lists and arrays.
+
+| When to Use                             | How to Think                                |
+| --------------------------------------- | ------------------------------------------- |
+| Need to find **middle** of a list?      | Use `slow` and `fast` (1x, 2x)              |
+| Need to **detect cycle**?               | Use slow/fast and look for meeting point    |
+| Need to **find cycle start**?           | After meeting, reset one pointer to head    |
+| Need to **measure cycle length**?       | Count steps until pointers meet again       |
+| Need to process **symmetrical halves**? | Find middle, reverse second half            |
+| Need to skip `n` ahead?                 | Offset fast by `n` steps before moving slow |
+| Working with **arrays like lists**?     | Use values as next-pointers (Floyd’s idea)  |
+
+🧾 Bonus Tips:
+    Always consider using a dummy node in linked list problems to simplify edge cases.
+    In array problems, convert index-value relationship into linked-list style jumps.
+    For palindrome or twin sum problems, always reverse second half after finding mid.
+    For slow/fast pointer loop detection, always ask:
+    “Is there a chance of revisiting the same place through consistent steps?”
+
+
+Happy Number (LeetCode 202)
+https://leetcode.com/problems/happy-number/
+
+Linked List Cycle (LeetCode 141)
+https://leetcode.com/problems/linked-list-cycle/
+
+Middle of the Linked List (LeetCode 876)
+https://leetcode.com/problems/middle-of-the-linked-list/
+
+Circular Array Loop (LeetCode 457)
+https://leetcode.com/problems/circular-array-loop/
+
+Palindrome Linked List (LeetCode 234)
+https://leetcode.com/problems/palindrome-linked-list/
+
+Maximum Twin Sum of a Linked List (LeetCode 2130)
+https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/
+
+Split a Circular Linked List (LeetCode 2674)
+https://leetcode.com/problems/split-a-circular-linked-list/
+
+Linked List Cycle II (LeetCode 142) – finds the start node of the cycle
+https://leetcode.com/problems/linked-list-cycle-ii/
+
+Linked List Cycle IV – I couldn't find a LeetCode problem called "Linked List Cycle IV".
+Could you specify the exact name or share the problem statement?
+
+
+| Problem                                                                                      | Why It’s Useful                                              |
+| -------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| [Remove N-th Node From End](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) | Use fast to lead `n` steps ahead — similar speed offset      |
+| [Reorder List](https://leetcode.com/problems/reorder-list/)                                  | Find middle, reverse second half, merge — all with slow/fast |
+| [Detect Cycle in Array](https://leetcode.com/problems/find-if-path-exists-in-graph/)         | Advanced variant: similar to cycle in graph                  |
+
+
+| #  | Category                              | Problem                           | Link                                                                              |
+| -- | ------------------------------------- | --------------------------------- | --------------------------------------------------------------------------------- |
+| 1  | 🌀 **Cycle Detection in Linked List** | Linked List Cycle (I)             | [LeetCode 141](https://leetcode.com/problems/linked-list-cycle/)                  |
+| 2  | 🏁 **Cycle Start Node**               | Linked List Cycle II              | [LeetCode 142](https://leetcode.com/problems/linked-list-cycle-ii/)               |
+| 3  | 📏 **Cycle Length**                   | Linked List Cycle III (custom)    | *Detect cycle, then count steps till loop closes*                                 |
+| 4  | 🎯 **Cycle at Specific Node**         | Linked List Cycle IV (custom)     | *Same as II, but compare start with reference node*                               |
+| 5  | 😊 **Cycle in Numbers**               | Happy Number                      | [LeetCode 202](https://leetcode.com/problems/happy-number/)                       |
+| 6  | 🔄 **Cycle in Array**                 | Circular Array Loop               | [LeetCode 457](https://leetcode.com/problems/circular-array-loop/)                |
+| 7  | 🔍 **Cycle in Array Values**          | Find the Duplicate Number         | [LeetCode 287](https://leetcode.com/problems/find-the-duplicate-number/)          |
+| 8  | ⚖️ **Find Middle**                    | Middle of the Linked List         | [LeetCode 876](https://leetcode.com/problems/middle-of-the-linked-list/)          |
+| 9  | 🔁 **Find Nth from End**              | Remove Nth Node From End          | [LeetCode 19](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)    |
+| 10 | 🔄 **Check Symmetry**                 | Palindrome Linked List            | [LeetCode 234](https://leetcode.com/problems/palindrome-linked-list/)             |
+| 11 | 🧮 **Maximum Pair Sums**              | Maximum Twin Sum of a Linked List | [LeetCode 2130](https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/) |
+| 12 | ✂️ **Splitting**                      | Split a Circular Linked List      | [LeetCode 2674](https://leetcode.com/problems/split-a-circular-linked-list/)      |
+| 13 | 🔁 **Reorder by Pairing**             | Reorder List                      | [LeetCode 143](https://leetcode.com/problems/reorder-list/)                       |
+

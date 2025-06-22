@@ -1,0 +1,92 @@
+| Use Case                                | Intuition                            |
+| --------------------------------------- | ------------------------------------ |
+| Sorted array?                           | Move inwards from both ends          |
+| Need subarray?                          | Use sliding window with two pointers |
+| Comparing values or finding partitions? | Move slow/fast pointers              |
+| Remove/replace elements?                | Slow = writer, fast = scanner        |
+
+ CATEGORY: Sorted Array / Basic Two Pointers
+
+| # | Problem                            | Link                                                                            | Tip                                                        |
+| - | ---------------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| 1 | Two Sum II – Input Array Is Sorted | [LeetCode 167](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) | Start one pointer at each end; move inward based on sum    |
+| 2 | Squares of a Sorted Array          | [LeetCode 977](https://leetcode.com/problems/squares-of-a-sorted-array/)        | Use two pointers to compare absolute values from both ends |
+| 3 | Reverse String                     | [LeetCode 344](https://leetcode.com/problems/reverse-string/)                   | Swap characters from both ends until they meet             |
+| 4 | Move Zeroes                        | [LeetCode 283](https://leetcode.com/problems/move-zeroes/)                      | Use one pointer to scan, another to track placement        |
+
+CATEGORY: String Processing / Palindromes
+
+| # | Problem                                        | Link                                                                                        | Tip                                                    |
+| - | ---------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| 5 | Valid Palindrome                               | [LeetCode 125](https://leetcode.com/problems/valid-palindrome/)                             | Ignore non-alphanumerics and compare ends              |
+| 6 | Longest Substring Without Repeating Characters | [LeetCode 3](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | Use sliding window (2 pointers + Set/Map)              |
+| 7 | Minimum Window Substring                       | [LeetCode 76](https://leetcode.com/problems/minimum-window-substring/)                      | Classic sliding window with hashmap frequency counting |
+| 8 | Longest Repeating Character Replacement        | [LeetCode 424](https://leetcode.com/problems/longest-repeating-character-replacement/)      | Keep max char count and shrink window when needed      |
+
+CATEGORY: Linked Lists with Two Pointers
+
+| #  | Problem                           | Link                                                                              | Tip                                                           |
+| -- | --------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| 9  | Remove Nth Node From End          | [LeetCode 19](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)    | Use fast pointer `n` steps ahead, then move both              |
+| 10 | Middle of the Linked List         | [LeetCode 876](https://leetcode.com/problems/middle-of-the-linked-list/)          | Move fast by 2, slow by 1                                     |
+| 11 | Palindrome Linked List            | [LeetCode 234](https://leetcode.com/problems/palindrome-linked-list/)             | Find mid, reverse second half, compare                        |
+| 12 | Maximum Twin Sum of a Linked List | [LeetCode 2130](https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/) | Similar to palindrome – reverse and compare with two pointers |
+
+CATEGORY: Two Pointers in Arrays / Partitioning
+
+| #  | Problem                                    | Link                                                                              | Tip                                                        |
+| -- | ------------------------------------------ | --------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| 13 | 3Sum                                       | [LeetCode 15](https://leetcode.com/problems/3sum/)                                | Fix one element, then use two pointers to find pairs       |
+| 14 | Container With Most Water                  | [LeetCode 11](https://leetcode.com/problems/container-with-most-water/)           | Move pointer with smaller height inward                    |
+| 15 | Trapping Rain Water (Two Pointers version) | [LeetCode 42](https://leetcode.com/problems/trapping-rain-water/)                 | Keep track of leftMax and rightMax                         |
+| 16 | Remove Duplicates from Sorted Array        | [LeetCode 26](https://leetcode.com/problems/remove-duplicates-from-sorted-array/) | Use slow pointer to track where to write next unique value |
+
+Summary: What You Learn From These
+
+| Skill                     | Mastery Through Problems       |
+| ------------------------- | ------------------------------ |
+| Array pairing / sum       | Two Sum II, 3Sum               |
+| Index comparison          | Reverse, Palindrome            |
+| Shrinking/growing windows | Substrings, frequency problems |
+| Linked list traversal     | Midpoints, tail-to-head logic  |
+| Advanced pointer movement | Rain water, container area     |
+
+🚀 Bonus Tips
+    Always sort the array if order matters and you're looking for pairs.
+    For strings/substrings → combine two pointers with hashmaps or character counts.
+    In linked lists, two pointers often find midpoint, nth node, or palindromic structure.
+
+Remove Nth Node From End of List
+https://leetcode.com/problems/remove-nth-node-from-end-of-list/
+
+Valid Palindrome
+https://leetcode.com/problems/valid-palindrome/
+
+3Sum
+https://leetcode.com/problems/3sum/
+
+Sort Colors
+https://leetcode.com/problems/sort-colors/ 
+
+Reverse Words in a String
+https://leetcode.com/problems/reverse-words-in-a-string/ 
+
+Valid Word Abbreviation
+https://leetcode.com/problems/valid-word-abbreviation/ 
+
+Strobogrammatic Number
+https://leetcode.com/problems/strobogrammatic-number/ 
+
+
+Minimum Number of Moves to Make Palindrome
+https://leetcode.com/problems/minimum-number-of-moves-to-make-palindrome/ 
+
+
+Next Palindrome Using Same Digits
+https://leetcode.com/problems/next-palindrome-using-same-digits/ 
+
+Lowest Common Ancestor of a Binary Tree III
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii/ 
+
+Count Pairs Whose Sum is Less than Target
+https://leetcode.com/problems/count-pairs-whose-sum-is-less-than-target/

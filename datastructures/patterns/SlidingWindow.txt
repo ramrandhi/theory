@@ -1,0 +1,47 @@
+The Sliding Window pattern is a powerful technique to solve problems involving subarrays, substrings, or contiguous segments. 
+It’s especially efficient when you need to:
+    Find min/max/longest substring or subarray
+    Count or sum within a range
+    Track frequency/counts of elements
+
+🧠 Pattern Recognition
+| Pattern                | Use When                                                 |
+| ---------------------- | -------------------------------------------------------- |
+| Fixed-size window      | You know the exact size (e.g., size = `k`)               |
+| Expand + shrink window | You don’t know the exact size, but must meet a condition |
+| Track frequency/count  | Use HashMap or int[] to track window contents            |
+| Window max/min         | Use Deque or Monotonic Queue for efficient tracking      |
+
+
+CATEGORY 1: Fixed-Size Window
+
+| # | Problem                               | Link                                                                      | Tip                                         |
+| - | ------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------- |
+| 1 | **Maximum Sum of Subarray of Size K** | [LeetCode 643](https://leetcode.com/problems/maximum-average-subarray-i/) | Classic fixed window – maintain running sum |
+| 2 | **Max Consecutive Ones III**          | [LeetCode 1004](https://leetcode.com/problems/max-consecutive-ones-iii/)  | Use window to allow flipping k zeros        |
+| 3 | **Minimum Size Subarray Sum**         | [LeetCode 209](https://leetcode.com/problems/minimum-size-subarray-sum/)  | Shrink left when the sum exceeds `target`   |
+
+CATEGORY 2: Dynamic Sliding Window (Variable Size)
+
+| # | Problem                                            | Link                                                                                        | Tip                                                |
+| - | -------------------------------------------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| 4 | **Longest Substring Without Repeating Characters** | [LeetCode 3](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | Use HashSet or Map to track unique chars           |
+| 5 | **Longest Repeating Character Replacement**        | [LeetCode 424](https://leetcode.com/problems/longest-repeating-character-replacement/)      | Track most frequent char and shrink when needed    |
+| 6 | **Fruit Into Baskets**                             | [LeetCode 904](https://leetcode.com/problems/fruit-into-baskets/)                           | Only 2 types of fruits allowed — window with a map |
+| 7 | **Permutation in String**                          | [LeetCode 567](https://leetcode.com/problems/permutation-in-string/)                        | Compare frequency maps in fixed-size window        |
+| 8 | **Find All Anagrams in a String**                  | [LeetCode 438](https://leetcode.com/problems/find-all-anagrams-in-a-string/)                | Similar to #7, but find all valid starting indices |
+
+CATEGORY 3: Substring with Counts / Frequencies
+
+| #  | Problem                                                  | Link                                                                                                | Tip                                           |
+| -- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| 9  | **Minimum Window Substring**                             | [LeetCode 76](https://leetcode.com/problems/minimum-window-substring/)                              | Use two maps: required and current            |
+| 10 | **Longest Substring with At Most K Distinct Characters** | [LeetCode 340](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/) | Keep a count map and shrink when over k types |
+
+CATEGORY 4: Array with Sliding Calculations
+
+| #  | Problem                                      | Link                                                                                    | Tip                                                    |
+| -- | -------------------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| 11 | **Sliding Window Maximum**                   | [LeetCode 239](https://leetcode.com/problems/sliding-window-maximum/)                   | Use deque to keep max in O(1) time                     |
+| 12 | **Number of Subarrays with Bounded Maximum** | [LeetCode 795](https://leetcode.com/problems/number-of-subarrays-with-bounded-maximum/) | Count valid subarrays using start/end pointers         |
+| 13 | **Subarrays with K Different Integers**      | [LeetCode 992](https://leetcode.com/problems/subarrays-with-k-different-integers/)      | Use two sliding windows: `atMost(k)` and `atMost(k-1)` |
