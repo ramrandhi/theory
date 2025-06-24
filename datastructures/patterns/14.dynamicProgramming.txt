@@ -1,0 +1,83 @@
+🧩 Dynamic Programming (DP) Patterns
+
+Dynamic Programming is used to solve problems that can be broken down into overlapping subproblems with optimal substructure. 
+It helps avoid redundant calculations by storing intermediate results.
+
+Common scenarios:
+
+    Counting combinations or ways
+    Optimizing values (max/min)
+    Subsequence or substring problems
+
+🧠 Pattern Recognition
+
+| Pattern              | Use When                                                   |
+| -------------------- | ---------------------------------------------------------- |
+| 1D DP (Linear)       | Problems on sequences or arrays with subproblems in 1D     |
+| 2D DP                | Problems on grids, strings, or two sequences               |
+| Knapsack             | Select items with weights and values to optimize objective |
+| Subset/Sum partition | Partition sets or find subsets meeting certain criteria    |
+| DP with Bitmasking   | Track subsets or states efficiently with bit operations    |
+| DP on Trees          | Solve tree-based problems using postorder traversal        |
+
+CATEGORY 1: 1D DP (Sequences, Arrays)
+
+| # | Problem              | Link                                                           | Tip                                                           |
+| - | -------------------- | -------------------------------------------------------------- | ------------------------------------------------------------- |
+| 1 | **Climbing Stairs**  | [LeetCode 70](https://leetcode.com/problems/climbing-stairs/)  | Ways to reach nth step = sum of ways to reach (n-1) and (n-2) |
+| 2 | **House Robber**     | [LeetCode 198](https://leetcode.com/problems/house-robber/)    | DP choosing max loot with no two adjacent houses              |
+| 3 | **Maximum Subarray** | [LeetCode 53](https://leetcode.com/problems/maximum-subarray/) | Kadane’s algorithm — max subarray sum                         |
+
+
+CATEGORY 2: 2D DP (Grids, Strings)
+
+| # | Problem                        | Link                                                                       | Tip                                                    |
+| - | ------------------------------ | -------------------------------------------------------------------------- | ------------------------------------------------------ |
+| 4 | **Unique Paths**               | [LeetCode 62](https://leetcode.com/problems/unique-paths/)                 | Count ways to reach bottom-right from top-left in grid |
+| 5 | **Longest Common Subsequence** | [LeetCode 1143](https://leetcode.com/problems/longest-common-subsequence/) | DP table comparing prefixes of two strings             |
+| 6 | **Edit Distance**              | [LeetCode 72](https://leetcode.com/problems/edit-distance/)                | Min operations to convert one string to another        |
+
+
+CATEGORY 3: Knapsack & Subset Problems
+
+| # | Problem                        | Link                                                                      | Tip                                          |
+| - | ------------------------------ | ------------------------------------------------------------------------- | -------------------------------------------- |
+| 7 | **0/1 Knapsack**               | [GFG](https://practice.geeksforgeeks.org/problems/0-1-knapsack-problem)   | DP table for weight/value tradeoffs          |
+| 8 | **Partition Equal Subset Sum** | [LeetCode 416](https://leetcode.com/problems/partition-equal-subset-sum/) | Check if subset with sum = total/2 exists    |
+| 9 | **Target Sum**                 | [LeetCode 494](https://leetcode.com/problems/target-sum/)                 | Count ways to assign +/- to reach target sum |
+
+
+CATEGORY 4: Advanced DP Patterns
+
+| #  | Problem                            | Link                                                                          | Tip                                    |
+| -- | ---------------------------------- | ----------------------------------------------------------------------------- | -------------------------------------- |
+| 10 | **Longest Increasing Subsequence** | [LeetCode 300](https://leetcode.com/problems/longest-increasing-subsequence/) | DP with binary search optimization     |
+| 11 | **Decode Ways**                    | [LeetCode 91](https://leetcode.com/problems/decode-ways/)                     | Number of ways to decode digit strings |
+| 12 | **Burst Balloons**                 | [LeetCode 312](https://leetcode.com/problems/burst-balloons/)                 | Interval DP on subproblems             |
+
+
+🧠 Bonus Concepts to Practice
+
+| Concept                 | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| Memoization             | Top-down caching of recursive calls           |
+| Tabulation              | Bottom-up iterative DP tables                 |
+| State Compression       | Use bitmasks to reduce DP state space         |
+| Overlapping Subproblems | Reuse previously computed results             |
+| Transition Formulas     | Carefully define relation between subproblems |
+
+
+🚀 DP Practice Roadmap with Problem List
+
+| Level      | Problem Name                   | Link                                                                          | Focus / Pattern                    |
+| ---------- | ------------------------------ | ----------------------------------------------------------------------------- | ---------------------------------- |
+| **Easy**   | Climbing Stairs                | [LeetCode 70](https://leetcode.com/problems/climbing-stairs/)                 | 1D DP, counting ways               |
+| **Easy**   | House Robber                   | [LeetCode 198](https://leetcode.com/problems/house-robber/)                   | 1D DP, max sum with constraints    |
+| **Medium** | Unique Paths                   | [LeetCode 62](https://leetcode.com/problems/unique-paths/)                    | 2D DP grid traversal               |
+| **Medium** | Longest Common Subsequence     | [LeetCode 1143](https://leetcode.com/problems/longest-common-subsequence/)    | 2D DP, string subsequence          |
+| **Medium** | Partition Equal Subset Sum     | [LeetCode 416](https://leetcode.com/problems/partition-equal-subset-sum/)     | Subset sum, knapsack               |
+| **Medium** | Decode Ways                    | [LeetCode 91](https://leetcode.com/problems/decode-ways/)                     | 1D DP, combinational decoding      |
+| **Medium** | Coin Change                    | [LeetCode 322](https://leetcode.com/problems/coin-change/)                    | 1D DP, minimum coins               |
+| **Hard**   | Longest Increasing Subsequence | [LeetCode 300](https://leetcode.com/problems/longest-increasing-subsequence/) | 1D DP + binary search optimization |
+| **Hard**   | Burst Balloons                 | [LeetCode 312](https://leetcode.com/problems/burst-balloons/)                 | Interval DP                        |
+| **Hard**   | Edit Distance                  | [LeetCode 72](https://leetcode.com/problems/edit-distance/)                   | 2D DP, string transformation       |

@@ -1,0 +1,61 @@
+⏰ Overlapping Intervals Pattern
+
+Overlapping intervals problems often involve merging, inserting, or finding conflicts between intervals. The key insight is usually to sort intervals by start time and then process them in order to handle overlaps efficiently.
+
+This pattern is widely used in:
+
+    Scheduling
+    Merging ranges
+    Conflict detection
+
+🧠 Pattern Recognition
+
+| Pattern                   | Use When                                                |
+| ------------------------- | ------------------------------------------------------- |
+| Merge intervals           | Combine overlapping intervals into one                  |
+| Insert interval           | Add an interval and merge if necessary                  |
+| Meeting rooms / conflicts | Count overlaps to find required resources (e.g., rooms) |
+| Interval intersections    | Find common overlaps between two interval lists         |
+| Maximum overlap point     | Find the time point with max concurrent intervals       |
+
+CATEGORY 1: Merge / Insert Intervals
+
+| # | Problem                       | Link                                                                     | Tip                                                     |
+| - | ----------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------- |
+| 1 | **Merge Intervals**           | [LeetCode 56](https://leetcode.com/problems/merge-intervals/)            | Sort by start → merge overlapping intervals in one pass |
+| 2 | **Insert Interval**           | [LeetCode 57](https://leetcode.com/problems/insert-interval/)            | Find insertion point → merge overlaps if needed         |
+| 3 | **Non-overlapping Intervals** | [LeetCode 435](https://leetcode.com/problems/non-overlapping-intervals/) | Sort by end → greedily pick intervals with earliest end |
+
+CATEGORY 2: Meeting Rooms / Conflicts
+
+| # | Problem                                        | Link                                                                                      | Tip                                                 |
+| - | ---------------------------------------------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| 4 | **Meeting Rooms I**                            | [LeetCode 252](https://leetcode.com/problems/meeting-rooms/)                              | Sort by start → check overlaps to detect conflicts  |
+| 5 | **Meeting Rooms II**                           | [LeetCode 253](https://leetcode.com/problems/meeting-rooms-ii/)                           | Use min-heap on end times to track ongoing meetings |
+| 6 | **Minimum Number of Arrows to Burst Balloons** | [LeetCode 452](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/) | Sort by end → greedy interval selection             |
+
+CATEGORY 3: Interval Intersections and Overlaps
+
+| # | Problem                         | Link                                                                       | Tip                                                      |
+| - | ------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------- |
+| 7 | **Interval List Intersections** | [LeetCode 986](https://leetcode.com/problems/interval-list-intersections/) | Use two pointers to iterate both lists and find overlaps |
+| 8 | **Employee Free Time**          | [LeetCode 759](https://leetcode.com/problems/employee-free-time/)          | Merge all intervals then find gaps                       |
+| 9 | **Find Right Interval**         | [LeetCode 436](https://leetcode.com/problems/find-right-interval/)         | Use binary search on sorted intervals                    |
+
+CATEGORY 4: Advanced Overlapping / Sweep Line
+
+| #  | Problem            | Link                                                          | Tip                                                     |
+| -- | ------------------ | ------------------------------------------------------------- | ------------------------------------------------------- |
+| 10 | **My Calendar I**  | [LeetCode 729](https://leetcode.com/problems/my-calendar-i/)  | Use balanced tree or list to check overlaps efficiently |
+| 11 | **My Calendar II** | [LeetCode 731](https://leetcode.com/problems/my-calendar-ii/) | Track double bookings using interval tree or sweep line |
+| 12 | **Car Pooling**    | [LeetCode 1094](https://leetcode.com/problems/car-pooling/)   | Use prefix sums or sweep line for passenger counts      |
+
+
+🧠 Bonus Concepts to Practice
+
+| Concept               | Description                                                 |
+| --------------------- | ----------------------------------------------------------- |
+| Sorting intervals     | Always sort by start time (or end time for greedy picks)    |
+| Two pointers          | Iterate two lists of intervals to find intersections        |
+| Min-heap on end times | Track ongoing intervals for meeting room or resource counts |
+| Sweep line algorithm  | Count start/end points to find max overlap or gaps          |

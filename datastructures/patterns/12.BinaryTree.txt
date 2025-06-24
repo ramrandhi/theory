@@ -1,0 +1,52 @@
+🌳 Binary Tree Traversals Pattern
+
+Tree traversals are fundamental for visiting all nodes in a binary tree. They help in solving problems related to 
+searching, printing, or modifying trees.
+Common traversal types:
+
+    Preorder (Root, Left, Right)
+    Inorder (Left, Root, Right)
+    Postorder (Left, Right, Root)
+    Level order (BFS)
+
+🧠 Pattern Recognition
+
+| Pattern               | Use When                                                   |
+| --------------------- | ---------------------------------------------------------- |
+| Preorder traversal    | You need to process the root before children               |
+| Inorder traversal     | You need sorted order in BST or left-root-right processing |
+| Postorder traversal   | You need to process children before root                   |
+| Level order traversal | You need to process nodes level by level                   |
+
+CATEGORY 1: Recursive Traversals
+
+| # | Problem                             | Link                                                                           | Tip                                 |
+| - | ----------------------------------- | ------------------------------------------------------------------------------ | ----------------------------------- |
+| 1 | **Binary Tree Preorder Traversal**  | [LeetCode 144](https://leetcode.com/problems/binary-tree-preorder-traversal/)  | Recursive call: root → left → right |
+| 2 | **Binary Tree Inorder Traversal**   | [LeetCode 94](https://leetcode.com/problems/binary-tree-inorder-traversal/)    | Recursive call: left → root → right |
+| 3 | **Binary Tree Postorder Traversal** | [LeetCode 145](https://leetcode.com/problems/binary-tree-postorder-traversal/) | Recursive call: left → right → root |
+
+CATEGORY 2: Iterative Traversals
+
+| # | Problem                                         | Link                                                                           | Tip                                                   |
+| - | ----------------------------------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------- |
+| 4 | **Binary Tree Preorder Traversal (Iterative)**  | [LeetCode 144](https://leetcode.com/problems/binary-tree-preorder-traversal/)  | Use stack: push right first, then left                |
+| 5 | **Binary Tree Inorder Traversal (Iterative)**   | [LeetCode 94](https://leetcode.com/problems/binary-tree-inorder-traversal/)    | Use stack, go left until null, process node, go right |
+| 6 | **Binary Tree Postorder Traversal (Iterative)** | [LeetCode 145](https://leetcode.com/problems/binary-tree-postorder-traversal/) | Use two stacks or modified preorder                   |
+
+CATEGORY 3: Level Order Traversal (BFS)
+
+| # | Problem                                      | Link                                                                                    | Tip                                             |
+| - | -------------------------------------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| 7 | **Binary Tree Level Order Traversal**        | [LeetCode 102](https://leetcode.com/problems/binary-tree-level-order-traversal/)        | Use queue for BFS, process nodes level by level |
+| 8 | **Binary Tree Zigzag Level Order Traversal** | [LeetCode 103](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) | Use BFS + reverse order on alternate levels     |
+| 9 | **Average of Levels in Binary Tree**         | [LeetCode 637](https://leetcode.com/problems/average-of-levels-in-binary-tree/)         | BFS and compute average per level               |
+
+🧠 Bonus Concepts to Practice
+
+| Concept                  | Description                                               |
+| ------------------------ | --------------------------------------------------------- |
+| Recursive traversal      | Easy to implement, natural for trees                      |
+| Iterative traversal      | Use stack or queue to simulate recursion                  |
+| Morris traversal         | Inorder traversal with O(1) space by threading tree nodes |
+| Level order with markers | Use `null` or count nodes to separate levels              |

@@ -1,0 +1,59 @@
+📚 Monotonic Stack Pattern
+A monotonic stack maintains elements in a specific increasing or decreasing order, and is typically used to:
+
+    Find next/previous greater/smaller elements
+    Solve range-related problems
+    Handle histogram or span-style challenges
+
+Monotonic stacks are often used when:
+
+    You need to process elements left-to-right or right-to-left
+    You're interested in "first larger/smaller before/after"
+
+🧠 Pattern Recognition
+
+| Pattern                 | Use When                                                                     |
+| ----------------------- | ---------------------------------------------------------------------------- |
+| Next Greater Element    | Find the first greater element to the right or left                          |
+| Next Smaller Element    | Find the first smaller element to the right or left                          |
+| Increasing stack        | Used for **Next Smaller** or **Previous Smaller** (monotonically increasing) |
+| Decreasing stack        | Used for **Next Greater** or **Previous Greater** (monotonically decreasing) |
+| Histogram area / ranges | Keep index stack and calculate area when popping                             |
+
+CATEGORY 1: Next/Previous Greater/Smaller Elements
+
+| # | Problem                                | Link                                                                   | Tip                                                       |
+| - | -------------------------------------- | ---------------------------------------------------------------------- | --------------------------------------------------------- |
+| 1 | **Next Greater Element I**             | [LeetCode 496](https://leetcode.com/problems/next-greater-element-i/)  | Use a decreasing stack while iterating from right to left |
+| 2 | **Next Greater Element II (Circular)** | [LeetCode 503](https://leetcode.com/problems/next-greater-element-ii/) | Use modulo and iterate twice to simulate circular array   |
+| 3 | **Daily Temperatures**                 | [LeetCode 739](https://leetcode.com/problems/daily-temperatures/)      | Store indices in stack; pop when current temp is higher   |
+| 4 | **Previous Greater Element**           | [GFG](https://www.geeksforgeeks.org/previous-greater-element/)         | Traverse left to right; pop smaller values                |
+| 5 | **Next Smaller Element**               | [GFG](https://www.geeksforgeeks.org/next-smaller-element/)             | Use increasing stack for smaller elements                 |
+
+CATEGORY 2: Range and Area Calculations
+
+| # | Problem                            | Link                                                                         | Tip                                                                 |
+| - | ---------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| 6 | **Largest Rectangle in Histogram** | [LeetCode 84](https://leetcode.com/problems/largest-rectangle-in-histogram/) | Maintain increasing stack of indices; calculate width on pop        |
+| 7 | **Maximal Rectangle**              | [LeetCode 85](https://leetcode.com/problems/maximal-rectangle/)              | Treat each row as histogram; apply largest rectangle logic row-wise |
+| 8 | **Sum of Subarray Minimums**       | [LeetCode 907](https://leetcode.com/problems/sum-of-subarray-minimums/)      | Find how many subarrays each element is min for using NSL/NSR       |
+| 9 | **Sum of Subarray Maximums**       | Variation (Similar to above, use Next Greater logic)                         | Use monotonic decreasing stack for max contribution                 |
+
+CATEGORY 3: Monotonic Stack in Tricky Variants
+
+| #  | Problem                          | Link                                                                         | Tip                                                     |
+| -- | -------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------- |
+| 10 | **132 Pattern**                  | [LeetCode 456](https://leetcode.com/problems/132-pattern/)                   | Use stack to track `3`, scan from end to find valid `2` |
+| 11 | **Buildings With an Ocean View** | [LeetCode 1762](https://leetcode.com/problems/buildings-with-an-ocean-view/) | Traverse from right to left; maintain decreasing stack  |
+| 12 | **Asteroid Collision**           | [LeetCode 735](https://leetcode.com/problems/asteroid-collision/)            | Use stack to simulate collisions — direction matters    |
+
+🧠 Bonus Concepts to Practice
+
+| Concept                 | Description                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------------- |
+| Stack holds indices     | Especially in range/area problems like histograms                                           |
+| Clear before push       | Keep stack monotonic by popping elements that break the order                               |
+| Simulate circular array | Iterate twice, use modulo to wrap around                                                    |
+| Contribution counting   | In subarray min/max problems, each element contributes based on its nearest smaller/greater |
+
+

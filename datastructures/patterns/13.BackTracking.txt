@@ -1,0 +1,56 @@
+🔄 Backtracking Pattern
+
+Backtracking is a general algorithmic technique for solving problems incrementally, building candidates to the solution, and 
+abandoning a candidate (“backtracking”) as soon as it is determined that this candidate cannot possibly lead to a valid solution.
+
+It’s widely used in:
+
+    Permutations and combinations
+    Subset problems
+    Constraint satisfaction problems (e.g., Sudoku)
+    Puzzle solving (e.g., N-Queens)
+
+🧠 Pattern Recognition
+
+| Pattern                     | Use When                                                     |
+| --------------------------- | ------------------------------------------------------------ |
+| Generating all permutations | You need to explore all possible orderings                   |
+| Generating all combinations | You want all subsets or combinations                         |
+| Subset sum / Partition      | Explore sums or partitions with pruning                      |
+| Constraint satisfaction     | Solutions must satisfy constraints (e.g., Sudoku, crossword) |
+| Puzzle solving              | Search space with multiple decisions (e.g., N-Queens)        |
+
+CATEGORY 1: Permutations & Combinations
+
+| # | Problem                               | Link                                                          | Tip                                        |
+| - | ------------------------------------- | ------------------------------------------------------------- | ------------------------------------------ |
+| 1 | **Permutations**                      | [LeetCode 46](https://leetcode.com/problems/permutations/)    | Swap elements or use boolean visited array |
+| 2 | **Permutations II (with duplicates)** | [LeetCode 47](https://leetcode.com/problems/permutations-ii/) | Sort and skip duplicates during recursion  |
+| 3 | **Combinations**                      | [LeetCode 77](https://leetcode.com/problems/combinations/)    | Choose or skip elements recursively        |
+| 4 | **Combination Sum**                   | [LeetCode 39](https://leetcode.com/problems/combination-sum/) | Backtrack with sum tracking and pruning    |
+
+CATEGORY 2: Subsets & Partition
+
+| # | Problem                        | Link                                                                      | Tip                                         |
+| - | ------------------------------ | ------------------------------------------------------------------------- | ------------------------------------------- |
+| 5 | **Subsets**                    | [LeetCode 78](https://leetcode.com/problems/subsets/)                     | Include or exclude each element recursively |
+| 6 | **Partition Equal Subset Sum** | [LeetCode 416](https://leetcode.com/problems/partition-equal-subset-sum/) | Use backtracking with memoization or DP     |
+| 7 | **Word Break II**              | [LeetCode 140](https://leetcode.com/problems/word-break-ii/)              | Backtracking with pruning using memo        |
+
+CATEGORY 3: Constraint Satisfaction & Puzzles
+
+| #  | Problem                  | Link                                                               | Tip                                               |
+| -- | ------------------------ | ------------------------------------------------------------------ | ------------------------------------------------- |
+| 8  | **N-Queens**             | [LeetCode 51](https://leetcode.com/problems/n-queens/)             | Place queens row by row, backtrack on conflicts   |
+| 9  | **Sudoku Solver**        | [LeetCode 37](https://leetcode.com/problems/sudoku-solver/)        | Backtrack trying all digits, check validity       |
+| 10 | **Restore IP Addresses** | [LeetCode 93](https://leetcode.com/problems/restore-ip-addresses/) | Backtrack splitting string into valid IP segments |
+
+
+🧠 Bonus Concepts to Practice
+
+| Concept        | Description                                            |
+| -------------- | ------------------------------------------------------ |
+| Pruning        | Cut branches early when invalid                        |
+| Sorting input  | Helps skip duplicates                                  |
+| State tracking | Use boolean arrays, sets, or bitmasks to track choices |
+| Memoization    | Cache intermediate results to avoid recomputation      |

@@ -1,0 +1,54 @@
+In-Place Reversal Pattern
+  1.  The In-Place Reversal technique is key for manipulating linked lists efficiently without using extra space. 
+      It’s especially useful when you need to:
+  2.  Reverse an entire or partial list
+  3.  Detect or reorder nodes
+  4.  Process elements in reversed segments
+
+  Pattern Recognition
+
+| Pattern                   | Use When                                                        |
+| ------------------------- | --------------------------------------------------------------- |
+| Full list reversal        | You need to reverse the entire list                             |
+| Partial/sublist reversal  | You need to reverse a portion (e.g., between positions m and n) |
+| Group reversal            | You need to reverse nodes in k-groups or alternate groups       |
+| Frequency/structure check | Reversal helps validate structure (e.g., palindrome, reorder)   |
+
+CATEGORY 1: Full Reversal
+
+| # | Problem                    | Link                                                                  | Tip                                                 |
+| - | -------------------------- | --------------------------------------------------------------------- | --------------------------------------------------- |
+| 1 | **Reverse Linked List**    | [LeetCode 206](https://leetcode.com/problems/reverse-linked-list/)    | Classic 3-pointer technique: `prev`, `curr`, `next` |
+| 2 | **Palindrome Linked List** | [LeetCode 234](https://leetcode.com/problems/palindrome-linked-list/) | Find middle → reverse second half → compare halves  |
+
+CATEGORY 2: Partial or Bounded Reversal
+
+| # | Problem                    | Link                                                                 | Tip                                                    |
+| - | -------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------ |
+| 3 | **Reverse Linked List II** | [LeetCode 92](https://leetcode.com/problems/reverse-linked-list-ii/) | Use dummy node, skip to `left - 1`, reverse to `right` |
+| 4 | **Reorder List**           | [LeetCode 143](https://leetcode.com/problems/reorder-list/)          | Find mid → reverse second half → merge both halves     |
+
+CATEGORY 3: Group-Based Reversal
+
+| # | Problem                       | Link                                                                                              | Tip                                                               |
+| - | ----------------------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| 5 | **Reverse Nodes in k-Group**  | [LeetCode 25](https://leetcode.com/problems/reverse-nodes-in-k-group/)                            | Count `k` ahead → reverse group → recurse or loop through         |
+| 6 | **Swap Nodes in Pairs**       | [LeetCode 24](https://leetcode.com/problems/swap-nodes-in-pairs/)                                 | Swap nodes 2 by 2 using dummy + iterative pointer swaps           |
+| 7 | **Reverse Alternate K Nodes** | [GeeksforGeeks](https://www.geeksforgeeks.org/reverse-alternate-k-nodes-in-a-singly-linked-list/) | Reverse every other `k` nodes: alternate between reverse and skip |
+
+CATEGORY 4: Recursive or Structural Reversal
+
+| # | Problem                                     | Link                                                                                   | Tip                                                              |
+| - | ------------------------------------------- | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| 8 | **Flatten a Multilevel Doubly Linked List** | [LeetCode 430](https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/) | Use recursion or stack to flatten children in-place              |
+| 9 | **Reverse Linked List (Recursive)**         | [LeetCode 206](https://leetcode.com/problems/reverse-linked-list/) (Recursive version) | Recursively reverse from tail up: `newHead = reverse(head.next)` |
+
+🧠 Bonus Concepts to Practice
+
+| Concept          | Description                                                  |
+| ---------------- | ------------------------------------------------------------ |
+| 3-pointer method | `prev`, `curr`, `next` — for iterative in-place reversal     |
+| Dummy node       | Simplifies head edge cases in partial or group reversal      |
+| Midpoint logic   | Used in problems like Palindrome and Reorder List            |
+| Frequency maps   | Used in problems like Palindrome to validate value structure |
+

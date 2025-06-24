@@ -18,21 +18,21 @@ https://www.youtube.com/watch?v=N5N0zW8VdG8&list=PL4WwUkr0wZUQePntdirnTMuMRj2Q4H
 14. Heap/priority queue
 
 Questions (Leetcode) (below are the patterns and their examples):
-1:21 - Prefix Sums
-2:03 - Two Pointers 
-2:48 - Sliding Window
-3:36 - Fast and Slow Pointers
-4:33 - In-place reversal
-5:23 - Monotonic Stack Pattern
-6:30 - Top k elements (for k largest - min Heap ; for k smallest - max Heap)
-7:23 - Overlapping intervals
-7:59 - Modified Binary Search Pattern
-8:50 - Use case of each binary tree traversal and example
-9:27 - DFS of Graph
-10:08 - BFS of Graph
-11:01 - Matrix Traversal
-11:49 -  Backtracking
-12:21 - DP Patterns and examples
+Prefix Sums
+Two Pointers 
+Sliding Window
+Fast and Slow Pointers
+In-place reversal
+Monotonic Stack Pattern
+Top k elements (for k largest - min Heap ; for k smallest - max Heap)
+Overlapping intervals
+Modified Binary Search Pattern
+Use case of each binary tree traversal and example
+DFS of Graph
+BFS of Graph
+Matrix Traversal
+Backtracking
+DP Patterns and examples
 
 =============================Prefix Sum=====================================================
 => use case: Query sum of elements in a sub array.
@@ -131,7 +131,84 @@ Questions (Leetcode) (below are the patterns and their examples):
 
 
 
+🧠 DSA Mastery – Pattern-wise Breakdown
 
-learnings:
-1. Sliding Window
+────────────────────────────────────
+🥇 Level 1: Foundation Patterns
+────────────────────────────────────
+
+1. Two Pointers
+- Use case: Finding pairs, removing duplicates, sorting-related problems
+- Examples: Remove Duplicates, Container With Most Water
+
+2. Sliding Window
+- Use case: Contiguous subarray/substring problems
+- Examples: Minimum Size Subarray Sum, Longest Substring Without Repeating Characters
+
+3. Fast and Slow Pointers
+- Use case: Linked list cycle detection, finding mid-point
+- Examples: Linked List Cycle, Find Middle of Linked List
+
+4. Prefix Sums
+- Use case: Range sum queries, subarray sum problems
+- Examples: Subarray Sum Equals K, Range Sum Query
+
+────────────────────────────────────
+🥈 Level 2: Intermediate Patterns
+────────────────────────────────────
+
+5. In-place Reversal
+- Use case: Reverse linked list, reverse words, array rotation
+- Examples: Reverse Linked List, Reverse Words in a String
+
+6. Modified Binary Search
+- Use case: Searching in sorted but rotated or modified arrays
+- Examples: Search in Rotated Sorted Array, Peak Index in a Mountain Array
+
+7. Monotonic Stack
+- Use case: Next greater/smaller element, stack-based optimization
+- Examples: Daily Temperatures, Largest Rectangle in Histogram
+
+8. Top K Elements (Heaps)
+- Use case: Finding top or bottom K elements using priority queues
+- Examples: Kth Largest Element, Top K Frequent Elements
+
+────────────────────────────────────
+🥉 Level 3: Advanced/Composite Patterns
+────────────────────────────────────
+
+9. Overlapping Intervals
+- Use case: Scheduling, merging intervals
+- Examples: Merge Intervals, Meeting Rooms
+
+10. Matrix Traversal
+- Use case: Grid-based problems
+- Examples: Spiral Matrix, Number of Islands
+
+11. DFS and BFS (Graph)
+- Use case: Graph traversal, shortest path, connectivity
+- DFS Examples: Number of Islands
+- BFS Examples: Word Ladder, Rotting Oranges
+
+12. Binary Tree Traversals
+- Inorder: BSTs (sorted order)
+- Preorder: Root-to-leaf paths
+- Postorder: Deletion, bottom-up logic
+- Level Order (BFS): Layer-by-layer traversal
+
+13. Backtracking
+- Use case: Permutations, combinations, puzzles
+- Examples: N-Queens, Subset Sum, Word Search
+
+14. Dynamic Programming (DP Patterns)
+- Use case: Optimization problems
+- Must-learn patterns:
+  • 0/1 Knapsack – Subset sum, max profit
+  • Unbounded Knapsack – Coin change
+  • Fibonacci-style – Climbing stairs
+  • DP on Strings – LCS, Edit Distance
+  • DP on Grid – Unique Paths, Min Path Sum
+  • DP with Bitmask – Traveling Salesman
+
+
 

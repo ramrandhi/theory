@@ -1,0 +1,58 @@
+Top K Elements (Heaps) Pattern
+
+Heaps (priority queues) are ideal for efficiently retrieving the top K largest/smallest elements or maintaining dynamic 
+collections sorted by priority.
+
+This pattern is especially useful when you need to:
+
+    Find K largest or smallest elements
+    Track running medians or frequency-based top elements
+    Merge sorted sequences efficiently
+
+🧠 Pattern Recognition
+
+| Pattern                     | Use When                                      |
+| --------------------------- | --------------------------------------------- |
+| K largest/smallest elements | Find top K largest or smallest efficiently    |
+| Running median              | Maintain median dynamically with two heaps    |
+| Merge K sorted lists/arrays | Merge multiple sorted inputs efficiently      |
+| Frequency-based top K       | Find top K frequent elements using a min-heap |
+
+CATEGORY 1: Basic Top K Elements
+
+| # | Problem                             | Link                                                                           | Tip                                                      |
+| - | ----------------------------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------- |
+| 1 | **Kth Largest Element in an Array** | [LeetCode 215](https://leetcode.com/problems/kth-largest-element-in-an-array/) | Use a min-heap of size K to track K largest elements     |
+| 2 | **Top K Frequent Elements**         | [LeetCode 347](https://leetcode.com/problems/top-k-frequent-elements/)         | Count frequencies → min-heap to keep top K freq elements |
+| 3 | **K Closest Points to Origin**      | [LeetCode 973](https://leetcode.com/problems/k-closest-points-to-origin/)      | Use max-heap of size K or min-heap with distances        |
+
+CATEGORY 2: Running Median & Dynamic Sets
+
+| # | Problem                          | Link                                                                        | Tip                                                             |
+| - | -------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| 4 | **Find Median from Data Stream** | [LeetCode 295](https://leetcode.com/problems/find-median-from-data-stream/) | Use two heaps: max-heap for lower half, min-heap for upper half |
+| 5 | **Sliding Window Median**        | [LeetCode 480](https://leetcode.com/problems/sliding-window-median/)        | Maintain balanced heaps for window elements                     |
+
+CATEGORY 3: Merge and Sort with Heaps
+
+| # | Problem                                     | Link                                                                                   | Tip                                                        |
+| - | ------------------------------------------- | -------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| 6 | **Merge k Sorted Lists**                    | [LeetCode 23](https://leetcode.com/problems/merge-k-sorted-lists/)                     | Use a min-heap to pick smallest current element from lists |
+| 7 | **Kth Smallest Element in a Sorted Matrix** | [LeetCode 378](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/) | Min-heap pushing neighbors to get kth smallest efficiently |
+
+CATEGORY 4: Frequency + Heap Variations
+
+| #  | Problem                               | Link                                                                             | Tip                                                     |
+| -- | ------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| 8  | **Top K Frequent Words**              | [LeetCode 692](https://leetcode.com/problems/top-k-frequent-words/)              | Min-heap with custom comparator (frequency + lex order) |
+| 9  | **Rearrange String k Distance Apart** | [LeetCode 358](https://leetcode.com/problems/rearrange-string-k-distance-apart/) | Use max-heap to greedily arrange characters             |
+| 10 | **Task Scheduler**                    | [LeetCode 621](https://leetcode.com/problems/task-scheduler/)                    | Use max-heap + cooldown queue                           |
+
+🧠 Bonus Concepts to Practice
+
+| Concept              | Description                                                     |
+| -------------------- | --------------------------------------------------------------- |
+| Min-heap vs Max-heap | Min-heap for smallest elements, Max-heap for largest elements   |
+| Custom comparators   | Use when ordering depends on multiple keys (freq, lex order)    |
+| Balancing heaps      | For running median, keep heaps balanced by size                 |
+| Lazy removal         | For sliding window median, remove out-of-window elements lazily |

@@ -1,0 +1,60 @@
+🔄 Matrix Traversal Pattern
+
+Matrix traversal involves visiting each element of a 2D grid systematically. It’s foundational for many problems involving grids, images, or board games. Variations include traversal by rows, columns, diagonals, spirals, or using search techniques like BFS/DFS.
+
+Common use cases:
+
+    Exploring neighbors
+    Searching connected components or islands
+    Manipulating matrix in specific orders (spiral, diagonal)
+
+🧠 Pattern Recognition
+
+| Pattern                          | Use When                                     |
+| -------------------------------- | -------------------------------------------- |
+| Row-wise / column-wise traversal | You need to visit every element sequentially |
+| Spiral traversal                 | Traverse matrix in spiral order              |
+| Diagonal traversal               | Visit elements along diagonals               |
+| BFS/DFS on matrix                | Explore connected cells or shortest paths    |
+| Boundary traversal               | Visit only edges or boundaries               |
+
+CATEGORY 1: Basic Traversals
+
+| # | Problem                 | Link                                                                | Tip                                               |
+| - | ----------------------- | ------------------------------------------------------------------- | ------------------------------------------------- |
+| 1 | **Matrix Diagonal Sum** | [LeetCode 1572](https://leetcode.com/problems/matrix-diagonal-sum/) | Iterate with index tracking row and col diagonals |
+| 2 | **Spiral Matrix**       | [LeetCode 54](https://leetcode.com/problems/spiral-matrix/)         | Maintain boundaries and move in 4 directions      |
+| 3 | **Rotate Image**        | [LeetCode 48](https://leetcode.com/problems/rotate-image/)          | Transpose + reverse rows for in-place rotation    |
+
+CATEGORY 2: BFS / DFS on Matrix
+
+| # | Problem                | Link                                                              | Tip                                                        |
+| - | ---------------------- | ----------------------------------------------------------------- | ---------------------------------------------------------- |
+| 4 | **Number of Islands**  | [LeetCode 200](https://leetcode.com/problems/number-of-islands/)  | DFS or BFS to explore connected ‘1’s and mark visited      |
+| 5 | **Rotting Oranges**    | [LeetCode 994](https://leetcode.com/problems/rotting-oranges/)    | BFS from rotten oranges to spread infection layer by layer |
+| 6 | **Surrounded Regions** | [LeetCode 130](https://leetcode.com/problems/surrounded-regions/) | DFS/BFS from boundaries to mark safe regions               |
+
+
+CATEGORY 3: Advanced Traversal Patterns
+
+| # | Problem                                 | Link                                                                               | Tip                                              |
+| - | --------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------ |
+| 7 | **Word Search**                         | [LeetCode 79](https://leetcode.com/problems/word-search/)                          | Backtracking DFS with visited array              |
+| 8 | **Longest Increasing Path in a Matrix** | [LeetCode 329](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/) | DFS + memoization to avoid recomputation         |
+| 9 | **Number of Distinct Islands**          | [LeetCode 694](https://leetcode.com/problems/number-of-distinct-islands/)          | DFS with shape encoding to differentiate islands |
+
+CATEGORY 4: Boundary / Edge Traversals
+
+| #  | Problem                               | Link                                                                                   | Tip                                                               |
+| -- | ------------------------------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| 10 | **Matrix Boundary Traversal**         | [GFG Link](https://practice.geeksforgeeks.org/problems/boundary-traversal-of-matrix/1) | Traverse edges in order: top row, right col, bottom row, left col |
+| 11 | **Find the Celebrity** (grid problem) | [LeetCode 277](https://leetcode.com/problems/find-the-celebrity/)                      | Matrix logical traversal with elimination                         |
+
+🧠 Bonus Concepts to Practice
+
+| Concept                | Description                                                                         |
+| ---------------------- | ----------------------------------------------------------------------------------- |
+| Direction arrays       | Use arrays like `int[] dr = {-1, 0, 1, 0}; int[] dc = {0, 1, 0, -1};` for neighbors |
+| Boundary checks        | Always check indices within matrix bounds before accessing                          |
+| Visited matrix         | Keep track of visited cells for BFS/DFS                                             |
+| Recursion vs Iteration | Use recursion for DFS/backtracking, queues for BFS                                  |

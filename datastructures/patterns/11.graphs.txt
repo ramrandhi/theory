@@ -1,0 +1,59 @@
+🌐 DFS & BFS (Graph Traversal) Pattern
+
+Depth-First Search (DFS) and Breadth-First Search (BFS) are fundamental algorithms for traversing or searching graph data 
+structures. They’re widely used to explore nodes, find paths, detect cycles, and solve connectivity problems.
+
+🧠 Pattern Recognition
+
+| Pattern               | Use When                                      |
+| --------------------- | --------------------------------------------- |
+| DFS                   | Explore all possible paths, often recursively |
+| BFS                   | Find shortest path in unweighted graphs       |
+| Connected components  | Find all connected nodes or clusters          |
+| Cycle detection       | Detect if a graph contains cycles             |
+| Topological sorting   | Order nodes based on dependencies             |
+| Level order traversal | BFS to process nodes level by level           |
+
+CATEGORY 1: Basic DFS Traversal
+
+| # | Problem               | Link                                                             | Tip                                              |
+| - | --------------------- | ---------------------------------------------------------------- | ------------------------------------------------ |
+| 1 | **Number of Islands** | [LeetCode 200](https://leetcode.com/problems/number-of-islands/) | DFS on grid to mark visited connected components |
+| 2 | **Clone Graph**       | [LeetCode 133](https://leetcode.com/problems/clone-graph/)       | DFS with hashmap to clone nodes                  |
+| 3 | **Course Schedule**   | [LeetCode 207](https://leetcode.com/problems/course-schedule/)   | DFS to detect cycle in directed graph            |
+
+CATEGORY 2: Basic BFS Traversal
+
+| # | Problem                            | Link                                                                           | Tip                                    |
+| - | ---------------------------------- | ------------------------------------------------------------------------------ | -------------------------------------- |
+| 4 | **Shortest Path in Binary Matrix** | [LeetCode 1091](https://leetcode.com/problems/shortest-path-in-binary-matrix/) | BFS for shortest path in grid          |
+| 5 | **Minimum Depth of Binary Tree**   | [LeetCode 111](https://leetcode.com/problems/minimum-depth-of-binary-tree/)    | BFS level order traversal              |
+| 6 | **Rotting Oranges**                | [LeetCode 994](https://leetcode.com/problems/rotting-oranges/)                 | BFS spreading infection layer by layer |
+
+
+CATEGORY 3: Cycle Detection & Connectivity
+
+| # | Problem                              | Link                                                                                                 | Tip                                           |
+| - | ------------------------------------ | ---------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| 7 | **Detect Cycle in Undirected Graph** | [GFG](https://practice.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1)             | DFS with parent tracking                      |
+| 8 | **Detect Cycle in Directed Graph**   | [LeetCode 207](https://leetcode.com/problems/course-schedule/)                                       | DFS with recursion stack to detect back edges |
+| 9 | **Number of Connected Components**   | [LeetCode 323](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/) | DFS/BFS to count connected components         |
+
+
+CATEGORY 4: Advanced Traversal Applications
+
+| #  | Problem                | Link                                                              | Tip                                         |
+| -- | ---------------------- | ----------------------------------------------------------------- | ------------------------------------------- |
+| 10 | **Word Ladder**        | [LeetCode 127](https://leetcode.com/problems/word-ladder/)        | BFS shortest transformation sequence        |
+| 11 | **Alien Dictionary**   | [LeetCode 269](https://leetcode.com/problems/alien-dictionary/)   | Topological sort using DFS                  |
+| 12 | **Course Schedule II** | [LeetCode 210](https://leetcode.com/problems/course-schedule-ii/) | Topological sort to find valid course order |
+
+🧠 Bonus Concepts to Practice
+
+| Concept                    | Description                                              |
+| -------------------------- | -------------------------------------------------------- |
+| Recursive vs Iterative DFS | Recursive uses call stack; iterative uses explicit stack |
+| Visited tracking           | Use boolean arrays or sets to avoid revisiting nodes     |
+| BFS queue                  | Use queue for BFS to process nodes level by level        |
+| Parent tracking            | For path reconstruction or cycle detection               |
+| Topological sorting        | Use DFS post-order or BFS (Kahn’s algorithm)             |

@@ -1,0 +1,55 @@
+Modified Binary Search Pattern
+ => Modified Binary Search is used when you're dealing with a sorted array (or conditions acting like one) but with a 
+    twist — rotated arrays, duplicates, missing elements, etc. It's a powerful technique for reducing time complexity from 
+    linear to logarithmic (O(log n)).
+
+🧠 Pattern Recognition
+
+| Pattern                       | Use When                                                                |
+| ----------------------------- | ----------------------------------------------------------------------- |
+| Classic binary search         | You search in a normally sorted array                                   |
+| Condition-based search        | You're looking for the **first/last occurrence** or element with a rule |
+| Rotated sorted array          | Array is sorted but rotated – find pivot or search element              |
+| Infinite array / unknown size | Array is unbounded – expand boundaries, then binary search              |
+| Mountain or bitonic array     | Array increases then decreases – find peak, then search halves          |
+
+CATEGORY 1: Classic + Bound Variants
+
+| # | Problem                          | Link                                                                                                  | Tip                                              |
+| - | -------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| 1 | **Binary Search**                | [LeetCode 704](https://leetcode.com/problems/binary-search/)                                          | Template for binary search — use `left <= right` |
+| 2 | **First Bad Version**            | [LeetCode 278](https://leetcode.com/problems/first-bad-version/)                                      | Move `right = mid` to find first bad version     |
+| 3 | **Find First and Last Position** | [LeetCode 34](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) | Do two binary searches: left-most and right-most |
+
+CATEGORY 2: Rotated Sorted Arrays
+
+| # | Problem                                     | Link                                                                                   | Tip                                                         |
+| - | ------------------------------------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| 4 | **Search in Rotated Sorted Array**          | [LeetCode 33](https://leetcode.com/problems/search-in-rotated-sorted-array/)           | Find which half is sorted, and decide where target may lie  |
+| 5 | **Search in Rotated Array II (Duplicates)** | [LeetCode 81](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/)        | Use extra checks for duplicates when elements are equal     |
+| 6 | **Find Minimum in Rotated Sorted Array**    | [LeetCode 153](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/)    | Look for inflection point — `nums[mid] > nums[right]` hint  |
+| 7 | **Find Minimum II (With Duplicates)**       | [LeetCode 154](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/) | Similar to above, but skip duplicates by reducing `right--` |
+
+CATEGORY 3: Special Property Arrays
+
+| #  | Problem                              | Link                                                                          | Tip                                                            |
+| -- | ------------------------------------ | ----------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| 8  | **Peak Index in a Mountain Array**   | [LeetCode 852](https://leetcode.com/problems/peak-index-in-a-mountain-array/) | Binary search for `nums[mid] > nums[mid+1]` to find the peak   |
+| 9  | **Find Peak Element**                | [LeetCode 162](https://leetcode.com/problems/find-peak-element/)              | Use slope direction to move — peak always exists in log n time |
+| 10 | **Find Kth Missing Positive Number** | [LeetCode 1539](https://leetcode.com/problems/kth-missing-positive-number/)   | Track how many numbers are missing by `arr[i] - (i+1)`         |
+
+CATEGORY 4: Infinite or Unbounded Search Space
+
+| #  | Problem                             | Link                                                                                           | Tip                                                                    |
+| -- | ----------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| 11 | **Search in Infinite Sorted Array** | [GFG Link](https://www.geeksforgeeks.org/find-position-element-sorted-array-infinite-numbers/) | Double `high` until target is within bounds, then binary search        |
+| 12 | **Search a 2D Matrix**              | [LeetCode 74](https://leetcode.com/problems/search-a-2d-matrix/)                               | Treat 2D as 1D with index conversion: `matrix[mid / cols][mid % cols]` |
+
+🧠 Bonus Concepts to Practice
+
+| Concept               | Description                                                            |
+| --------------------- | ---------------------------------------------------------------------- |
+| First/last occurrence | Adjust `right = mid - 1` or `left = mid + 1` carefully                 |
+| Pivot-based search    | In rotated arrays, determine which half is sorted to narrow search     |
+| Infinite search       | Expand boundary (`high *= 2`) and then perform regular binary search   |
+| Binary search tricks  | Always check boundary conditions to avoid infinite loops or off-by-one |
