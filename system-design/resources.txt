@@ -66,3 +66,26 @@ Telegram - https://lnkd.in/d_PjD86B
 Whatsapp - https://lnkd.in/dvk8prj5
 
 Happy learning !
+
+
+
+► Advice on how to start with System design learning 
+- https://lnkd.in/gxYhMYc6
+
+► Resources for learning Basics: 
+- The Primer
+∟https://lnkd.in/gaDnZh6a
+- Awesome Design Resources
+∟https://lnkd.in/gaDnZh6a
+
+►For System Design Problems: 
+- System Design School 
+∟https://lnkd.in/gBWghZaC
+- System Design Playthrough by Hello Interview
+∟https://lnkd.in/g9xKsauH
+
+► Important System Design Patterns
+– Design Patterns: https://lnkd.in/gh_vhyuR
+– Software Architecture patterns: https://lnkd.in/g2weukNM
+
+I would advise you to go for the quality of resources instead of quantity. 

@@ -9,7 +9,7 @@
 
 | # | Problem                            | Link                                                                            | Tip                                                        |
 | - | ---------------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| 1 | Two Sum II – Input Array Is Sorted | [LeetCode 167](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) | Start one pointer at each end; move inward based on sum    |
+| 1 | Two Sum II - Input Array Is Sorted | [LeetCode 167](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) | Start one pointer at each end; move inward based on sum    |
 | 2 | Squares of a Sorted Array          | [LeetCode 977](https://leetcode.com/problems/squares-of-a-sorted-array/)        | Use two pointers to compare absolute values from both ends |
 | 3 | Reverse String                     | [LeetCode 344](https://leetcode.com/problems/reverse-string/)                   | Swap characters from both ends until they meet             |
 | 4 | Move Zeroes                        | [LeetCode 283](https://leetcode.com/problems/move-zeroes/)                      | Use one pointer to scan, another to track placement        |
@@ -30,7 +30,7 @@ CATEGORY: Linked Lists with Two Pointers
 | 9  | Remove Nth Node From End          | [LeetCode 19](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)    | Use fast pointer `n` steps ahead, then move both              |
 | 10 | Middle of the Linked List         | [LeetCode 876](https://leetcode.com/problems/middle-of-the-linked-list/)          | Move fast by 2, slow by 1                                     |
 | 11 | Palindrome Linked List            | [LeetCode 234](https://leetcode.com/problems/palindrome-linked-list/)             | Find mid, reverse second half, compare                        |
-| 12 | Maximum Twin Sum of a Linked List | [LeetCode 2130](https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/) | Similar to palindrome – reverse and compare with two pointers |
+| 12 | Maximum Twin Sum of a Linked List | [LeetCode 2130](https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/) | Similar to palindrome - reverse and compare with two pointers |
 
 CATEGORY: Two Pointers in Arrays / Partitioning
 

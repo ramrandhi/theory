@@ -1,0 +1,70 @@
+JDK - java development kit.
+    - contains jre, jvm and other class loader files for building applications.
+
+JRE - java run time environment
+    - it contains jdk, class libraries and runtime utilities.
+
+
+JVM - java virtual machine
+    - loads .class files (bitecode)
+    - features like garbage collection
+    - ensures platform independence.
+    - converts byte code to machine understandable code using jit compiler
+
+JDK
+ ├── JRE
+ │    ├── JVM
+ │    └── Java Libraries
+ └── Developer Tools (javac, jdb, javadoc, etc.)
+
+
+Main Method in Java
+public static void main(String[] args) {}
+
+public - to make it accessable from anywhere
+static - reference through class not through object as jvm will be having a overhead if object creation is required.
+void - main method doesnot return any return type
+main - this is the entry point of the method
+String[] args - main method takes a array of arguments from command line
+
+difference between == and .equals
+== - to check the data directly from the memory location
+.equals only checks the data it is currently having
+
+GARBAGE COLLECTION:
+ - it mainly consists of 3 parts. 
+ - 1. young generation, 2. old generation, 3. meta data
+ - 1. YOUNG GENERATION: All the new objects will be created here.
+ - 2. OLD GENERATIN: All the objects that are in contact with threads for longer time will be moved to old generation.
+    - here accessing objects is costly because it is heavy and has lot of old data present inside it.
+ - 3. metaspace - introduced in java 8 (before it was permgeneration) it used to store class data.
+
+Exception Handling
+ - Exceptions are of two types.  1. exceptions and 2. erros
+ - 1. Exceptions
+    - 1. run time exceptions - nullpointer exceptions, index out of bound exceptions etc.
+    - 2. compile time exceptions - outOfMemory exceptions, file not found exceptions etc.
+ - 2. Errors
+    - these occur when something is wrong with the hardware level or jvm level.
+
+
+    Throwable
+├── Error
+│   ├── OutOfMemoryError
+│   ├── StackOverflowError
+│   └── VirtualMachineError
+│
+└── Exception
+    ├── Checked Exceptions
+    │   ├── IOException
+    │   │   └── FileNotFoundException
+    │   ├── SQLException
+    │   └── ClassNotFoundException
+    │
+    └── Unchecked Exceptions (RuntimeException)
+        ├── NullPointerException
+        ├── IllegalArgumentException
+        ├── IndexOutOfBoundsException
+        └── ArithmeticException 
+
+

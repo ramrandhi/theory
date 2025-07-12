@@ -228,7 +228,7 @@
             // Infinite random numbers (use limit to prevent infinite loop)
             Stream.generate(Math::random)
                 .limit(5)
-                .forEach(System.out::println);
+                .forEach(System.out::println);  
             // Stream of even numbers
             Stream.iterate(0, n -> n + 2)
                 .limit(5)
@@ -398,33 +398,33 @@
 
  -> Accessing Values:
 
-    get() – Gets the value (if present), otherwise throws NoSuchElementException
+    get() - Gets the value (if present), otherwise throws NoSuchElementException
     Optional<String> opt = Optional.of("Java");
     System.out.println(opt.get()); // Java
     Don't use get() directly without checking — prefer safer methods below 👇
 
-    isPresent() – Checks if a value is present
+    isPresent() - Checks if a value is present
     if (opt.isPresent()) {
         System.out.println(opt.get());
     }
 
-    ifPresent(Consumer<T>) – Executes action if value is present
+    ifPresent(Consumer<T>) - Executes action if value is present
     opt.ifPresent(name -> System.out.println("Hello, " + name));
 
-    orElse(defaultValue) – Returns value or default if absent
+    orElse(defaultValue) - Returns value or default if absent
     String result = opt.orElse("Default");
     System.out.println(result); // Java
 
-    orElseGet(Supplier) – Lazily provides default value
+    orElseGet(Supplier) - Lazily provides default value
     String result = opt.orElseGet(() -> "Generated Default");
 
-    orElseThrow(Supplier<Exception>) – Throws exception if empty
+    orElseThrow(Supplier<Exception>) - Throws exception if empty
     String value = opt.orElseThrow(() -> new RuntimeException("Value missing!"));
 
 
  -> Transforming with map() and flatMap()
 
-    map() – Transform the value inside Optional
+    map() - Transform the value inside Optional
     Optional<String> upper = opt.map(String::toUpperCase);
     System.out.println(upper.get()); // JAVA
 

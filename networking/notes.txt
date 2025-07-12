@@ -1,0 +1,43 @@
+what are computer networks: Computers connected eachother through networks.
+NETWORK: Computers connected together.
+INTERNET: It is a collection of all these networks.
+TCP: Transmission control protocol. (ensures 100% of the data is sent to the receiver eg: transferring files).
+UDP: User Datagram protocol. (maynot ensure 100% of data is sender to the receiver. eg: video calls)
+HTTP: Hypertext transfer protocol. (defines the format for the data to be transferred).
+PROTOCOLS: Some rules set to transfer data over internet.
+WWE - world wide web.
+NAT - Network access translator. (when router gets request and returns back response to which it needs to send will be told by NAT).
+PORT NUMBER - To which application that response needs to be send in that device will be told by port number.
+PORTS - they are bascially 16 bit numbers. having 0's and 1's and can range upto 2^16 or 65000 port numbers.
+      - the ports from 0 to 1023 are reserved for http ports.
+      - the ports from 1024 - 49152 are reserved for applications.
+      - remaining we can use.
+Internet Speeds
+    - 1 Mbps = 1000000 bits/second
+    - 1 gbps = 1000000000 bits/second
+    - 1 kbps = 1000 bits/second.
+HOW DEVICS ARE CONNECTED:
+LAN - small house / offices. using ethernets, wifi.
+MAN - cities
+WAN - Accross countries - optical fibre cables
+
+MODEMS - converts digital Signals into analog Signals.
+ROUTERS - routes data in the format of router packets
+TOPOLOGIES: 1. BUS, 2. STAR, 3. TREE, ETC... (BASCIALLY SAYS HOW CABLES NEED TO BE CONNECTED).
+
+STRUCTURE OF THE NETWORK:
+OSI MODEL:  
+1. APPLICATION LAYER - it is a software we are using.
+2. PRESENTATION LAYER - data came here will be converted into machine understandable binary code, encription and decription, compression etc.
+3. SESSION LAYER - autherntication and authorization will happen and create a session being created.
+4. TRASPORT LAYER - divide data into packets and and segments.
+5. NETWORK LAYER - it does some logical addressing and sends data. here router is present as we are going out of system to internet.
+6. DATA LINK LAYER - allows directly interact with other computers.
+7. PHYSICAL LAYER - it the physical layer where it transmits electrical bits.
+
+TCP/IP MODEL:
+1. APPLICATION LAYER - 
+2. TRANSPORT LAYER - 
+3. NETWOK LAYER - 
+4. DATALINK LAYER - 
+5. PHYSICAL LAYER - 

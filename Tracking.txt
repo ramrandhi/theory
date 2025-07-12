@@ -1,0 +1,8 @@
+DSA :
+    two pointers - 4 completed
+    sliding window - 5 completed
+    fast and slow pointers - 0 completed
+    prefix sum - 0 completed
+
+System Design
+    Scalability - 
