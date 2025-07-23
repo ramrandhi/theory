@@ -75,3 +75,89 @@ Udemy course: https://lnkd.in/gZwTudYq
 27. Microservices Architecture 
 28. Services Mesh
 29. DNS💥
+
+
+
+==================================================================================================================================
+
+
+
+System Design interviews are hard. 
+
+But only if you prepare the wrong way.
+
+Most candidates fail not because they lack knowledge — but because their prep is scattered.
+They binge tutorials. Bookmark 100 threads. Watch YouTube in 2x.
+
+But in real interviews, they blank out when asked: “How would you design this?”
+Here's a focused list of LLD and HLD topics that actually help you crack product-based company interviews:
+
+=> Low-Level Design (LLD)
+These aren't just design patterns — they're interview must-haves:
+• SOLID Principles - The foundation of OOP
+• Strategy Pattern - Clean up conditional logic
+• Observer Pattern - Push-based event systems
+• Decorator Pattern - Extend functionality, cleanly
+• Factory vs Abstract Factory - Know when and why
+• Proxy Pattern - Add control to access
+• Null Object Pattern - Avoid null checks gracefully
+• Builder Pattern - Step-by-step object construction
+• Composite Pattern - File system-style hierarchies
+• Adapter Pattern - Legacy integration
+• Chain of Responsibility - Logging systems
+• Command / Iterator / Visitor / Memento - Know the behavioral patterns
+
+Real-world LLD questions you should implement from scratch:
+• Parking Lot
+• Vending Machine
+• ATM System
+• Chess Game
+• Snake & Ladder
+• Car Rental
+• BookMyShow
+• Splitwise (with simplification logic)
+• Zepto-style Delivery App
+• Cricbuzz Match Flow
+• Coupon Code System
+• MVC Design
+• Payment Gateway
+
+Tip: Code at least 5-10 of these yourself, don't just read.
+
+=> High-Level Design (HLD)
+This is where you scale systems. Think availability, latency, trade-offs.
+• CAP Theorem - Understand what you give up
+• Load Balancing - Algorithms, types, use cases
+• Caching - Redis, Memcached, eviction policies
+• Rate Limiter - Token bucket, leaky bucket
+• Consistent Hashing - Sharding in distributed systems
+• SQL vs NoSQL - Choosing the right one
+• Message Brokers - Kafka, RabbitMQ, SQS
+• Distributed Transactions - 2PC, SAGA
+• Concurrency Control - Locks, isolation, deadlocks
+• Indexing in DBs - Query optimization
+• API Gateway - Request routing, rate limiting
+• Forward vs Reverse Proxy
+• OAuth 2.0 - Secure authorization
+• JWT - Auth + security risks
+• Microservices Patterns - Circuit Breaker, API Gateway, Service Registry
+• DNS - Request resolution
+• Encryption - Symmetric vs Asymmetric
+• Idempotency - Critical for retry-safe APIs
+• High Availability Design - Replication, failover
+• Back-of-the-envelope Estimations - Request/sec, DB size, storage
+• Design at Scale - From 1 user to 1 million
+
+Real-life Systems to Design:
+• URL Shortener
+• WhatsApp Backend
+• Video Calling (Zoom-like)
+• Key-Value Store (like Redis)
+
+What should you do ?
+✔️ Don't try to learn everything in one go
+✔️ Pick 2-3 topics per week and go deep
+✔️ Practice drawing architecture diagrams
+
+Don't memorize.
+Try to understand how to design
