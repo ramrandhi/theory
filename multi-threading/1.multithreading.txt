@@ -1,0 +1,52 @@
+THREADS: Threads are a fundamental unit of process that allow programs to perform multiple tasks concurrently.
+How To create Thread:
+    2 ways: 1. extends Thread class, 2. implements Runnable interface.
+    => Both Thread and Runnable cannot return value through run method. run is always void. so for that we use callable.
+
+Example for Thread Class:
+public class Main {
+	public static void main(String[] args) {
+		MyThread t1 = new MyThread();
+		MyThread t2 = new MyThread();
+		t1.start();
+		t2.start();
+	}
+}
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread " + Thread.currentThread().getId() + " is running");
+    }
+}
+Example for Runnable Interface:
+
+public class Main {
+	public static void main(String[] args) {
+        MyThread thread = new Mythread();     // only difference between both is in Runnable interface we need to create the class object and pass it
+		Thread t1 = new Thread(thread);
+		Thread t2 = new Thread(thread);
+		t1.start();
+		t2.start();
+	}
+}
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread " + Thread.currentThread().getId() + " is running");
+    }
+}
+
+CALLABLE:
+    1. return values, 
+    2. Exception handling => callable's call() method can throw exceptions.
+    3. Future objects => callable works with future objects to retrive results after task completion.
+    
+Thread Safety: Thread safety refers to simultanious execution by multiple threads.
+    how to achieve thread safety:
+    1. Synchronization, 2. Immutable objects, 3. Concurrent Collections, 4.Atomic Variables, 5. Thread Local Variables.
+
+Difference between Sleep() and Wait() methods :
+    => Sleep() when invoked blocks the others threads to access the method that is being synchronized until the timer completes.
+    => Wait() when invoked waits outside the method and when some thread calls notify() only then starts execution from that point where it came out.
+Difference between Notify() and NotifyAll() methods:
+    => nofify() it is invoked by another thread to resume the execusion of waiting thread.
+    => notifyAll() this method sends notification to all the waiting threads to start from where it stopped and the execusion of each thread can be any thread
+       no priority to any thread.

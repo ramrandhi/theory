@@ -1,2 +1,58 @@
-Scalability:
+SOLID PRINCIPLES:
+S -> Single Responsibility Principle:
+    -> A class should have only one reason to change.
+    -> This principle means a class should focus on one specific functionality or responsibility. If a class is handling multiple concerns 
+    (like business logic, printing, and database operations), then changes in one area can accidentally affect others — leading to fragile code.
+    -> this means a class or a module should cater to only one requirements and not use different classes of different requirements which will
+    end up in functionality changes and irregular data.
+Example:
+    class Bill {
+        double calculateFinalAmount() { ... }
+        void printBill() { ... }
+        void saveToDatabase() { ... }
+    }
+-> Here, the Bill class is doing 3 different things:
+
+    1. Business logic (calculating amount)
+    2. Presentation (printing)
+    3. Persistence (saving to DB)
+
+-> If the printing format changes, you end up modifying the same class that also handles business logic and DB logic — violating SRP.
+
+With Single Responsibility Principle:
+    class Bill {
+        double calculateFinalAmount() { ... }
+    }
+
+    class BillPrinter {
+        void print(Bill bill) { ... }
+    }
+
+    class BillRepository {
+        void save(Bill bill) { ... }
+    }
+
+Now, each class has a single responsibility:
+
+    Bill - just the business data and logic
+    BillPrinter - handles formatting and printing
+    BillRepository - responsible for saving
+
+=============================================================================================================
+LSP -> Liskov Substitution Principle:
+    -> If a function takes an instance from the class that same function should be able to take the instance of the derived class from that
+        class.
+    Class C {
+        void x(){};
+    }
+
+    class C1 extends c {}
+    class C2 extends c {}
+
+    C1 c1 = new C1();
+    c1.x();
+    C2 c2 = new C2();
+    c2.x();
+
+    here the same funciton x() can be taken by C1 and C2 classes but they should not break the functionality of x().
     

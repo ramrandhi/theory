@@ -1,0 +1,90 @@
+Graphs are bascially of 2 types:
+    -> A Graph is a collection of Nodes (Vertexes) and Edges (Connections).
+
+1. Directed Graphs
+2. Undirected Graphs.
+
+1. DIRECTED GRAPHS:
+   (A) --> (B)
+    ^       |
+    |       v
+   (D) <-- (C)
+  -> A,B,C,D are noes or also called vertexes.
+  -> the lines that are pointing in between with arrows are called edges or also called directed edges.
+
+2. UN-DIRECTED GRAPHS:
+   (1) --- (2)
+    |       |
+    |       |
+   (3) --- (4)
+   -> Unlike Directed graphs these have no direction edges so they can go forward or backward.
+
+3. WEIGHTED GRAPHS:
+  (1) --5-- (2)
+    |        /
+   3|      /2
+    |    /
+   (3)
+   -> Here edges have weight that can be eg: costs, distance etc.
+   -> If the edges are not assigned then we consider the weight of the edge to be 1.
+
+CYCLES IN A GRAPH:
+    1. Undirected Cyclic Graph: here there are cycles between the edges that pass through.
+    2. directed Acyclic Graph: here there will be no cycles between the edges that are present.
+        -> Also called as DAG.
+    3. directed cyclic Graph: a directed edges having a cycle.
+
+PATHS: Can contain a lot of nodes or vertexes and each of them is reachable.
+ NOTES: 
+    1. In a path to be valid node that come onces should not repeat again.
+    2. all the nodes of that path should be connected and in a path no node should be skipped that are inbetween.
+
+DEGREES:
+    -> The number of edges attached to a node is called degrees.
+    -> Total degree of a graph is => 2 * Edges.
+    DIRECTED GRAPH: 
+        -> Contains two types of Nodes. 
+        1. InDegree Nodes. -> the edges that are directed to that node is called InDegree nodes. (Incoming Edges)
+        2. OutDegree Nodes. -> the edges that are directed in other direction to that node is called OutDegree Nodes. (OutDirected Edges).
+
+
+
+🌐 Graph Algorithms Mind Map.
+Graph Algorithms
+│
+├── Traversal
+│   ├── BFS (Breadth-First Search)
+│   └── DFS (Depth-First Search)
+│
+├── Shortest Path
+│   ├── Dijkstra (no negative weights)
+│   ├── Bellman-Ford (handles negatives)
+│   ├── Floyd-Warshall (all pairs)
+│   ├── Johnson’s Algorithm (all pairs + negatives)
+│   └── A* (heuristic-based pathfinding)
+│
+├── Minimum Spanning Tree (MST)
+│   ├── Kruskal’s Algorithm
+│   └── Prim’s Algorithm
+│
+├── Topological Ordering (DAGs)
+│   ├── DFS-based Topological Sort
+│   └── Kahn’s Algorithm (BFS-based)
+│
+├── Connectivity & Components
+│   ├── Union-Find (Disjoint Set Union - DSU)
+│   ├── Tarjan’s Algorithm (SCC)
+│   └── Kosaraju’s Algorithm (SCC)
+│
+├── Flow & Matching
+│   ├── Ford-Fulkerson (Max Flow)
+│   ├── Edmonds-Karp (BFS version of Ford-Fulkerson)
+│   └── Hopcroft-Karp (Bipartite Matching)
+│
+└── Other Specialized
+    ├── Eulerian Path / Circuit (Chinese Postman)
+    ├── Hamiltonian Path (NP-complete)
+    ├── Traveling Salesman Problem (TSP)
+    └── PageRank (Google's ranking algorithm)
+
+

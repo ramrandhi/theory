@@ -1,0 +1,17 @@
+1. Core Language Features
+
+Primitive Types
+Eight built-in primitives:
+    Integer types: byte (8 bits), short (16), int (32), long (64)
+    Floating‐point: float (32-bit IEEE754), double (64-bit)
+    Others: char (16-bit Unicode code unit), boolean
+
+Strings:
+    -> created inside string pool inside heap. Immutable by nature meaning once updated new String will be created and old one got garbage
+       collected at later point in time whether it is timely garbage collection or when memory size is full.
+    -> As it is Immutable it is thread safe meaning multiple threads can access it at a time but due to immutability it creats new Stings if updated.
+ => String Buffer - it is mutable but it has synchronization overhead meaning only one thread can access it at a time so it is slow.
+ => String Builder - it is a non-synchronized and mutable String Object.
+
+ Arrays: int[] arr = new int[5];  or int[] arr = {1,2,3,4,5,6};
+   -> Array is also a object inside java

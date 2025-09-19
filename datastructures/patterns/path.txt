@@ -1,0 +1,45 @@
+1// Category 0 – Absolutely Fundamentals
+These topics are non-negotiable. If you skip these, you’re setting yourself up for a tough time in every interview, no matter the company.
+
+- Dynamic Arrays
+- String Manipulation
+- Two Pointers
+- Grids & Matrices
+- Binary Search
+- Sets & Maps
+- Stacks & Queues
+- Recursion
+- Sorting
+- Linked Lists
+- Trees
+- Graphs
+
+Master these inside out before touching anything else.
+
+2// Category 1 – Fundamentals+
+
+Once you’re solid on the basics, double down here. These topics show up a lot in interviews, and depth here will help you stand out:
+
+- Heaps
+- Sliding Windows
+- Backtracking
+- Prefix Sums
+- Dynamic Programming
+- Greedy Algorithms
+- Topological Sort
+
+This is where you move from “can solve problems” to “can solve tough problems quickly.”
+
+3// Category 2 – Going Above and Beyond
+
+
+If you want to really separate yourself, go above and beyond, tackle these topics. 
+- Monotonic Stacks & Queues
+- Union-Find
+- Data Structure Design
+- Set & Map Implementations
+- Tries
+- Graphs (Advanced)
+- Dynamic Programming (Advanced)
+- Bit Manipulation
+- Math
