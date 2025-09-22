@@ -1,0 +1,63 @@
+Thread Life Cycle:
+ ┌─────────┐        start()        ┌────────────┐
+ │  NEW    │ ───────────────────▶ │ RUNNABLE   │
+ └─────────┘                       └─────┬──────┘
+        ▲                                │
+        │                                │  CPU picks
+        │   Dead (TERMINATED) ◀──────────┘
+        │
+ ┌──────────────────┐   sleep()/wait()/join()   ┌───────────────────┐
+ │   BLOCKED /      │ <──────────────────────── │  TIMED_WAITING /  │
+ │   WAITING        │ ─────────────────────────▶│  WAITING          │
+ └──────────────────┘         notify()/resume() └───────────────────┘
+
+1. New state: here thread is created but start() method is not yet invoked.
+2. Runnable state: Here thread is ready for execution and waiting for CPU allocation.
+3. Running State: here thread is executing its task in the cpu. the CPU scheduler has allocated processing time to this thread.
+4. Blocked State: the thread is temporarily inactive while waiting to acquire a lock.
+5. Waiting: Waiting for a specific time (sleep(ms), join(ms), wait(ms)).
+6. Timed Waited: Thread has specified time to wait called using Thread.sleep(timeout) or Thread.wait(timeout) and then 
+7. Terminated: run() method finished or the thread died.
+
+Thread Pool: Thread pool are a managed collection of reuseable threads designed to execute tasks concurrently.
+ => we can create thread pool using ExecutorService.
+ => ExecutorService executorService = Executors.newFixedThreadPool(3); // here 3 threads are being created to do the task.
+       
+       for(int i = 0;i<5;i++) {
+              executorService.submit(new WorkerThread(i)); // here for every iteration new thread is created till 3 and reused for 4ht, 5th iteration
+       }
+ => Threads are reused avoiding overhead of creating new thread everytime for new task.
+
+ BENEFITS OF THREAD POOL:
+  =>  Resource Management:
+  => Performance Improvement:
+  => Predictability: controls thread creation and scheduling for better application behaviour.
+  => Task Management: Queueing, Scheduling and monitoring tasks becomes streamlined.
+
+THREAD POOL LIFE CYCLE:
+
+
+THREAD POOL USAGE:
+=> Choose the right pool size for your specific workload characterstic.
+1. newFixedThreadPool - CPU Intensive tasks.
+2. newCachedthreadPool - Short lived threads, I/O bound tasks, threads create dynamically as needed, Ideal threads are reused to minimize overhead.
+3. ThreadPoolExecutor - mixed workload, fine grained control over thread count, queue size and policies.
+       => For ThreadPoolExecutor queue holds the tasks when the core threads are busy. if the queue size is big the execution time increases, consumes more memory.
+       => If the queue reaches the capacity then the pool creats additional threads upto max capacity. if the pool reaches max capacity then due to no more new threads
+          failure rate increases.
+  ThreadPoolExecutor executor = new ThreadPoolExecutor(2,  // 2 core threads.
+                                                 4,        // max 4 thread total.
+                                                 10,       // 
+                                                 TimeUnit.SECONDS,                         //
+                                                 new ArrayBlockingQueue<>(2),              // queue size 2.
+                                                 new ThreadPoolExecutor.AbortPolicy());    // rejects new tasks if the thread pool and queue reaches capacity.
+
+DIFFERENCE B/W shutdown() and shutdownNow():
+shutdown() : initiates a graceful shutdown after all the tasks completes execution (but not accept new tasks).
+shutdownNow() : attemps to stop all the executing tasks immediately and returns a list of tasks that were waiting execution.
+
+THREAD STARVATION AND HOW THREAD POOL PREVENT IT :
+=> A THREAD CANNOT GET REGULAR ACCESS TO THE SHARED RESOURCES PROPERLY AND THUS CANNOT MAKE PROGRESS.
+THREAD POOL PREVENTS THIS BY: 1. CONTROLING THE NUMBER OF ACTIVE THREADS, 2. IMPLEMENTING FAIR SCHEDULING POLICIES.
+
+

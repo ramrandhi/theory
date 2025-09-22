@@ -1,0 +1,33 @@
+Futute and CompletableFuture: (async programming).
+Future: any process that happens after certain point in time like it takes 2 minutes the result will be returned back to Future.
+CompletableFuture: 
+
+Future: Good for single tasks that may or may not take time.
+    1. blocks code until the result comes.
+    2. no composition meaning no chaning of tasks only one task at a time.
+    3. no exception handling.
+
+CompletableFuture: always production ready applications use CompletableFuture.
+    1. non-blocking multiple tasks completion in a single go and at the end wait for the parallel works to complete.
+    2. get() - wait and retrive the result and throws checked Exceptions, 
+    3. join() - wait and retrive the result and throws unchecked exceptions. (only use when we know there are no exceptions coming).
+    4. completableFuture.supplyAsync() - it works entirely on another thread not blocking main thread and and returns the result to CompletableFuture.
+    5. thenApply - allows us to chain the transformations and can be executed synchronously or asynchronously.
+    => we use supplyAsync() => and inside we will be using thenApply or thenApplyAsync if used thenApply it will be running on the thread created by supplyAsync()
+        and if we use .thenApplyAsync() then this will be using different thread not supplyAsync thread.
+
+Combining Completable Futures: in situations where multiple asynchronous tasks are running in parallel. CompletableFuture makes it easy to return results using
+ 1. thenCombine() - to combine the output of two tasks.
+ 2. allOf - to wait for all tasks to complete.
+ 3. anyOf - to get the first completed result.
+ 4. thenApply() - take 1 completableFuture and then transform it.
+ 5. thenCombine() - wait for 2 completableFutures to completer and then combine the result.
+
+EXCEPTION HANDLING: 
+ 1. exceptionally - to recover from errors.
+ 2. handle - to manage both success and failure scenarios.
+
+orTimeOut() and completeOnTimeOut():
+orTimeOut() - if the future taking more than the time that is set inside the orTimeOut() method then it will complete the future with an exception.
+completeOnTimeOUt() - if the future taking more than the time that is set inside completeOnTimeOut() method then the future will be completed with an default value.
+

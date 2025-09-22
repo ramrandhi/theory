@@ -1,0 +1,12 @@
+Synchronization: It is a Mechanism to make sure that only one thread can have access to do the task inside the Synchronized block or method.
+
+SYNCHRONIZED METHOD: when you declare an entire method as synchronized. the lock is acquired on
+    1. the object instance (for non-static methods)
+    2. or on the class object (for static methods).
+
+SYNCHRONIZED BLOCK: When you declare only a block of code inside the method as synchronized only that portion is synchronized meaning lets take 5 threads and first thread t2 went
+    inside synchronized block all other wait and one by one comes inside block and other threads waiting outside the block but inside the method.
+
+VOLATILE: It ensures any changes to any variable will be immediately visible to all the other threads and prevents caching the variables locally.
+
+ATOMIC VARIABLE: found in java.util.concurrent.atomic package are useful in making a variable lock free, thread safe operations on single variable.

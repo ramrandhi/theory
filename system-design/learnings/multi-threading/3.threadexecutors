@@ -1,0 +1,20 @@
+THREAD EXECUTORS:  it is a High Level concurrency Framework in java that provides powerful abstration over thread management.
+newScheduledThreadPool: to actually use it for scheduled tasks completion, cron jobs etc.
+
+DIFFERENCE B/W EXECUTE AND SUBMIT:
+EXECUTE: Execute a block of code and does not return anything.
+submit: Returns Future and allows you to retrive the result and check for exception.
+=> executor.invokeAll() - will invoke all the tasks parallely and do the tasks and return list of futures. if any task fails the get() method throws expection 
+but every other ones returns retult.
+
+CORE EXECUTOR INTERFACES AND CLASSES:
+1. EXECUTOR : The base interface defining task execution.
+2. Executor Service (interface) : A interface that has all the functionality
+3. ThreadPoolExecutor (implements ExecutorService) : A very customizeable and production ready mechanism that has everything we need to write just code.
+4. ScheduledExecutorService (Interface): have all the implementations of scheduling.
+5. ScheduledThreadPoolExecutor (Implements ScheduledExecutorService) : have all the features of ScheduledExecutorService with implementations to use straight away.
+6. Executors: it is a factory class for creating executor instances. eg: Executor.newFixedThreadPool(), Executor.newScheduledThreadPool() etc.
+
+DIFFERENCE b/W SchedleAtFixedRate() and ScheduleWithFixedDelay() :
+ScheduleAtFixedRate(): this runs the executor to finish tasks at fixed rate.
+ScheduleWithFixedDelay() : this runs the task at fixed delay after every execution completes, execution can take any time.

@@ -1,0 +1,22 @@
+SEMAPHORE: Semaphore actually controls how many threads can go into a method or block.
+Acquire: A thread comes and semaphore gives the permit to work and and once the work is done the thread returns the permit and 
+        goes to runnable state and next thread will occupy that permit like wise there are permits available that can be occupied by 
+        threads do the task and return back.
+release: the thread once completes its task returns back giving back the permit to semaphore.
+methods: acquire(), release().
+
+private static final Semaphore resourcePool = new Semaphore(5);
+
+Types of SEMAPHOREs:
+1. BINARY SEMAPHORE: gives permit to 0 or 1 threads.
+2. COUNTING SEMAPHORE: gives permit to 1 or more threads to enter inside the block.
+
+USE CASES OF SEMAPHORE:
+1. Managing access to pool of resources - ideal for controlling access to database connections, file handlers, thread pool.
+2. Implementing producer and consumer pattern - eg: a producer produces a resource and put inside a 5 sized queue when queue is full producer
+    stops producing when consumer thread takes that one resoure the bucket inside the queue gets empty and producer starts producing to that queue.
+
+Questions:
+1. what happens if we call release() insted of first calling acquire() ?
+=> the release() gives one more permit to the size of the semaphore. lets take the initial size of semaphore is 5 after first calling release() now size increases to 6.
+2. Implementing barrier synchronization pattern using semaphore ? (meaning no thread can proceed past that point until all the threads reached that point).

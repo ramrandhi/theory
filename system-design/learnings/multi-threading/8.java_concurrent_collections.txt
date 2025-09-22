@@ -1,0 +1,21 @@
+Java CONCURRENT COLLECTIONS: These are the Data structures which are thread safe, created to use in multi-threaded environments.
+
+CONCURRENT COLLECTIONS:
+1. CONCURRENTHASHMAP: we know how HashMap works where using hash() of the value it gives a bucket to store value in a linkedlist. if the two values get the same bucket 
+    it stored as an linkedlist. if the linkedlist size reaches 8 (threshold value) it converts that bucket of linkedlist into red-black tree or balanced binary tree.
+    => so In case of CONCURRENTHASHMAP above thing is same what HASHMAP does but for thread safety it locks bucket for modifications and read operations can happen to all
+       16 buckets concurrently.
+    => To make HashMap thread safe we need to do -> Map<?,?> map = Collections.Synchronized(new HashMap<>());
+
+2. CopyOnWriteArraList: this is a thread safe varient of ArrayList; here in this case when we use CopyOnWriteArrayList when we modify or add new value to CopyOnWriteArraList
+   it creates a new copy of CopyOnWriteArraList and adds this new value to it.
+
+3. ConcurrentLinkedQueue: if the queue is modified with the same value by a thread when reading it will do compare And Set (compare and swap) and if the new value is not same then it will 
+    simply retry.
+4. BLOCKING QUEUE: it waits if the queue is full Producer waits if the queue is empty then consumer waits.
+ => BlockingQueue use explicit locking -> 1. Intrinsic locking (Reeintrant locking mechanism)
+
+ Fail-fast vs fail-safe on iteration:
+ => Fail fast means when we are iterating over an arraylistlist or LinkedList then when some other thread modifies something it will throw ConcurrentModificationError and fails.
+ => Fail safe meaning when we iterate over an ConcurrentHashMap list it will not throw an error because it iterates on the snapshot will iteration creation not on original list. 
+

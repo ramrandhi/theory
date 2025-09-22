@@ -1,0 +1,29 @@
+Locks and Types of Locks in Java: java.util.concurrent.locks package offers flexible and sophisticated lock implementations.
+    => to explicitely use the try with lock methods to acquire lock insted of just using synchronization so we can explicitely 
+    implement and using locking mechanism but should be handled carefully.
+
+1. Locks & ReentrantLock: Locks in java that gives fine-grained synchronization control over the synchronized keyword.
+    => Reentrant -> the thread that holds the lock can re-acquire lock without causing deadlocks.
+    example: 
+        public void read() {
+            rLock.lock();
+            System.out.println("used to synchronize with giving more control over synchronized keyword");
+            rLock.unlock();
+        }
+1. ReentrantReadWriteLock: (read write lock)
+    => READS -> all threads can read simultaneously and no threads should write when reading.
+    => WRITES -> only single thread should write and no threads should read.
+ => ReentrantReadWriteLock has two parts. 1. a read lock, 2. a write lock.
+    
+    Example: 
+        public void read() {
+            rwLock.writeLock().lock();
+            System.out.println("used to synchronize with giving more control over synchronized keyword");
+            rwLock.writeLock().unlock();
+        }
+
+DIFFERENCE B/W synchronization vs reentrant lock:
+=> synchronization bascially says that when it tries to check the lock for that block of code synchronization acquire lock it usually 
+   blocks the code and not give other threads to work on that block of code. the resources will be unlocked automatically in synchronization.
+=> reentrant lock first checks if the block is locked or not using tryLock() method which is non-blocking operation and if there is no lock 
+only then it acquires the lock and also gives a lot of custom methods to work with and we need to close the resources manually aswell.

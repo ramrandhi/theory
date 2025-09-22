@@ -1,0 +1,8 @@
+THREAD COMMUNICATION: Thread Communication is a fundamental concept in concurrent programming where multiple threads co-ordinate and share data effectively.
+
+METHODS OF THREAD COMMUNICATION: wait(), notify(), notifyAll() -> these methods work with the thread monitor to co-ordinate the execution b/w threads.
+
+DIFFERENCE b/w wait(), notify() and notifyAll():
+1. wait(): when wait() is triggered on a thread the threads stops execusion and releases the lock.
+2. notify(): the notify() when triggered sayes the thread to resume execution by acquiring lock and going inside that method to execute the code.
+3. notifyAll(): the notifyAll() method will trigger all the threads that are in the waiting state and tell them to acquire lock and one by one goes to execute. 
