@@ -5,7 +5,7 @@ DIFFERENCE B/W EXECUTE AND SUBMIT:
 EXECUTE: Execute a block of code and does not return anything.
 submit: Returns Future and allows you to retrive the result and check for exception.
 => executor.invokeAll() - will invoke all the tasks parallely and do the tasks and return list of futures. if any task fails the get() method throws expection 
-but every other ones returns retult.
+but every other ones returns result.
 
 CORE EXECUTOR INTERFACES AND CLASSES:
 1. EXECUTOR : The base interface defining task execution.

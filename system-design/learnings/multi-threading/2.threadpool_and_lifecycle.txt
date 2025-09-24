@@ -43,7 +43,7 @@ THREAD POOL USAGE:
 2. newCachedthreadPool - Short lived threads, I/O bound tasks, threads create dynamically as needed, Ideal threads are reused to minimize overhead.
 3. ThreadPoolExecutor - mixed workload, fine grained control over thread count, queue size and policies.
        => For ThreadPoolExecutor queue holds the tasks when the core threads are busy. if the queue size is big the execution time increases, consumes more memory.
-       => If the queue reaches the capacity then the pool creats additional threads upto max capacity. if the pool reaches max capacity then due to no more new threads
+       => If the queue reaches the capacity then the pool creates additional threads upto max capacity. if the pool reaches max capacity then due to no more new threads
           failure rate increases.
   ThreadPoolExecutor executor = new ThreadPoolExecutor(2,  // 2 core threads.
                                                  4,        // max 4 thread total.
@@ -58,6 +58,6 @@ shutdownNow() : attemps to stop all the executing tasks immediately and returns 
 
 THREAD STARVATION AND HOW THREAD POOL PREVENT IT :
 => A THREAD CANNOT GET REGULAR ACCESS TO THE SHARED RESOURCES PROPERLY AND THUS CANNOT MAKE PROGRESS.
-THREAD POOL PREVENTS THIS BY: 1. CONTROLING THE NUMBER OF ACTIVE THREADS, 2. IMPLEMENTING FAIR SCHEDULING POLICIES.
+THREAD POOL PREVENTS THIS BY: 1. CONTROLLING THE NUMBER OF ACTIVE THREADS, 2. IMPLEMENTING FAIR SCHEDULING POLICIES.
 
 

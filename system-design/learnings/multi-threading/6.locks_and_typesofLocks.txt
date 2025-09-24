@@ -4,6 +4,17 @@ Locks and Types of Locks in Java: java.util.concurrent.locks package offers flex
 
 1. Locks & ReentrantLock: Locks in java that gives fine-grained synchronization control over the synchronized keyword.
     => Reentrant -> the thread that holds the lock can re-acquire lock without causing deadlocks.
+    explanation: 
+    1️⃣ Normal (non-reentrant) locks
+    A lock is a mechanism that ensures only one thread can execute a critical section at a time.
+    With a non-reentrant lock, if a thread that already owns the lock tries to acquire it again (before releasing it), the thread blocks waiting for the same 
+    lock it already holds → deadlock.
+
+    2️⃣ Reentrant locks
+    A reentrant lock remembers which thread owns it and how many times that thread has acquired it.
+    If the owning thread calls lock() (or enters the synchronized block) again, the counter is incremented instead of blocking.
+    The thread must then unlock the same number of times to fully release it.
+    
     example: 
         public void read() {
             rLock.lock();
