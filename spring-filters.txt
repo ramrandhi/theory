@@ -47,3 +47,8 @@ we can implement filters in mainly in 3 different ways.
             return registrationBean;
         }
     }
+
+FILTER Methods in Spring boo:
+1. inti method - calling once when the spring boot application starts.
+2. doFilter method - called for every request and response pair. this is where we add filtering logic.
+3. destroy() method - called once when the filter is taken out of service. used for cleanup.

@@ -9,16 +9,25 @@ Spring Boot application working :
 6. to stop spring boot application - mvn spring-boot:stop
 7. to create docker image for spring boot application - mvn spring-boot:build-image
 
-Spring Boot web application, both the Spring IoC (Inversion of Control) container and the web servlet container (embedded web server) work in parallel but serve different purposes 
-to run the application. They complement each other in the following way:
+8. How to know if the Spring Boot application is using BeanFactory or ApplicationContext as IoC container?
+	- In Spring Boot, the IoC container is always an ApplicationContext (which extends BeanFactory).
+	- You can check the type of the context by autowiring or injecting the ApplicationContext in your code:
+	  ```java
+	  @Autowired
+	  private ApplicationContext context;
+	  ```
+	- If you print `context.getClass()`, you will see it is a subclass of ApplicationContext (e.g., `AnnotationConfigServletWebServerApplicationContext`).
+	- BeanFactory is the basic interface, but Spring Boot always uses ApplicationContext (never just BeanFactory) for its advanced features.
 
-1). SPRING IOC (INVERSION OF CONTROL) CONTAINER :
+Spring Boot web application, both the Spring IoC (Inversion of Control) container and the web servlet container (embedded web server) work in parallel but serve different purposes
+
+(1). SPRING IOC (INVERSION OF CONTROL) CONTAINER :
 
 The Spring IoC container is responsible for managing the beans and their dependencies in a Spring Boot application. The IoC container includes:
 
 Sping boot container types :
 
-a). Bean Factory - 
+(a). Bean Factory - 
 	1. bean factory is the simplest container in spring where it provides the basic functionality like dependency injection and managing beans.
 	2. Bean factory lazy loads beans (only when they are requested and resolves the dependencies.
 	3. bean Factory is primarily used for small scale applications where all the features of application context is not required.
@@ -33,6 +42,21 @@ b). Application Context - (Application context is the extension of bean factory 
 	1. AnnotationConfigApplicationContext - loads the context using annotations (Typically used in spring boot).
 	2. ClassPathXMLApplicationContext - loads the context from XML Configuration file.
 	3. WebApplicationContext - A specialized ApplicationContext for web applications, integrated with Spring's MVC framework.
+
+	Event Propagation in ApplicationContext:
+	- In Spring, event propagation refers to the ability of the ApplicationContext to publish and listen for events within the application.
+	- The ApplicationContext supports an event mechanism where beans can publish custom or built-in events using `publishEvent()`.
+	- Other beans can listen for these events by implementing `ApplicationListener` or using the `@EventListener` annotation.
+	- This enables decoupled communication between different parts of the application, such as notifying components when a user registers or when a resource is updated.
+	- Example:
+		```java
+		@Component
+		public class MyListener {
+				@EventListener
+				public void handleEvent(MyCustomEvent event) {
+						// handle event
+				}
+		}
 	
 	
 2). WEB SERVLET CONTAINER (Embedded Web Server) : 
@@ -40,6 +64,29 @@ b). Application Context - (Application context is the extension of bean factory 
 a. the Web servlet container bascially handles http requests and responses in a web application. web servlet container works with the network side of the application where the 
 	api requests particularly the communicaition between the client and the server.
 b. by default web servlet container used apache tomcat as the web server.
+
+====> The life cycle of a Spring Boot application typically includes these main phases:
+=> Startup
+	The application is launched (e.g., via main() method).
+		The Spring Boot auto-configuration and embedded server (like Tomcat) are initialized.
+ ApplicationContext Creation
+	The IoC container (ApplicationContext) is created.
+	Beans are instantiated, dependencies are injected, and bean lifecycle methods (@PostConstruct, InitializingBean, etc.) are called.
+
+ Application Events
+	Spring publishes various events (e.g., ApplicationStartedEvent, ApplicationReadyEvent) during startup.
+
+ Running State
+	The application is ready to handle requests (web, REST, etc.).
+	Business logic executes, and beans interact as needed.
+
+ Shutdown
+	The application context is closed (e.g., on JVM shutdown or SIGTERM).
+	Bean destruction callbacks (@PreDestroy, DisposableBean, etc.) are called.
+	Resources are released and the embedded server stops.
+
+Summary:
+Startup → Context Creation → Bean Initialization → Application Ready → Running → Shutdown/Cleanup
 
 what is API ?
 -> set of rules and protocols that allow one software application to interact and communicate with another
@@ -137,7 +184,7 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 		5. session.save(tn);
 		6. tn.commit();
 		
-	-> this is how hibernate works internally by using "hibernate.cfg.xml" file if we intensionally want to change the name we need add the name in configure() method in 
+	-> this is how hibernate works internally by using "hibernate.cfg.xml" file if we intensionally want to change the name we need to add the name in configure() method in 
 		Configuration (Configuration con = new Configuration().configure("hibernate.xml").addAnnotatedClass(Alien.class))
 	
 	-> How "hibernate.cfg.xml" file looks and different properties =>
@@ -203,7 +250,7 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 				JPQL: Uses the class name (Alien).
 				Table: Uses the specified table name (ALIEN).
 				
-	@Transient -> this annotation is used to hide the particular variable from to not create in database;
+	@Transient -> this annotation is used to hide the particular variable to not create in database;
 	@Embeddable  -> this annotation is used to reference another class whose reference is in main class 
 		Example : private FullName fullname;  (main class)
 		
@@ -216,7 +263,8 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 	
 	Mappings -> 4 types (i). one to one, (ii). one to many, (iii). many to one, (iv). many to many.
 	
-	@OneToOne -> This is a one-to-one relationship between two entities. In the database, one row in the first table corresponds to exactly one row in the second  table. The foreign key is typically stored in one of the tables (the parent table).
+	@OneToOne -> This is a one-to-one relationship between two entities. In the database, one row in the first table corresponds to exactly one row in the second  table. 
+	The foreign key is typically stored in one of the tables (the parent table).
 	
 		Example : -> Here we referenced Student and Laptop where student having laptop object with onetoone relation to referene laptop class.
 		
@@ -237,7 +285,8 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 			}
 	
 	
-	@OneToMany -> In this relationship, one entity (parent) can be related to multiple instances of another entity (child). The foreign key is stored in the child table to reference the parent.
+	@OneToMany -> In this relationship, one entity (parent) can be related to multiple instances of another entity (child). The foreign key is stored in the child table to 
+	reference the parent.
 	
 		Example : -> One Student can have multiple Laptops, and the foreign key STUDENT_ID is stored in the Laptop table to establish the relationship.
 		
@@ -355,7 +404,7 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 			
 			
 	HIBERNATE CACHING: -> Hibernate provides several caching mechanisms to optimize the database by reducing the number of database queries. there are two levels of caching in 
-						hibernate. (i). First-Level cache (session cache), (ii). Second-Level cache (SessionFactory cache), (iii). quere cache.
+						hibernate. (i). First-Level cache (session cache), (ii). Second-Level cache (SessionFactory cache), (iii). query cache.
 
 	1. First-Level cache (session cache) -> This is a cache technique which is enabled by default and cannot disable this cache. In this caching technique when inside an api 
 											call which we can take it as session when opened to make transactions when the api is fetching the data from same entity the data will 
@@ -365,7 +414,7 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 		(b). Automatically managed by Hibernate.
 		(c). Cannot be disabled.
 		
-	2. Second-Level Cache (SessionFactory cache)  -> Second level cache technique is technique in which this cache is available for different sessions in the application until or 
+	2. Second-Level Cache (SessionFactory cache)  -> Second level cache is available for different sessions in the application until or 
 													unless the data is updated and we need to set that using @cache(usage = CacheConcurrencyStrategy.READ_WRITE) with this when the 
 													cache data is overwritten in the database then cache is marked as needed to be refreshed and this cache is not available until 
 													cached again or queried to database for updated data.
@@ -418,7 +467,7 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 
    Difference between get and load methods in Hibernate :
    1. Get will give you data when we make a get call directly and when data is not found in case of getById throws NullPointerException.
-   2. Load will give you data when we make a load call with the usage of that particular object if there is no useage load will not work and throws ObjectNOFound exception when 
+   2. Load will give you data when we make a load call with the usage of that particular object if there is no usage load will not work and throws ObjectNotFound exception when 
 	  the load with id not found.
    
    
@@ -460,7 +509,19 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 			More flexible; you can set or modify dependencies as needed.
 			Better for complex configurations where some dependencies may be optional.
 	-> Constructor Injection: If there are values that are not being initialized dont go for constructor injection.
-	
+
+	@Component
+	public class MyService {
+		private final MyRepository myRepository; // required
+		private String optionalValue;            // optional
+
+		// Constructor injection (not suitable for optionalValue)
+		@Autowired
+		public MyService(MyRepository myRepository, String optionalValue) {
+			this.myRepository = myRepository;
+			this.optionalValue = optionalValue;
+		}
+	}
 		Definition: The dependency is provided at the time of object creation through the constructor.
 
 			Use Case:
@@ -681,8 +742,47 @@ INTERSERVICE COMMUNICATION : communication between the microservices. ways to Im
 			4. error handling
 			5. Integration
 	
-	-> ASYNCHRONOUS COMMUNICATION : In Asynchronous communication microservices work asynchronously and can communicate with message queues or message brokers like rebitmq, 
+	-> ASYNCHRONOUS COMMUNICATION : In Asynchronous communication microservices work asynchronously and can communicate with message queues or message brokers like rabbitmq, 
 		apache kafka, aws simple queueing service.
+
+	// Example: Using WebClient to call an external API in Spring Boot
+
+	import org.springframework.stereotype.Service;
+	import org.springframework.web.reactive.function.client.WebClient;
+	import reactor.core.publisher.Mono;
+
+	@Service
+	public class ApiService {
+		private final WebClient webClient;
+
+		public ApiService(WebClient.Builder webClientBuilder) {
+			this.webClient = webClientBuilder.baseUrl("https://api.example.com").build();
+		}
+
+		public Mono<String> getDataFromApi() {
+			return webClient.get()
+				.uri("/data")
+				.retrieve()
+				.bodyToMono(String.class);
+		}
+	}
+
+	// Usage in a controller
+	/*
+	@RestController
+	public class ApiController {
+		private final ApiService apiService;
+
+		public ApiController(ApiService apiService) {
+			this.apiService = apiService;
+		}
+
+		@GetMapping("/fetch-data")
+		public Mono<String> fetchData() {
+			return apiService.getDataFromApi();
+		}
+	}
+	*/
 
 	2. WebClient : 
 			1. Non-blocking
@@ -690,9 +790,21 @@ INTERSERVICE COMMUNICATION : communication between the microservices. ways to Im
 			3. Versatile
 			4. Error Handling
 			5. Integration with Reactive Streams
+	In Spring WebFlux (reactive programming):
+
+	=> Mono: Represents a single value or no value (like 0 or 1 result).
+	Example: an HTTP request that returns one object.
+
+	=> Flux: Represents a stream of 0 to many values (like a list or sequence).
+	Example: an HTTP request that returns a list of objects or a stream of events.
+
+	=> Both are part of Project Reactor and are used for asynchronous, non-blocking programming in Spring Boot.
+
+	=> Use Mono for single results.
+	=> Use Flux for multiple results.
 		
 EXCEPTION HANDLING IN SPRING BOOT : Spring internally has SpringErrorHandler class that can handle the minor exceptions but for specific exception that need to be implemented 
-									we need to use @ControllerAdvice to framework level for spring to intercept all the exceptions thrown at controller level.
+									we need to use @ControllerAdvice on framework level for spring to intercept all the exceptions thrown at controller level.
 
 -> @ControllerAdvice -> Handles Exceptions from both RestController and Controller
 -> @ControllerAdvice(annotations = RestController.class) -> Handles Exceptions only comes from RestControllers.
@@ -706,7 +818,7 @@ EXCEPTION HANDLING IN SPRING BOOT : Spring internally has SpringErrorHandler cla
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
@@ -775,7 +887,7 @@ FEATURES :
 1. Built in endpoints                 ("/metrics")
 2. ability to view real time metrics
 3. customizable
--> In spring boot actuator is used in tracking the application health, caches, application metrics etc.
+-> In spring boot, actuator is used in tracking the application health, caches, application metrics etc.
 
 {
   "_links": {
@@ -976,7 +1088,7 @@ CONFIGURATION MANAGEMENT IN MICROSERVICES :
 	SPRING CLOUD CONFIG SERVER : It is a part of the spring cloud project, a suite of tools specifically designed for building and manageing cloud-native applications.
 	
 FAULT TOLERANCE : 
-  -> Ability to continue operating withut interruption.
+  -> Ability to continue operating without interruption.
 
   NEED FOR FAULT TOLERANCE :
    -> Fault isolation.
@@ -1028,7 +1140,8 @@ RESILIENCE4J :
 	 
 CIRCUIT BREAKERS : 
 
-	A circuit breaker is a design pattern commonly used in distributed systems to enhance the resilience and fault tolerance of applications. It acts as a safeguard to prevent an application from repeatedly trying to perform an operation that is likely to fail, thus avoiding unnecessary strain on system resources.
+	A circuit breaker is a design pattern commonly used in distributed systems to enhance the resilience and fault tolerance of applications. It acts as a safeguard to 
+	prevent an application from repeatedly trying to perform an operation that is likely to fail, thus avoiding unnecessary strain on system resources.
 
 	How it Works:
 	The circuit breaker monitors the interactions between services and tracks failures. It has three main states:
@@ -1053,7 +1166,8 @@ CIRCUIT BREAKERS :
 	Faster Recovery: Allows failing services time to recover before resuming normal operation.
 	Better User Experience: Provides fallback responses rather than letting requests hang indefinitely.
 	Real-World Analogy:
-	A circuit breaker in an electrical circuit cuts off power to prevent overload and damage. Similarly, a software circuit breaker "trips" to protect a system from continuous failed interactions.
+	A circuit breaker in an electrical circuit cuts off power to prevent overload and damage. Similarly, a software circuit breaker "trips" to protect a system from 
+	continuous failed interactions.
 
 	Implementation in Spring Cloud:
 	Spring Cloud provides built-in support for circuit breakers via libraries like:
@@ -1077,7 +1191,8 @@ CIRCUIT BREAKERS :
 
 
 MESSAGE QUEUES : 
-	Message Queues act as an medium between the microservices and decouple the microservices architecture that is microservices can work independently with asynchronous communication.
+	Message Queues act as an medium between the microservices and decouple the microservices architecture that is microservices can work independently with asynchronous 
+	communication.
 
 	1. Decoupling
 	2. Asynchronous Communication
