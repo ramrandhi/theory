@@ -4,7 +4,7 @@ SPRING FILTERS:
 
 WORKING FLOW:
   1. How request flows. (below all are chain of filters or filter chains)
-    --> LoggingFilter -> AuthenticationFilter -> AuthorizationFilter -> CompressionFilter -> DispatcherServlet -> HandlerMapping  -> Interceptor(PreHandle) ->  @RestController
+    --> LoggingFilter -> AuthenticationFilter -> AuthorizationFilter -> DeCompressionFilter(if Required) -> DispatcherServlet -> HandlerMapping  -> Interceptor(PreHandle) ->  @RestController
   2. How response goes back.
     <-- LoggingFilter <- AuthenticationFilter <- AuthorizationFilter <- CompressionFilter <- DispatcherServlet  <- viewResolver(IfApplicable)  <- Interceptor(PostHandle, AfterCompletion)
 
