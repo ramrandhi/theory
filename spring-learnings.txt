@@ -1110,7 +1110,7 @@ RESILIENCE4J :
   3. Bulkheads
   4. Circuit Breakers
   5. Fallbacks (when microservice is not available)
-  6. timeouts
+  6. timeouts (taking long than usual to return the response)
   7. Graceful Degradation  (Ability to decrease functionality or resource intensive components will be disabling)
 
   RESILIENCE4J MODULES: 
