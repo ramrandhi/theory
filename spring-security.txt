@@ -10,13 +10,13 @@ WHAT IS SECURITY:
 1. AUTHENTICATION - Authenticaion is proving who you are.
 2. AUTHORIZATION  -  Authorization is about what you're allowed to do after you've proven who you are.
 
-kEY SECURITY PRINCIPLES :
-1. Least Privilige - to perform certain task users should have minimum permissions to do that task.
-2. Secure by Design - security should be managed when the design is being created.
-3. Fail safe defaults - without requireing additional configurations they should be secure by default.
-4. secure Communication - whatever data that is incoming or outgoing that should be secured.
-5. input validation - external apis need to be validated from threats like sql injection etc.
-6. Auditing and Logging - need to have logging or auding module to check who is doing what...
+KEY SECURITY PRINCIPLES:
+1. Least Privilege – Users should have only the minimum permissions required to perform their tasks.
+2. Secure by Design – Security should be considered and implemented during the design phase.
+3. Fail-Safe Defaults – Systems should be secure by default, without requiring additional configuration.
+4. Secure Communication – All incoming and outgoing data should be protected.
+5. Input Validation – External APIs must validate inputs to prevent threats like SQL injection.
+6. Auditing and Logging – Implement logging and auditing to track user actions and system events.
 
 
 +---------------------+       +---------------------+       +----------------------+       +-------------------------+
@@ -37,19 +37,18 @@ kEY SECURITY PRINCIPLES :
 | Permissions)      |        |                      |        |  Roles, Authorities) |
 +-------------------+        +----------------------+        +----------------------+
 
-ABOVE DIAGRAM SECURITY FLOW: 
-1. When the request comes from client it goes throw some number of spring security filters for it validation by intercepting the
-    username and password and create autentication object from those credentials.
-2. That Authenticaion object is handed over to Authenticaion Manager which will use the object to Authenticaion Provider like OAuth2
-    to verify the autentication object and needs two password encoder and UserDetailsService.
-3. UserDetailsService will be called with certain methods like loadByUserName() to load the user data like what ever roles he has in
-    the system and convert that object into user detail object and that object is sent back to Authenticaion provider for validation
-    of username and password if they are correct then authentication provider created a complete object by populating more data from
-    the fetched object like roles etc.
-4. That complete object is returned back to autentication manager and it returns back to authentication filters then the security
-    context is set. (Security context is the context that will be available through out the request and it stores information about the
-    the authentication is stored).
-5. Security context will take care of the incoming requests that are coming from that client in that logged in time.
+SECURITY FLOW DIAGRAM EXPLANATION:
+
+1. When a request comes from the client, it passes through a series of Spring Security filters. These filters intercept the username and password, creating an 
+authentication object from the provided credentials.
+2. The authentication object is handed over to the AuthenticationManager, which delegates to an AuthenticationProvider (such as DAO, LDAP, JWT, or OAuth2) for 
+verification. The provider may use a password encoder and the UserDetailsService.
+3. The UserDetailsService is called (e.g., via the loadUserByUsername() method) to load user data, including roles and authorities. This data is converted into 
+a UserDetails object and returned to the AuthenticationProvider.
+4. The AuthenticationProvider validates the username and password. If valid, it creates a complete authentication object, populating it with additional user details such as roles.
+5. This authentication object is returned to the AuthenticationManager, which then updates the security context. The security context holds authentication 
+information for the duration of the request.
+6. The security context ensures that all subsequent requests from the client during the session are properly authenticated and authorized.
 
 
 
