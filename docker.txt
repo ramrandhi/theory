@@ -73,7 +73,7 @@ mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=ramrandhi/jobap
 -> docker ps  
 // gives all the running containers
 -> docker ps -a 
-// shows all the containers aswellas running
+// shows all the containers as well as running
 -> docker images
 // to list all the images on the host
 -> docker exec -it <container-name/container-id> bash
