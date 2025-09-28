@@ -166,7 +166,7 @@
 
 
 4. Default and Static Methods in Interfaces
-    Interfaces can now have method implementations using default.
+    Interfaces can now have method implementations using default and static.
 
     Example:
 

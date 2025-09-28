@@ -21,7 +21,7 @@ Combining Completable Futures: in situations where multiple asynchronous tasks a
  2. allOf - to wait for all tasks to complete.
  3. anyOf - to get the first completed result.
  4. thenApply() - take 1 completableFuture and then transform it.
- 5. thenCombine() - wait for 2 completableFutures to completer and then combine the result.
+ 5. thenCombine() - wait for 2 completableFutures to complete and then combine the result.
 
 EXCEPTION HANDLING: 
  1. exceptionally - to recover from errors.

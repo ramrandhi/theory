@@ -27,6 +27,14 @@ void - main method doesnot return any return type
 main - this is the entry point of the method
 String[] args - main method takes a array of arguments from command line
 
+| Modifier                    | Accessible within **same class** | **same package** | **subclasses in other packages** | **other packages** |
+| --------------------------- | -------------------------------- | ---------------- | -------------------------------- | ------------------ |
+| **`private`**               | ✅ Yes                           | ❌ No            | ❌ No                           | ❌ No             |
+| *(default)*<br>(no keyword) | ✅ Yes                           | ✅ Yes           | ❌ No                           | ❌ No             |
+| **`protected`**             | ✅ Yes                           | ✅ Yes           | ✅ Yes                          | ❌ No             |
+| **`public`**                | ✅ Yes                           | ✅ Yes           | ✅ Yes                          | ✅ Yes            |
+
+
 difference between == and .equals
 == - to check the data directly from the memory location
 .equals only checks the data it is currently having
@@ -48,7 +56,7 @@ Exception Handling
     - these occur when something is wrong with the hardware level or jvm level.
 
 
-    Throwable
+Throwable
 ├── Error
 │   ├── OutOfMemoryError
 │   ├── StackOverflowError
