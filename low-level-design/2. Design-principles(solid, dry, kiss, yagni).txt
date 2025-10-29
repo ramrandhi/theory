@@ -1,0 +1,25 @@
+SOLID PRINCIPLES: 
+  1. SINGLE RESPONSIBLILITY PRINCIPLE: A class should have only one responsibility.
+  2. OPEN/CLOSED RESPONSIBLILITY: Open for extension and closed for modification.
+  3. LISKOV'S SUBSTITUTION PRINCIPLE: child class should substitute parent class seamlessly
+  4. INTERFACE SEGREGATION PRINCIPLE: implement only interfaces or create interfaces only that has required functionality.
+  5. DEPENDENCY INVERTION PRINCIPLE: classes should depend on abstract classes or interfaces insted of concrete classes.
+
+  DRY PRINCIPLE: Don't Repeat Yourself
+
+  KISS: Keep it simple, stupid (importance of simplicity in design and Implementation)
+
+  YAGNI: You aren't gonna need it. (don't implement what is not required)
+
+ACID stands for:
+  A — Atomicity
+  C — Consistency
+  I — Isolation
+  D — Durability
+
+| Property        | Meaning                  | Ensures                        |
+| --------------- | ------------------------ | ------------------------------ |
+| **Atomicity**   | All or nothing           | No partial transactions        |
+| **Consistency** | Data validity            | Database rules are always true |
+| **Isolation**   | Transactions independent | No data conflicts              |
+| **Durability**  | Once saved, always saved | Data survives crashes          |

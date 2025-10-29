@@ -1,8 +1,65 @@
-DSA :
-    two pointers - 4 completed
-    sliding window - 5 completed
-    fast and slow pointers - 0 completed
-    prefix sum - 0 completed
+Dear software engineers, if you're targeting MAANG companies, here's a list to help you on your journey. 
 
-System Design
-    Scalability - 
+This is based on my podcast interviews where I've talked to engineers working at Google, Microsoft, Uber and many other great startups. 
+
+► Fundamental Software engineering principles
+
+– SOLID - https://lnkd.in/gXJ_JAPX
+– ACID - https://lnkd.in/gk98CBGw
+– YAGNI - https://lnkd.in/grAd8zdP
+– KISS - https://lnkd.in/gHm-y8HM
+– DRY - https://lnkd.in/guu9XBq6
+– Design Patterns - https://lnkd.in/ghW-VYsi
+– Separation Of Concerns - https://lnkd.in/ghjd75Rk
+– Modularity - https://lnkd.in/gwhd-K97
+
+► System Design Fundamentals by @Ashish Pratap Singh
+
+- Scalability: https://lnkd.in/gpge_z76 
+- Latency vs Throughput: https://lnkd.in/g_amhAtN
+- CAP Theorem: https://lnkd.in/g3hmVamx
+- ACID Transactions: https://lnkd.in/gMe2JqaF
+- Consistent Hashing: https://lnkd.in/gd3eAQKA
+- Rate Limiting: https://lnkd.in/gWsTDR3m
+- API Design: https://lnkd.in/ghYzrr8q
+- Strong vs Eventual Consistency: https://lnkd.in/gJ-uXQXZ
+- Synchronous vs. asynchronous communications: https://lnkd.in/gC3F2nvr
+- REST vs RPC: https://lnkd.in/gN__zcAB
+- Batch Processing vs Stream Processing: https://lnkd.in/g4_MzM4s
+- Fault Tolerance: https://lnkd.in/dVJ6n3wA
+- Consensus Algorithms: https://lnkd.in/ggc3tFbr
+- Gossip Protocol: https://lnkd.in/gfPMtrJZ
+- Service Discovery: https://lnkd.in/gjnrYkyF
+- Disaster Recovery: https://lnkd.in/g8rnr3V3
+- Distributed Tracing: https://lnkd.in/d6r5RdXG
+- Top 15 Tradeoffs: https://lnkd.in/gnM8QC-z
+- Horizontal vs Vertical Scaling: https://lnkd.in/gAH2e9du
+- Databases: https://lnkd.in/gti8gjpz
+- Content Delivery Network (CDN): https://lnkd.in/gjJrEJeH
+- Domain Name System (DNS): https://lnkd.in/gkMcZW8V
+- Caching: https://lnkd.in/gC9piQbJ
+- Distributed Caching: https://lnkd.in/g7WKydNg
+- Load Balancing: https://lnkd.in/gQaa8sXK
+- SQL vs NoSQL: https://lnkd.in/g3WC_yxn
+- Database Indexs: https://lnkd.in/gCeshYVt
+- HeartBeat: https://lnkd.in/g4x7sMrF
+- Circuit Breaker: https://lnkd.in/gCxyFzKm
+- Idempotency: https://lnkd.in/gPm6EtKJ
+- Database Scaling: https://lnkd.in/gAXpSyWQ
+- Data Replication: https://lnkd.in/gVAJxTpS
+- Data Redundancy: https://lnkd.in/gNN7TF7n
+- Database Sharding: https://lnkd.in/gMqqc6x9
+- Failover: https://lnkd.in/dihZ-cEG
+- Proxy Server: https://lnkd.in/gi8KnKS6
+
+► Coding Interviews
+– 900+ DSA Problems: https://lnkd.in/gBe9skqv
+– Coding Patterns: https://lnkd.in/gG77UBc5
+– Neetcode 150: https://lnkd.in/gviu_EhN
+-Tech Interview Handbook: https://lnkd.in/gU6kk5eN
+-Awesome Interview Questions -https://lnkd.in/gY-AYpQk
+-Coding Interview University- https://lnkd.in/gWnd3n6C
+
+Btw, in my job hunting accelerator program (link below) I have an extensive module on networking, resume building, job strategy with 10+ bonus sections of big tech recruiters who teaches you exactly what you need to win in this market. 
+
+Take a look: https://lnkd.in/gJat_txb

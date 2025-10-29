@@ -1,0 +1,7 @@
+CREATIONAL DESIGN PATTERNS: the process of creation of objects in a flexible and reusable way is called creational design patterns.
+
+1. Singleton design pattern ***
+2. factory design pattern
+3. abstract factory pattern
+4. builder design pattern  ***
+5. prototype design pattern

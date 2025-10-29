@@ -9,7 +9,7 @@ Graphs are bascially of 2 types:
     ^       |
     |       v
    (D) <-- (C)
-  -> A,B,C,D are noes or also called vertexes.
+  -> A,B,C,D are nodes or also called vertexes.
   -> the lines that are pointing in between with arrows are called edges or also called directed edges.
 
 2. UN-DIRECTED GRAPHS:
@@ -40,6 +40,7 @@ PATHS: Can contain a lot of nodes or vertexes and each of them is reachable.
     2. all the nodes of that path should be connected and in a path no node should be skipped that are inbetween.
 
 DEGREES:
+    DEGREES OF DIRECTED GRAPH:
     -> The number of edges attached to a node is called degrees.
     -> Total degree of a graph is => 2 * Edges.
     DIRECTED GRAPH: 

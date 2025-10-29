@@ -1,0 +1,108 @@
+CLASS: blue print. where we can have variables and methods.
+OBJECT: the instance of class where we can make use to refer to the variables and methods inside that class.
+CONSTRUCTOR: USED TO initialize the objects of a class.
+types of constructors:
+1. Default constructor, 2. Parameterized constructor, 3. copy constructor, 4. private Constructor
+3. Copy Constructor:
+    public Movie {
+        int tickets;
+        // we create a constructor that is copying original 
+        public Movie(Movie copy) {
+            this.tickets = copy.tickets;
+        }        
+    }
+
+    public static void main(String[] args) {
+        Movie m = new Movie();
+        Movie copy = new Movie(m);
+    }
+4. private Constructor: bascially used inside the Singleton design pattern
+
+// interview question
+// this will throw an error because if we define any constructor we should need to define a default constructor aswell.
+public Example {
+    int first, second;
+    public Example(int first, int second){
+        this.first = first;
+        this.second = second;
+    }
+    public static void main(String[] args) {
+        Example e = new Example();
+    }
+}
+
+THIS KEYWORD: used to referring to the instance object.
+
+INHERITENCE:
+1. Single Level Inheritence - parent to child only one Level
+2. Multi-Level - chain of parent and child classes 
+3. Hierarchical Inheritance - one parent and multiple children
+4. Multiple Inheitence - Combination of two or more inheritance types. (single class and multiple unimplemented interface methods)
+
+1. ASSOCIATION: A general relationship where one class knows about or uses another (has-a relationship). Can be one-to-one, one-to-many, many-to-many.
+class Student {
+    String name;
+}
+
+class Course {
+    String title;
+}
+A Student can be associated with a Course.
+Neither owns the other, both can exist independently.
+
+2. AGGREGATION: A “whole-part” relationship but with weak ownership.
+The lifetime of the part (child) does not depend on the whole (parent).
+Empty diamond notation in UML.
+class Department {
+    List<Teacher> teachers;  // aggregation
+}
+
+class Teacher {
+    String name;
+}
+A Department has Teachers.
+But if the Department is deleted, the Teachers still exist independently.
+
+3. COMPOSITION:
+A “whole-part” relationship with strong ownership.
+The lifetime of the part depends on the whole.
+Filled diamond notation in UML.
+
+class House {
+    private Room room;  // composition
+    
+    public House() {
+        room = new Room();
+    }
+}
+class Room {
+}
+A House has Rooms.
+If the House is destroyed, the Rooms cannot exist independently.
+
+4. Other Related Terms
+
+Dependency: “uses-a” relationship.
+One class depends on another temporarily.
+Example: PrinterService.print(Document doc) → depends on Document.
+
+Generalization / Inheritance: “is-a” relationship.
+Example: Dog extends Animal.
+
+Realization (Interface Implementation): “implements” relationship.
+Example: class MyList implements List.
+
+Comparison Table
+
+| Concept         | Relationship Type | Ownership | Lifecycle Dependency |
+| --------------- | ----------------- | --------- | -------------------- |
+| **Association** | Uses/knows        | None      | Independent          |
+| **Aggregation** | Has-a (weak)      | Weak      | Independent          |
+| **Composition** | Has-a (strong)    | Strong    | Dependent            |
+| **Dependency**  | Uses-a (temp)     | None      | Independent          |
+
+GENERICS: type safety
+wild cards:
+    1. unbound wildcards - List<?> list (bascially it dont care of what the type is)
+    2. upper-bounded wild cards - List<? extends Number> list (good for read only operations). it has some restrictions like only integer related types welcomed as it extends Number.
+    3. lower-bounded wild card - opposite of upper bound wildcard List<? extends Integer> (good for write operations)
