@@ -332,7 +332,7 @@ SEGEMENT TREES: ref: https://media.geeksforgeeks.org/wp-content/uploads/20240226
   -> WHEN TO USE: When a problem is given on solving the range in between an array or anything then we can use segment trees.
   -> Segment => perform query on a range(eg: sum, max, avg, min, prod etc...)
   -> Segment tree performs this in O(log n) times.
-=> Segment trees is a binary tree which has interval informattion and opertaion it is performing.
+=> Segment trees is a binary tree which has interval information and opertaion it is performing.
 
 EXAMPLE: 
 => Original Array: [1, 3, 5, 7, 9, 11]
