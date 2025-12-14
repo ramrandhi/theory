@@ -17,5 +17,5 @@ CONCURRENT COLLECTIONS:
 
  Fail-fast vs fail-safe on iteration:
  => Fail fast means when we are iterating over an arraylistlist or LinkedList then when some other thread modifies something it will throw ConcurrentModificationError and fails.
- => Fail safe meaning when we iterate over an ConcurrentHashMap list it will not throw an error because it iterates on the snapshot will iteration creation not on original list. 
+ => Fail safe meaning when we iterate over an ConcurrentHashMap list it will not throw an error because it iterates on the snapshot(copy) not on original list. 
 

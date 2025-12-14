@@ -11,7 +11,7 @@ CompletableFuture: always production ready applications use CompletableFuture.
     1. non-blocking multiple tasks completion in a single go and at the end wait for the parallel works to complete.
     2. get() - wait and retrive the result and throws checked Exceptions, 
     3. join() - wait and retrive the result and throws unchecked exceptions. (only use when we know there are no exceptions coming).
-    4. completableFuture.supplyAsync() - it works entirely on another thread not blocking main thread and and returns the result to CompletableFuture.
+    4. completableFuture.supplyAsync() - it works entirely on another thread not blocking main thread and returns the result to CompletableFuture.
     5. thenApply - allows us to chain the transformations and can be executed synchronously or asynchronously.
     => we use supplyAsync() => and inside we will be using thenApply or thenApplyAsync if used thenApply it will be running on the thread created by supplyAsync()
         and if we use .thenApplyAsync() then this will be using different thread not supplyAsync thread.

@@ -36,6 +36,20 @@ Thread Pool: Thread pool are a managed collection of reuseable threads designed 
 
 THREAD POOL LIFE CYCLE:
 
+NEW → RUNNING → SHUTDOWN → TERMINATED → STOP
+
+
+ThreadPoolExecutor State:
+
+
+| State      | Meaning                                        |
+| ---------- | ---------------------------------------------- |
+| RUNNING    | Accepts new tasks and processes queued tasks   |
+| SHUTDOWN   | No new tasks, completes queued tasks           |
+| STOP       | No new tasks, clears queue, interrupts workers |
+| TIDYING    | All tasks completed, worker count = 0          |
+| TERMINATED | Pool fully terminated                          |
+
 
 THREAD POOL USAGE:
 => Choose the right pool size for your specific workload characterstic.

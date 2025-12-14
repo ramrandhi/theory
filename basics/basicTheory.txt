@@ -51,7 +51,7 @@ Exception Handling
  - Exceptions are of two types.  1. exceptions and 2. erros
  - 1. Exceptions
     - 1. run time exceptions - nullpointer exceptions, index out of bound exceptions etc.
-    - 2. compile time exceptions - outOfMemory exceptions, file not found exceptions etc.
+    - 2. compile time exceptions - SQLException exceptions, file not found exceptions etc.
  - 2. Errors
     - these occur when something is wrong with the hardware level or jvm level.
 
@@ -74,5 +74,13 @@ Throwable
         ├── IllegalArgumentException
         ├── IndexOutOfBoundsException
         └── ArithmeticException 
+
+final - variable, method, class level
+finally - after using try catch we use finally 
+finalize - used by garbage collector before the object destruction
+
+throw - throw new RunTimeException insted of return we use this to throw exception.
+throws - method level exception handler
+throwable - is a class which has exceptions and errors
 
 
