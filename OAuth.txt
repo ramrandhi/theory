@@ -5,8 +5,7 @@ Actors in OAuth Framework:
  - Resources Owner: Resources owner is the user who owns the information and capable of granting access to this information.
  - Client: A clinet can we a web application, mobile application or postman that sends http requests to access user information.
  - Resources Server: A Resources server is that server that hosts the user information.
- - Authorization Server: An Authorization server is the server that generated access token to the client Application after successful
-                         authenticaton.
+ - Authorization Server: An Authorization server is the server that generated access token to the client Application after successful authenticaton.
 
 OAuth Client Types:
  -> For a Client Application to communicate with Authorization server it need to register with authenticaton server and get its client Id 

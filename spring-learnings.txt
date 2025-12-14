@@ -99,7 +99,7 @@ WHAT IS A API - > Api means application programming interface where api is used 
 			
 			
 what are status codes ?
-status codes are bascially tells about the what is happened with the apis that are transfering data. 5 types.
+status codes bascially tells about  what is happened with the apis that are transfering data. 5 types.
 1XX  -> says about the request is processing by server and it is on going 
 2XX  -> the request is completed and understood
 3XX  -> the request has some issues so the request is redirected
@@ -950,7 +950,7 @@ OPEN FAIGN :
 	3. @FeignClient (for interface level)
 
 -> It has builtin load Balancer where with FeignClient comes with ribbon a technology used for load balancing but when it comes to web Client or RestTemplate we need to annotate 
-the the method where we declare webclient or restTemplate with @LoadBalanced to make them loadBalanced.
+the method where we declare webclient or restTemplate with @LoadBalanced to make them loadBalanced.
 	 
 	 
 ZIPKIN : 
@@ -1069,7 +1069,7 @@ BEST PRACTICES FOR USE OF DISTRIBUTED TRACING WITH TOOLS LIKE ZIPKIN :
 CONFIGURATION MANAGEMENT IN MICROSERVICES : 
 	-> means managing and controlling the congifurations of each microservice in the system.
 	-> Configuration may include details such as database connections, external service urls, caching settings, and more.
-	-> Challange : As the number of microservices increases in your architecture, managing the individual configurations can become a complex tast.
+	-> Challange : As the number of microservices increases in your architecture, managing the individual configurations can become a complex task.
 	-> A centralized Config server provides a central place for managing configurations across all the microservices.
 	-> it simplifies configuration management and increases operational efficiency.
 
@@ -1160,6 +1160,7 @@ CIRCUIT BREAKERS :
 	In this state, the circuit breaker allows a limited number of test requests to the service.
 	If these requests succeed, the circuit breaker transitions back to Closed.
 	If they fail, it goes back to the Open state.
+	
 	Benefits of Circuit Breakers:
 	Improved Resilience: Prevents cascading failures in distributed systems.
 	Resource Optimization: Reduces load on failing services and frees resources for other tasks.

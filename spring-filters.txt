@@ -10,7 +10,7 @@ WORKING FLOW:
 
 
 
-we can implement filters in mainly in 3 different ways.
+we can implement filters mainly in 3 different ways.
 1.  USING @WebFilter and Implementing Filter interface.
     @Order(1)
     @WebFilter(urlPatterns = "/*")
