@@ -330,7 +330,7 @@
         List.of("C", "D")
     );
 
-    listOfLists.stream()
+    List<String> result = listOfLists.stream()
         .flatMap(List::stream)
         .forEach(System.out::println); // A B C D
 
