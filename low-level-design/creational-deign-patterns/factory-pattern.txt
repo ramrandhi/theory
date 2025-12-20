@@ -1,0 +1,110 @@
+-> Handles object creation in a centralized manner.
+-> object creation where there can be different types of object creation.
+
+Scenario, Problem, Challenge Factory Pattern solves:
+
+Scenario: 
+    => Image we have Vehice Management software where we need to manage vehicles and it has similar methods like start(), stop().
+
+Problem: 
+    => For creating new vehicle we need to we have to decide manually which vehicle class to be instantiate.
+    => If we have many places where vehicles objects are created managing these objects becomes very hard.
+
+Challenge:
+    => How can we create vehicles easily and cleanly without hard-coding the class names everywhere in the code?
+
+======================TRADITIONAL APPROACH: ==========================
+
+public interface Vehicle {
+    public void start();
+    public void stop();
+}
+
+public class Bike implements Vehicle {
+    public void start {
+        System.out.println("run");
+    }
+    public void stop() {
+        System.out.println("stop");
+    }
+}
+
+public class Car implements Vehicle {
+    public void start {
+        System.out.println("run");
+    }
+    public void stop() {
+        System.out.println("stop");
+    }
+}
+
+public class Main {                      // the problem here is we are creating objects manually everytime and it is redundent also for managing objects
+    public static void main(String[] args) {
+        Vehicle bike = new Bike();
+        bike.start();
+        bike.stop();
+        Vehicle car =  new Car();
+        car.start();
+        car.stop();
+    }
+}
+
+CODE IMPROVISATION BUT UGLY CODE:
+
+public class Main {                      // the problem here if a new vehicle comes we need to change whole code again.
+    public static void main(String[] args) {
+        String vehicleType = "bike";
+        Vehicle vehicle;
+        if(vehicleType.equals("bike")) {
+            vehicle = new Bike();
+        } else if (vehicleType.equals("car")) {
+            vehicle = new car();
+        } else {
+            throw new IllegalArgumentException("vehicle of type " + vehicleType + " not found");
+        }
+    }
+}
+
+HERE IS WHERE FACTORY DESIGN PATTERN COMES IN:
+=> Here we will be creating a vehicle factory that manages object creation.
+
+public class VehicleFactory {
+    public static Vehicle getVehicle(String vehicleType) {
+        if(("bike").equals(vehicleType)) {
+            return new Bike();
+        } else if (("car").equals(vehicleType)) {
+            return new Car();
+        } else {
+            throw new IllegalArgumentException("unknown vehicle type");
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String vehicleType = sc.next();
+        Vehicle vehicle1 = VehicleFactory.getVehicle(vehicleType);
+        vehicle.start();
+        vehicle.stop();
+        sc.close();
+    }
+}
+
+
+// for scalablility we can also use
+
+public class VehicleFactory {
+    private static final Map<String, Supplier<Vehicle>> registry = new HashMap<>();
+    static {
+        registry.put("car", Car::new);
+        registry.put("bike", Bike::new);
+    }
+    public static Vehicle getVehicle(String type) {
+        Supplier<Vehicle> supplier = registry.get(type.toLowerCase());
+        if (supplier == null) {
+            throw new IllegalArgumentException("Unknown vehicle");
+        }
+        return supplier.get(); // if we dont call get() method the object for supplier is not created due to lazy initialization.
+    }
+}
