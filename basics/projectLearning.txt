@@ -1,0 +1,16 @@
+=> Managed Entities are automatically persisted when a transaction commits even if we have not done a .save(entity).
+ => because when a function in service layer having @Transactional spring opens 1. a db transaction, 2. a jpa persistance context(EntityManager).
+ => so due to that when data changes that is automatically saved in database when spring commits the transaction, jpa performs dirty checking.
+
+IMPORTANCE OF IDEMPOTENCY KEY: The same request must produce the same effect exactly once.
+Idempotency Key (now it makes sense)
+Now we protect against:
+    1. Network retries
+    2. Double submits
+    3. Client refresh
+    4. Saga retries
+
+
+@Version -> version which is maintained in a sql column checks by increasing every time a write request writes the existing data. when two write requests read the 
+            same version number then another of them gets first completed and update writing to the database throws concurrentModificationException. so through this
+            the data becomes more stable under concurrency updates.
