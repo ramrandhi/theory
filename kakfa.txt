@@ -1,0 +1,33 @@
+download kafka a file something like this - kafka_2.13-3.7.0.tgz (it is 2.* version so there is zookeeper from 3.* zookeeper is removed).
+download it to - C:\kafka and make sure C:\kafka\bin and C:\kafka\config present
+open C:\kafka\config\zookeeper.properties and add properties
+
+dataDir=C:/kafka/zookeeper-data
+clientPort=2181
+
+and create folder - C:\kafka\zookeeper-data
+
+in terminal go to cd C:\kafka and run bin\windows\zookeeper-server-start.bat config\zookeeper.properties
+
+open C:\kafka\config\server.properties and add properties 
+broker.id=0
+log.dirs=C:/kafka/kafka-logs
+zookeeper.connect=localhost:2181
+listeners=PLAINTEXT://localhost:9092
+
+create folder - C:\kafka\kafka-logs
+
+start kafka broker - cd C:\kafka and bin\windows\kafka-server-start.bat config\server.properties
+
+create topic - cd C:\kafka then 
+bin\windows\kafka-topics.bat --create --topic transfer-events --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+verify with - bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092
+output will be - transfer-events
+
+test producer - bin\windows\kafka-console-producer.bat --topic transfer-events --bootstrap-server localhost:9092
+
+then in terminal add something like - {"event":"TRANSFER_STARTED","referenceId":"123"}
+
+test consumer - bin\windows\kafka-console-consumer.bat --topic transfer-events --from-beginning --bootstrap-server localhost:9092
+
+now you will see all the produced messages in consumer.
