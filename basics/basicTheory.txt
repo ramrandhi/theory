@@ -46,6 +46,35 @@ GARBAGE COLLECTION:
  - 2. OLD GENERATIN: All the objects that are in contact with threads for longer time will be moved to old generation.
     - here accessing objects is costly because it is heavy and has lot of old data present inside it.
  - 3. metaspace - introduced in java 8 (before it was permgeneration) it used to store class data.
+TYPES OF GARBAGE COLLECTORS:
+ - 1. Serial Gc - (-XX:+UseSerialGC) - Uses single thread for GC, Suitable for small applications, Causes long pause times, Mostly used in single-core or low-memory environments
+ - 2. Parallel GC - (-XX:+UseParallelGC) - Uses multiple threads for GC, Focuses on high throughput, Causes stop-the-world pauses, Default GC in Java 8.
+ - 3. Concurrent mark sweep (CMS) GC (Deprecated) - (-XX:+UseConcMarkSweepGC) - Minimizes pause time, Runs most GC phases concurrently, Causes fragmentation, Removed in Java 14
+ - 4. G1 GC (default gc) - (-XX:+UseG1GC) - Heap divided into regions, Predictable pause times, Concurrent + parallel phases, Default GC from Java 9 onwards
+ - 5. Z GC - (-XX:+UseZGC) - Ultra-low latency GC, Pause times typically < 10 ms, Uses colored pointers & load barriers, Requires large memory, Scales to multi-TB heaps
+ - 6. Shenandoah GC - (-XX:+UseShenandoahGC) - Low-latency GC similar to ZGC, Concurrent compaction, Slightly higher CPU usage, Supported mainly in OpenJDK
+
+ -> In the context of Serial Garbage Collector, “long pause times” means the application completely stops executing business logic for a noticeable duration while garbage 
+ collection runs. This is also called a Stop-The-World (STW) pause.
+
+| GC Type    | Pause Time | Throughput | Heap Size  | Default        |
+| ---------- | ---------- | ---------- | ---------- | -------------- |
+| Serial     | High       | Low        | Small      | Old client JVM |
+| Parallel   | High       | Very High  | Medium     | Java 8         |
+| CMS        | Low        | Medium     | Large      | Deprecated     |
+| G1         | Medium     | High       | Large      | Java 9+        |
+| ZGC        | Very Low   | High       | Very Large | No             |
+| Shenandoah | Very Low   | Medium     | Large      | No             |
+
+example usage in spring application : 
+java \
+  -Xms2g \
+  -Xmx2g \
+  -XX:+UseG1GC \
+  -XX:MaxGCPauseMillis=200 \
+  -jar app.jar
+
+
 
 Exception Handling
  - Exceptions are of two types.  1. exceptions and 2. erros
@@ -73,7 +102,12 @@ Throwable
         ├── NullPointerException
         ├── IllegalArgumentException
         ├── IndexOutOfBoundsException
-        └── ArithmeticException 
+        └── ArithmeticException
+
+1. Throwable is the top-level superclass.
+2. Error: Serious problems that applications should not try to catch.
+3. Exception: Conditions that applications might want to catch.
+   1. Checked Exceptions: Must be declared or handled.
 
 final - variable, method, class level
 finally - after using try catch we use finally 
@@ -82,5 +116,7 @@ finalize - used by garbage collector before the object destruction
 throw - throw new RunTimeException insted of return we use this to throw exception.
 throws - method level exception handler
 throwable - is a class which has exceptions and errors
+
+
 
 

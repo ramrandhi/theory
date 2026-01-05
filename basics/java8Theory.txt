@@ -1,0 +1,56 @@
+ForkJoinPool:
+    ForkJoinPool is a specialized thread pool designed for divide and conquer algorithms. it is heavily used by parallel streams and 
+    RecursiveTask/RecursiveAction in java.
+    WORKING: ForkJoinPool works by dividing the large task into smaller sub tasks, executing subtasks in parallel and in the end combining them in the end using join() method.
+    => Each worker thread has its own deque(double ended queue). tasks are pushed and popped locally first.
+
+    WORK STEALING ALGORITHM: Each thread maintains its own thread deque. Thread pushes new tasks to its dequeu and executes from the other end. while idle threads steal the tasks
+    from other end or back of the deque of working thread. it maximizes cpu utilization.
+
+    class SumTask extends RecursiveTask<Integer> {
+    private final int[] arr;
+    private final int start, end;
+    private static final int THRESHOLD = 10;
+
+    protected Integer compute() {
+        if (end - start <= THRESHOLD) {
+            int sum = 0;
+            for (int i = start; i < end; i++) sum += arr[i];
+            return sum;
+        }
+        int mid = (start + end) / 2;
+        SumTask left = new SumTask(arr, start, mid);
+        SumTask right = new SumTask(arr, mid, end);
+
+        left.fork();          // async
+        int rightResult = right.compute(); // sync
+        int leftResult = left.join();
+
+        return leftResult + rightResult;
+    }
+}
+ForkjoinPool vs executor:
+
+| Aspect     | ForkJoinPool     | ExecutorService |
+| ---------- | ---------------- | --------------- |
+| Model      | Divide & conquer | Task queue      |
+| Task type  | Recursive        | Independent     |
+| Scheduling | Work-stealing    | Central queue   |
+| Best for   | CPU-bound        | I/O-bound       |
+
+WHEN TO USE FORKJOINPOOL: cpu intensive tasks, recursive algorithm, large datasets, parallel stream processing.
+
+
+COMPLETABLE FUTURE:
+    CompletableFuture represents an asynchronous computation that may complete in the future. By default, async methods like supplyAsync() use the ForkJoinPool.commonPool, 
+    but CompletableFuture itself is not a divide-and-conquer framework. It focuses on non-blocking composition of dependent tasks rather than recursive task splitting.
+
+| Aspect          | ForkJoinPool               | CompletableFuture                |
+| --------------- | -------------------------- | -------------------------------- |
+| Primary goal    | Parallel execution         | Asynchronous composition         |
+| Model           | Divide & conquer           | Pipeline of dependent stages     |
+| Task splitting  | Explicit (`fork()`)        | No automatic splitting           |
+| Result handling | `join()` merges results    | `thenApply`, `thenCombine`, etc. |
+| Blocking        | Designed to avoid blocking | Supports non-blocking chaining   |
+| Typical use     | CPU-bound algorithms       | Async workflows                  |
+
