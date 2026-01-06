@@ -1,6 +1,6 @@
 Java Collections Tree :
 
-✅ Interface vs Class Legend:
+✅ Interface vs Class :
 📘 Interface: Iterable, Collection, List, Set, Queue, Map, etc.
 
 📦 Class: ArrayList, HashSet, LinkedList, HashMap, etc.
