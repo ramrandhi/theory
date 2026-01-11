@@ -88,6 +88,52 @@ b. by default web servlet container used apache tomcat as the web server.
 Summary:
 Startup → Context Creation → Bean Initialization → Application Ready → Running → Shutdown/Cleanup
 
+WHAT IS @SpringBootApplication internally does:
+ -> It is a meta-annotation, meaning it combines multiple annotations into one.
+ -> @SpringBootApplication internally contains 3 main annotation - 
+	1. @SpringBootConfiguration
+	2. @EnableAutoConfiguration
+	3. @ComponentScan
+-> @SpringBootConfiguration (it internally has 2 main annotations) 1. → @Configuration, 2. → @Component 
+	So Spring treats this class as a source of beans.
+
+-> @ComponentScan - @Component, @Service, @Repository, @Controller, @RestController
+	Default scan base package = package of the main class + subpackages
+
+-> @EnableAutoConfiguration - It enables conditional, classpath-based configuration. beans that are not available in ioc container are created automatically by conditions
+	in ioc container through configuration in autoconfiguration/imports package in metainf.
+
+SPRING BEAN LIFE-CYCLE:
+ -> What is Spring Bean - A Spring Bean is an object whose complete lifecycle (creation, initialization, usage, and destruction) is managed by the Spring IoC container. 
+ 		spring is responsible for 1. Instantiation, 2. DI, 3. initialization, 4. Destruction
+
+=> High level bean lifecycle (order of execution)
+1. Bean definition loaded, 
+2. Bean Instantiated - Spring creates the bean using a constructor or factory method.
+3. Dependencies Injected - Dependencies are injected using @Autowired, constructor injection, or setter injection.
+4. Aware interfaces invoked - Used to get container-related information. eg : BeanNameAware, ApplicationContextAware, EnvironmentAware
+5. BeanPostProcessor - before initialization - postProcessBeforeInitialization() is executed., 
+6. Initialization callbacks - @PostConstruct, InitializingBean.afterPropertiesSet(), Custom initMethod
+7. BeanPostProcessor - after Initialization - postProcessAfterInitialization() is executed, AOP proxies are created here. 
+8. Bean ready for use - Bean is fully initialized and available for application use.
+9. Container shutdown - @PreDestroy – Runs before bean destruction, destroy() – From DisposableBean, destroyMethod – Custom destroy logic 
+10. Destruction Callbacks - Cleanup logic is executed when the container shuts down.
+
+Use @PostConstruct for initialization
+Use @PreDestroy for cleanup
+Avoid InitializingBean and DisposableBean unless required
+Use BeanPostProcessor only for cross-cutting or framework logic
+
+	WHEN TO USE WHAT:
+| Requirement             | Recommended         |
+| ----------------------- | ------------------- |
+| Init logic              | `@PostConstruct`    |
+| Cleanup                 | `@PreDestroy`       |
+| Cross-cutting concerns  | `BeanPostProcessor` |
+| Access Spring internals | `Aware` interfaces  |
+| Framework extensions    | `BeanPostProcessor` |
+
+
 what is API ?
 -> set of rules and protocols that allow one software application to interact and communicate with another
 
