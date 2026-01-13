@@ -211,6 +211,17 @@ A suite of tools for building microservices, including support for service disco
 		eg: @Transactional(rollbackFor = Exception.class)
 	3. @Transactional doesn't work well with @Async methods because @Async methods are executed in a different thread, and the 
 		transaction context is not propagated to that thread. so use TransactionTemplate for async methods.
+@Transactional Propagation methods :
+| Propagation        | Behavior                                  |
+| ------------------ | ----------------------------------------- |
+| REQUIRED (default) | Join existing tx or create new            |
+| REQUIRES_NEW       | Suspend current tx, start new             |
+| MANDATORY          | Must already have a tx or throw exception |
+| SUPPORTS           | Join if exists, else non-transactional    |
+| NOT_SUPPORTED      | Suspend tx and run non-transactionally    |
+| NEVER              | Throw exception if tx exists              |
+| NESTED             | Savepoint-based (DB dependent)            |
+
 
 
 HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
