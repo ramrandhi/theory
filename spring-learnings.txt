@@ -116,7 +116,7 @@ SPRING BEAN LIFE-CYCLE:
 6. Initialization callbacks - @PostConstruct, InitializingBean.afterPropertiesSet(), Custom initMethod
 7. BeanPostProcessor - after Initialization - postProcessAfterInitialization() is executed, AOP proxies are created here. 
 8. Bean ready for use - Bean is fully initialized and available for application use.
-9. Container shutdown - @PreDestroy – Runs before bean destruction, destroy() – From DisposableBean, destroyMethod – Custom destroy logic 
+9. Container shutdown - @PreDestroy - Runs before bean destruction, destroy() - From DisposableBean, destroyMethod - Custom destroy logic 
 10. Destruction Callbacks - Cleanup logic is executed when the container shuts down.
 
 Use @PostConstruct for initialization
@@ -165,7 +165,7 @@ status codes bascially tells about  what is happened with the apis that are tran
 500 -> internal server error (due to some issue on server)
 
 Types of api requests
-1. get request, 2. post request, 3. put request, 4. delete request.
+1. get request, 2. post request, 3. put request, 4. delete request, 5. patch request.
 
 
 Why do we need web framework ?
@@ -202,10 +202,10 @@ A suite of tools for building microservices, including support for service disco
 		Transferring money from one account to another: If money is debited from one account but not credited to the other, data becomes 
 		inconsistent. A transaction ensures both operations happen together.
 		ACID Properties of Transactions
-		Atomicity – All operations in a transaction succeed or none do.
-		Consistency – The system moves from one valid state to another.
-		Isolation – Transactions do not affect each other.
-		Durability – Once a transaction is committed, it's permanently recorded.
+		Atomicity - All operations in a transaction succeed or none do.
+		Consistency - The system moves from one valid state to another.
+		Isolation - Transactions do not affect each other.
+		Durability - Once a transaction is committed, it's permanently recorded.
 	1. @Transactional works only with the public methods of a class.
 	2. @Transactional can be rolls back on uncheked exceptions to roll back on checked exceptions we need to explicitly mention the rollbackFor attribute.
 		eg: @Transactional(rollbackFor = Exception.class)
@@ -221,6 +221,67 @@ A suite of tools for building microservices, including support for service disco
 | NOT_SUPPORTED      | Suspend tx and run non-transactionally    |
 | NEVER              | Throw exception if tx exists              |
 | NESTED             | Savepoint-based (DB dependent)            |
+
+Transaction Isolation Levels
+
+| Problem             | Meaning                            |
+| ------------------- | ---------------------------------- |
+| Dirty Read          | Read uncommitted data              |
+| Non-Repeatable Read | Same query gives different results |
+| Phantom Read        | New rows appear in same query      |
+
+ISOLATION LEVELS:
+1. READ_UNCOMMITED - Allows dirty reads - @Transactional(isolation = Isolation.READ_UNCOMMITTED)
+2. READ_COMMITED - Default in most DB'S. - @Transactional(isolation = Isolation.READ_COMMITTED)
+3. REPEATABLE_READ - Prevents dirty + non-repeatable reads, Phantom reads may occur (DB dependent) - @Transactional(isolation = Isolation.REPEATABLE_READ)
+4. SERIALIZABLE (Highest) - Full isolation, Transactions run sequentially, Lowest performance - @Transactional(isolation = Isolation.SERIALIZABLE)
+
+
+WHAT IS JPA (Java Persistance API) :
+   
+   -> JPA is a specification in Java that defines a standard way to map Java objects to relational databases and manage database operations using Java. It provides a set of 
+		guidelines and principles for building ORM (Object-Relational Mapping) tools. Frameworks like Hibernate, EclipseLink, and OpenJPA are popular implementations of the JPA 
+		specification.
+   
+   -> JPA itself is not a framework or tool but a set of interfaces and rules. Frameworks like Hibernate provide the actual implementation, following the guidelines set by the 
+	  JPA specification.
+
+	JPA Entity Life-Cycle (Foundation)
+	An entity in JPA can be in four states:
+
+	1. Transient - new object, not associated with persistence context
+	2. Managed (Persistent) - tracked by EntityManager
+	3. Detached - was managed, now not tracked
+	4. Removed - scheduled for deletion
+   new → transient → managed → detached → removed
+
+JPA CORE METHODS:
+	1. persist() – INSERT only - Makes a new entity managed, Schedules INSERT
+
+	Behavior
+	Works only for new (transient) entities
+	Throws exception if entity already exists
+	No immediate DB insert (happens at flush/commit)
+
+	2. merge() – UPDATE or INSERT (Most Confusing) - Copies state of detached entity into a managed one, Returns managed instance
+	3. find() – Fetch Entity (Managed) - Returns managed entity, Changes auto-persisted, Returns null if not found
+	4. getReference() – Lazy Proxy - Returns proxy, DB hit happens on access, Throws EntityNotFoundException if not found
+	5. remove() – DELETE - Entity must be managed, Deletion happens at commit
+	❌ Invalid - entityManager.remove(detachedEntity); // IllegalArgumentException
+	✔ Fix - entityManager.remove(entityManager.merge(detachedEntity));
+	6. detach() – Stop Tracking - Entity becomes detached, Changes are not saved
+	7. clear() – Detach All - Clears entire persistence context
+	8. flush() – Sync with DB - Executes SQL immediately, Does NOT commit transaction
+	9. refresh() – Reload from DB - Discards local changes, Reloads entity from DB
+   
+🔥 persist() vs merge() (MOST ASKED)
+| Feature         | persist | merge             |
+| --------------- | ------- | ----------------- |
+| New entity      | ✅       | ✅              |
+| Detached entity | ❌       | ✅              |
+| Return value    | void    | Managed entity    |
+| Attaches entity | Yes     | No (copies state) |
+| Use case        | Create  | Update            |
 
 
 
@@ -511,11 +572,10 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 	
 	
 	Hibernate Query Language ->
-			We can do write queries with hql same as sql and also do joins, group by, and everything which is possible with sql queries.3
-			
-			
-			
-	HIBERNATE OBJECT STATES / PERSISTANCE LIFE CYCLES
+			We can do write queries with hql same as sql and also do joins, group by, and everything which is possible with sql queries.
+	
+	
+	3. HIBERNATE OBJECT STATES / PERSISTANCE LIFE CYCLES
 	
 	new -> Transient -> garbage collection
 	
@@ -526,18 +586,7 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
    1. Get will give you data when we make a get call directly and when data is not found in case of getById throws NullPointerException.
    2. Load will give you data when we make a load call with the usage of that particular object if there is no usage load will not work and throws ObjectNotFound exception when 
 	  the load with id not found.
-   
-   
-   WHAT IS JPA (Java Persistance API) :
-   
-   -> JPA is a specification in Java that defines a standard way to map Java objects to relational databases and manage database operations using Java. It provides a set of 
-		guidelines and principles for building ORM (Object-Relational Mapping) tools. Frameworks like Hibernate, EclipseLink, and OpenJPA are popular implementations of the JPA 
-		specification.
-   
-   -> JPA itself is not a framework or tool but a set of interfaces and rules. Frameworks like Hibernate provide the actual implementation, following the guidelines set by the 
-	  JPA specification.
-   
-   
+
    SPRING FRAMEWORK :
    -> Spring framework can create two types of containers based on our requirements. 1). Bean Factory, 2). Application context.
    -> Spring framework is bascially a 
@@ -980,6 +1029,7 @@ Interservice Communication :
 -> by using RestTemplate we can communicate with other microservices
 
 2. asynchronous communication.
+-> Can be done using WebClient, Kafka, RabbitMq etc.
 
 SERVICE REGISTRY : 
   -> A service registry is used in microservices architecture to enable dynamic service discovery
@@ -1108,7 +1158,8 @@ HOW TO USE :
 		<artifactId>spring-boot-starter-actuator</artifactId>
 	</dependency>
 
--> Here in above dependencies micrometer-tracing-bridge-brave acts as an bridge that connects micrometer with brave, where micrometer is an metrics instrumentation library for jvm based applications and brave is a java tracing library which is compatible with zipkin.
+-> Here in above dependencies micrometer-tracing-bridge-brave acts as an bridge that connects micrometer with brave, where micrometer is an metrics instrumentation library 
+	for jvm based applications and brave is a java tracing library which is compatible with zipkin.
 -> second dependency acts as an metrics collector which will send data to zipkin and zipkin uses that data for visualizaion.
 
 2. # zipkin
