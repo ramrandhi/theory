@@ -6,7 +6,7 @@ JRE - java run time environment
 
 
 JVM - java virtual machine
-    - loads .class files (bitecode)
+    - loads .class files (bytecode)
     - features like garbage collection
     - ensures platform independence.
     - converts byte code to machine understandable code using jit compiler
@@ -16,6 +16,9 @@ JDK
  │    ├── JVM
  │    └── Java Libraries
  └── Developer Tools (javac, jdb, javadoc, etc.)
+
+ javac compiles .java files into platform-independent bytecode (.class), and the JVM executes this bytecode by interpreting it or compiling it into native machine code 
+ using the JIT compiler.
 
 
 Main Method in Java
