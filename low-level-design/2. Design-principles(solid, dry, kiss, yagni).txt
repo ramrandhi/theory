@@ -20,6 +20,6 @@ ACID stands for:
 | Property        | Meaning                  | Ensures                        |
 | --------------- | ------------------------ | ------------------------------ |
 | **Atomicity**   | All or nothing           | No partial transactions        |
-| **Consistency** | Data validity            | Database rules are always true |
+| **Consistency** | Data validity            | Database rules are always true | - a transaction brings the database from one valid state to another valid state.
 | **Isolation**   | Transactions independent | No data conflicts              |
 | **Durability**  | Once saved, always saved | Data survives crashes          |
