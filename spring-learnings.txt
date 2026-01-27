@@ -267,8 +267,8 @@ JPA CORE METHODS:
 	3. find() – Fetch Entity (Managed) - Returns managed entity, Changes auto-persisted, Returns null if not found
 	4. getReference() – Lazy Proxy - Returns proxy, DB hit happens on access, Throws EntityNotFoundException if not found
 	5. remove() – DELETE - Entity must be managed, Deletion happens at commit
-	❌ Invalid - entityManager.remove(detachedEntity); // IllegalArgumentException
-	✔ Fix - entityManager.remove(entityManager.merge(detachedEntity));
+		❌ Invalid - entityManager.remove(detachedEntity); // IllegalArgumentException
+		✔ Fix - entityManager.remove(entityManager.merge(detachedEntity));
 	6. detach() – Stop Tracking - Entity becomes detached, Changes are not saved
 	7. clear() – Detach All - Clears entire persistence context
 	8. flush() – Sync with DB - Executes SQL immediately, Does NOT commit transaction
@@ -496,7 +496,7 @@ HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
 				private List<Student> student = new ArrayList<>();
 			}
 			
-	EAGER LOADING AND LAZY LOADING : By default the hibernate fires query in lazy loaded manner and we need to explicitly need to make the hibernate eager load while fetching data.
+	EAGER LOADING AND LAZY LOADING : By default the hibernate fires query in lazy loaded manner and we explicitly need to make the hibernate eager load while fetching data.
 		(i). to make the hibernate to eager load the data we can use fetch=FetchType.EAGER.
 		(ii). by default Hibernate is lazy loaded because it things we only want data from one single table not from child table so it just queries to lazy load the data.
 		
@@ -1026,7 +1026,7 @@ Different end points and its usage
 
 Interservice Communication : 
 1. synchronous communication.
--> by using RestTemplate we can communicate with other microservices
+-> by using RestTemplate or WebClient we can communicate with other microservices
 
 2. asynchronous communication.
 -> Can be done using WebClient, Kafka, RabbitMq etc.
