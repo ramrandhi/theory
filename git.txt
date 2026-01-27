@@ -1,6 +1,4 @@
-
 ALL GIT COMMANDS : 
-
 
 git version control systems are of 3 types
   1. local version constrol systems            -> In this case the repository is within the system and if system crashes or sharing code not efficient
@@ -11,6 +9,13 @@ git version control systems are of 3 types
   to change the username             -> git config --global user.name ""
   to change the email                 -> git config --global email ""
   
+| Scenario                         | Command                     |
+| -------------------------------- | --------------------------- |
+| Unstage before commit            | `git restore --staged file` |
+| Undo last commit, keep staged    | `git reset --soft HEAD~1`   |
+| Undo last commit, unstage        | `git reset HEAD~1`          |
+| Undo last commit, delete changes | `git reset --hard HEAD~1`   |
+
   
   git init          -> to initilize a project
   git init -b main   -> to initialize the project with branch main insted of default branch name master
@@ -29,7 +34,7 @@ git version control systems are of 3 types
   git show v1.0  -> gives the discription about the tagging v1.0
   
   git checkout -b feature1 or git checkout --branch feature1  -> to create a new branch with name feature1
-  git swich -c feature1 or git switch --create feature1  -> to create a new branch with name feature1
+  git switch -c feature1 or git switch --create feature1  -> to create a new branch with name feature1
   
   git switch feature1 -> to switch to feature1 branch
   git checkout feature  -> to switch to feature1 branch
