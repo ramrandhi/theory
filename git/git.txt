@@ -109,3 +109,4 @@ git version control systems are of 3 types
 | git archive -o <file.zip> HEAD    | Creates an archive of the repository                   |
 | git grep "<pattern>"              | Searches for a pattern in files                        |
 +----------------------------------+-------------------------------------------------------------+
+p
