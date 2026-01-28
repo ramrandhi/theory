@@ -1,0 +1,114 @@
+SPRING SECURITY: 
+
+WHAT IS SECURITY:
+1. Privacy Protection : protecting user data.
+2. Trust : application should be trust worthy with security.
+3. Integrity: How it is working.
+4. Compliance: there are some digital world laws that need to be complied by our application.
+
+
+1. AUTHENTICATION - Authenticaion is proving who you are.
+2. AUTHORIZATION  -  Authorization is about what you're allowed to do after you've proven who you are.
+
+KEY SECURITY PRINCIPLES:
+1. Least Privilege – Users should have only the minimum permissions required to perform their tasks.
+2. Secure by Design – Security should be considered and implemented during the design phase.
+3. Fail-Safe Defaults – Systems should be secure by default, without requiring additional configuration.
+4. Secure Communication – All incoming and outgoing data should be protected.
+5. Input Validation – External APIs must validate inputs to prevent threats like SQL injection.
+6. Auditing and Logging – Implement logging and auditing to track user actions and system events.
+
+
++---------------------+       +---------------------+       +----------------------+       +-------------------------+
+|  Client (Browser)  | --->   |  Spring Security    | --->  | AuthenticationManager| --->  | AuthenticationProvider  |
+|  (User Request)    |        |  Filter Chain       |       |                      |       | (DAO, LDAP, JWT, OAuth2)|
++---------------------+       +---------------------+       +----------------------+       +-------------------------+
+                            (Authentication Filters)                                           | (Password Encoder also present)        
+                                                                                               v            
+                                                                                     +------------------------+
+                                                                                     |  UserDetailsService    |
+                                                                                     | (Custom Implementation)|
+                                                                                     +------------------------+
+                                                                                               |            
+                                                                                               v            
++-------------------+        +----------------------+        +----------------------+
+|  Database (DB)    | <---   |   Authentication     | <---   |     UserDetails      |
+| (Users, Roles,    |        |  (Validates User)    |        | (Username, Password, |
+| Permissions)      |        |                      |        |  Roles, Authorities) |
++-------------------+        +----------------------+        +----------------------+
+
+SECURITY FLOW DIAGRAM EXPLANATION:
+
+1. When a request comes from the client, it passes through a series of Spring Security filters. These filters intercept the username and password, creating an 
+authentication object from the provided credentials.
+2. The authentication object is handed over to the AuthenticationManager, which delegates to an AuthenticationProvider (such as DAO, LDAP, JWT, or OAuth2) for 
+verification. The provider may use a password encoder and the UserDetailsService.
+3. The UserDetailsService is called (e.g., via the loadUserByUsername() method) to load user data, including roles and authorities. This data is converted into 
+a UserDetails object and returned to the AuthenticationProvider.
+4. The AuthenticationProvider validates the username and password. If valid, it creates a complete authentication object, populating it with additional user details such as roles.
+5. This authentication object is returned to the AuthenticationManager, which then updates the security context. The security context holds authentication 
+information for the duration of the request.
+6. The security context ensures that all subsequent requests from the client during the session are properly authenticated and authorized.
+
+
+
+BCRYPT:
+for securing the sending details we use bcrypt to decrypt the password and to use another layer of security bcrypt internally users
+salting for adding additional security using extra strings.
+
+
+JWT: (JSON WEB TOKENS)
+
+without jwt:
+1. no advanced features like expiration time.
+2. can be decoded easily.
+3. should we go for "custom token system".
+
+
+THEN WITH JWT: 
+JSON web tokens are an open, industry standard.
+
+HOW JSON WEB TOKEN IS GENERATED:
+
+ Client                         Server
+  |                               |
+  | 1. User enters credentials    |
+  |-----------------------------> |
+  |                               |
+  | 2. Server authenticates       |
+  |    and generates token        |
+  |                               |
+  | 3. Token issued to user       |
+  |<----------------------------- |
+  |                               |
+  | 4. Token sent in API request  |
+  |-----------------------------> |
+  |                               |
+  | 5. Server validates token     |
+  |                               |
+  | 6. If valid, authorize        |
+  |<----------------------------- |
+  |    Else, return error         |
+
+1. jwt token contains 3 parts. 1. headers, 2. payload like properties of token, 3. secret pass key.
+
+We require 3 files or classes to implement JWT Authentication.
+1. JwtUtils
+    -> Contains utility methods for generating, parsing and validating JST's.
+    -> Include generating a token from a username, validating a JWT and extracting the username from a token.
+2. AuthTokenFilter
+    -> Filters incoming requests to check for a valid Jwt in the header, setting the authentication context if the token is valid.
+    -> Extracts JWT from request header, validates it and configures the spring security context with user details if the token is valid.
+3. AuthEntryPointJwt
+    -> Provides custom handling for unauthorized requests, typically when authentication is required but not supplied or valid.
+    -> When an unauthorized request is detected, it logs the error and returns a JSON response with an error message, status code,
+       and the path attempted.
+THIS CLASS IS FOR IMPLEMENTINH SECURITY LOGIC AND CREATING BEAN OF SPRING SECURITY.
+4. SecurityConfig:
+    -> Configures spring security filters and rules for the application.
+    -> Sets up the security filter chain, permitting or denying access based on paths and roles. it also configures session management
+       to stateless, which is crucial for JWT usage.
+
+
+
+

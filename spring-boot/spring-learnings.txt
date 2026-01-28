@@ -1,0 +1,1313 @@
+Spring Boot application working :
+
+*** Running through command lines
+1. run spring boot application - mvn spring-boot:run
+2. build spring boot application - mvn clean install
+3. build artifact of spring boot application - mvn clean package
+4. Maven Not Detecting Dependencies - mvn clean install -U
+5. Want to Clear Cached Dependencies - rd /s /q C:\Users\YourUsername\.m2\repository
+6. to stop spring boot application - mvn spring-boot:stop
+7. to create docker image for spring boot application - mvn spring-boot:build-image
+
+8. How to know if the Spring Boot application is using BeanFactory or ApplicationContext as IoC container?
+	- In Spring Boot, the IoC container is always an ApplicationContext (which extends BeanFactory).
+	- You can check the type of the context by autowiring or injecting the ApplicationContext in your code:
+	  ```java
+	  @Autowired
+	  private ApplicationContext context;
+	  ```
+	- If you print `context.getClass()`, you will see it is a subclass of ApplicationContext (e.g., `AnnotationConfigServletWebServerApplicationContext`).
+	- BeanFactory is the basic interface, but Spring Boot always uses ApplicationContext (never just BeanFactory) for its advanced features.
+
+Spring Boot web application, both the Spring IoC (Inversion of Control) container and the web servlet container (embedded web server) work in parallel but serve different purposes
+
+(1). SPRING IOC (INVERSION OF CONTROL) CONTAINER :
+
+The Spring IoC container is responsible for managing the beans and their dependencies in a Spring Boot application. The IoC container includes:
+
+Sping boot container types :
+
+(a). Bean Factory - 
+	1. bean factory is the simplest container in spring where it provides the basic functionality like dependency injection and managing beans.
+	2. Bean factory lazy loads beans (only when they are requested and resolves the dependencies.
+	3. bean Factory is primarily used for small scale applications where all the features of application context is not required.
+	4. Example: XmlBeanFactory (deprecated) and programmatic configuration via BeanFactory.
+
+b). Application Context - (Application context is the extension of bean factory that adds more enterprise level features.
+	1. Application context eagerly loads all the beans at startup, unlike BeanFactory.
+	2. Supports event propagation, declarative mechanisms for creating beans, internationalization (I18N), and AOP (Aspect-Oriented Programming).
+	3. Offers additional functionality such as bean post-processing, lifecycle management, and integration with Spring’s web and transaction services.
+	
+	*. Types of application context - 
+	1. AnnotationConfigApplicationContext - loads the context using annotations (Typically used in spring boot).
+	2. ClassPathXMLApplicationContext - loads the context from XML Configuration file.
+	3. WebApplicationContext - A specialized ApplicationContext for web applications, integrated with Spring's MVC framework.
+
+	Event Propagation in ApplicationContext:
+	- In Spring, event propagation refers to the ability of the ApplicationContext to publish and listen for events within the application.
+	- The ApplicationContext supports an event mechanism where beans can publish custom or built-in events using `publishEvent()`.
+	- Other beans can listen for these events by implementing `ApplicationListener` or using the `@EventListener` annotation.
+	- This enables decoupled communication between different parts of the application, such as notifying components when a user registers or when a resource is updated.
+	- Example:
+		```java
+		@Component
+		public class MyListener {
+				@EventListener
+				public void handleEvent(MyCustomEvent event) {
+						// handle event
+				}
+		}
+	
+	
+2). WEB SERVLET CONTAINER (Embedded Web Server) : 
+
+a. the Web servlet container bascially handles http requests and responses in a web application. web servlet container works with the network side of the application where the 
+	api requests particularly the communicaition between the client and the server.
+b. by default web servlet container used apache tomcat as the web server.
+
+====> The life cycle of a Spring Boot application typically includes these main phases:
+=> Startup
+	The application is launched (e.g., via main() method).
+		The Spring Boot auto-configuration and embedded server (like Tomcat) are initialized.
+ ApplicationContext Creation
+	The IoC container (ApplicationContext) is created.
+	Beans are instantiated, dependencies are injected, and bean lifecycle methods (@PostConstruct, InitializingBean, etc.) are called.
+
+ Application Events
+	Spring publishes various events (e.g., ApplicationStartedEvent, ApplicationReadyEvent) during startup.
+
+ Running State
+	The application is ready to handle requests (web, REST, etc.).
+	Business logic executes, and beans interact as needed.
+
+ Shutdown
+	The application context is closed (e.g., on JVM shutdown or SIGTERM).
+	Bean destruction callbacks (@PreDestroy, DisposableBean, etc.) are called.
+	Resources are released and the embedded server stops.
+
+Summary:
+Startup → Context Creation → Bean Initialization → Application Ready → Running → Shutdown/Cleanup
+
+WHAT IS @SpringBootApplication internally does:
+ -> It is a meta-annotation, meaning it combines multiple annotations into one.
+ -> @SpringBootApplication internally contains 3 main annotation - 
+	1. @SpringBootConfiguration
+	2. @EnableAutoConfiguration
+	3. @ComponentScan
+-> @SpringBootConfiguration (it internally has 2 main annotations) 1. → @Configuration, 2. → @Component 
+	So Spring treats this class as a source of beans.
+
+-> @ComponentScan - @Component, @Service, @Repository, @Controller, @RestController
+	Default scan base package = package of the main class + subpackages
+
+-> @EnableAutoConfiguration - It enables conditional, classpath-based configuration. beans that are not available in ioc container are created automatically by conditions
+	in ioc container through configuration in autoconfiguration/imports package in metainf.
+
+SPRING BEAN LIFE-CYCLE:
+ -> What is Spring Bean - A Spring Bean is an object whose complete lifecycle (creation, initialization, usage, and destruction) is managed by the Spring IoC container. 
+ 		spring is responsible for 1. Instantiation, 2. DI, 3. initialization, 4. Destruction
+
+=> High level bean lifecycle (order of execution)
+1. Bean definition loaded, 
+2. Bean Instantiated - Spring creates the bean using a constructor or factory method.
+3. Dependencies Injected - Dependencies are injected using @Autowired, constructor injection, or setter injection.
+4. Aware interfaces invoked - Used to get container-related information. eg : BeanNameAware, ApplicationContextAware, EnvironmentAware
+5. BeanPostProcessor - before initialization - postProcessBeforeInitialization() is executed., 
+6. Initialization callbacks - @PostConstruct, InitializingBean.afterPropertiesSet(), Custom initMethod
+7. BeanPostProcessor - after Initialization - postProcessAfterInitialization() is executed, AOP proxies are created here. 
+8. Bean ready for use - Bean is fully initialized and available for application use.
+9. Container shutdown - @PreDestroy - Runs before bean destruction, destroy() - From DisposableBean, destroyMethod - Custom destroy logic 
+10. Destruction Callbacks - Cleanup logic is executed when the container shuts down.
+
+Use @PostConstruct for initialization
+Use @PreDestroy for cleanup
+Avoid InitializingBean and DisposableBean unless required
+Use BeanPostProcessor only for cross-cutting or framework logic
+
+	WHEN TO USE WHAT:
+| Requirement             | Recommended         |
+| ----------------------- | ------------------- |
+| Init logic              | `@PostConstruct`    |
+| Cleanup                 | `@PreDestroy`       |
+| Cross-cutting concerns  | `BeanPostProcessor` |
+| Access Spring internals | `Aware` interfaces  |
+| Framework extensions    | `BeanPostProcessor` |
+
+
+what is API ?
+-> set of rules and protocols that allow one software application to interact and communicate with another
+
+
+WHAT IS A API - > Api means application programming interface where api is used for exposing or storing data 
+3 types -> Internal APIS    -> which were used and is only for organization
+			External APIS   -> external apis are bascially for outside world to access
+			Partner Apis    -> apis that are having access to particular partnership organizations
+			
+			
+what are status codes ?
+status codes bascially tells about  what is happened with the apis that are transfering data. 5 types.
+1XX  -> says about the request is processing by server and it is on going 
+2XX  -> the request is completed and understood
+3XX  -> the request has some issues so the request is redirected
+4XX  -> client specific error
+5XX  -> server specific error
+
+
+
+200 -> meaning successful
+201 -> created (posting data to server)
+204 -> no content (request successful but no content)
+301 -> moved permanently (requested resource is moved permanently or not available)
+400 -> bad request (server unable to understand the request due to bad parameters and similar things)
+401 -> unauthorized (we dont have authentication credintials)
+403 -> forbidden (request sent but it is restricted to give permissions to the request)
+404 -> not found (access some end point that doesnot exist)
+500 -> internal server error (due to some issue on server)
+
+Types of api requests
+1. get request, 2. post request, 3. put request, 4. delete request, 5. patch request.
+
+
+Why do we need web framework ?
+Web framework is nothing but collection of tools and modules that is need to do standard tasks across every web application.
+
+SPRING FRAMEWORK
+1. Inversion of Control 
+-> manages life cycle and configuration of objects
+2. Data Access
+-> spring can connect with multiple databases using sping data access features
+3. Mvc framework
+-> spring uses model view control for seperation of layers which is model for storing data, view for sending response to client, control to access the end points
+4. Transaction Management
+-> spring provides unified way to provide transactions across objects
+5. spring security
+6. testing support
+7. initialization and localization
+8. Spring AOP (Aspect-Oriented Programming):
+Facilitates cross-cutting concerns like logging, security, and transaction management without modifying the application's core logic.
+9. Spring Boot:
+A sub-project of Spring Framework, it simplifies the development and deployment of Spring-based applications with features like auto-configuration and an embedded server.
+10. Spring WebFlux:
+A reactive programming model for building non-blocking, event-driven applications, suitable for high-performance use cases.
+11. Spring Integration and Messaging:
+Supports messaging systems like Kafka and RabbitMQ, enabling seamless integration with other systems.
+12. Spring Cloud:
+A suite of tools for building microservices, including support for service discovery, circuit breakers, and API gateways.
+
+4.TRANSACTIONAL MANAGEMENT
+	What is a Transaction in Java?
+	->	In Java, especially when working with databases, a transaction is a sequence of operations that should either complete entirely or 
+		not at all. Transactions ensure data consistency, integrity, and reliability.
+		For example:
+		Transferring money from one account to another: If money is debited from one account but not credited to the other, data becomes 
+		inconsistent. A transaction ensures both operations happen together.
+		ACID Properties of Transactions
+		Atomicity - All operations in a transaction succeed or none do.
+		Consistency - The system moves from one valid state to another.
+		Isolation - Transactions do not affect each other.
+		Durability - Once a transaction is committed, it's permanently recorded.
+	1. @Transactional works only with the public methods of a class.
+	2. @Transactional can be rolls back on uncheked exceptions to roll back on checked exceptions we need to explicitly mention the rollbackFor attribute.
+		eg: @Transactional(rollbackFor = Exception.class)
+	3. @Transactional doesn't work well with @Async methods because @Async methods are executed in a different thread, and the 
+		transaction context is not propagated to that thread. so use TransactionTemplate for async methods.
+@Transactional Propagation methods :
+| Propagation        | Behavior                                  |
+| ------------------ | ----------------------------------------- |
+| REQUIRED (default) | Join existing tx or create new            |
+| REQUIRES_NEW       | Suspend current tx, start new             |
+| MANDATORY          | Must already have a tx or throw exception |
+| SUPPORTS           | Join if exists, else non-transactional    |
+| NOT_SUPPORTED      | Suspend tx and run non-transactionally    |
+| NEVER              | Throw exception if tx exists              |
+| NESTED             | Savepoint-based (DB dependent)            |
+
+Transaction Isolation Levels
+
+| Problem             | Meaning                            |
+| ------------------- | ---------------------------------- |
+| Dirty Read          | Read uncommitted data              |
+| Non-Repeatable Read | Same query gives different results |
+| Phantom Read        | New rows appear in same query      |
+
+ISOLATION LEVELS:
+1. READ_UNCOMMITED - Allows dirty reads - @Transactional(isolation = Isolation.READ_UNCOMMITTED)
+2. READ_COMMITED - Default in most DB'S. - @Transactional(isolation = Isolation.READ_COMMITTED)
+3. REPEATABLE_READ - Prevents dirty + non-repeatable reads, Phantom reads may occur (DB dependent) - @Transactional(isolation = Isolation.REPEATABLE_READ)
+4. SERIALIZABLE (Highest) - Full isolation, Transactions run sequentially, Lowest performance - @Transactional(isolation = Isolation.SERIALIZABLE)
+
+
+WHAT IS JPA (Java Persistance API) :
+   
+   -> JPA is a specification in Java that defines a standard way to map Java objects to relational databases and manage database operations using Java. It provides a set of 
+		guidelines and principles for building ORM (Object-Relational Mapping) tools. Frameworks like Hibernate, EclipseLink, and OpenJPA are popular implementations of the JPA 
+		specification.
+   
+   -> JPA itself is not a framework or tool but a set of interfaces and rules. Frameworks like Hibernate provide the actual implementation, following the guidelines set by the 
+	  JPA specification.
+
+	JPA Entity Life-Cycle (Foundation)
+	An entity in JPA can be in four states:
+
+	1. Transient - new object, not associated with persistence context
+	2. Managed (Persistent) - tracked by EntityManager
+	3. Detached - was managed, now not tracked
+	4. Removed - scheduled for deletion
+   new → transient → managed → detached → removed
+
+JPA CORE METHODS:
+	1. persist() – INSERT only - Makes a new entity managed, Schedules INSERT
+
+	Behavior
+	Works only for new (transient) entities
+	Throws exception if entity already exists
+	No immediate DB insert (happens at flush/commit)
+
+	2. merge() – UPDATE or INSERT (Most Confusing) - Copies state of detached entity into a managed one, Returns managed instance
+	3. find() – Fetch Entity (Managed) - Returns managed entity, Changes auto-persisted, Returns null if not found
+	4. getReference() – Lazy Proxy - Returns proxy, DB hit happens on access, Throws EntityNotFoundException if not found
+	5. remove() – DELETE - Entity must be managed, Deletion happens at commit
+		❌ Invalid - entityManager.remove(detachedEntity); // IllegalArgumentException
+		✔ Fix - entityManager.remove(entityManager.merge(detachedEntity));
+	6. detach() – Stop Tracking - Entity becomes detached, Changes are not saved
+	7. clear() – Detach All - Clears entire persistence context
+	8. flush() – Sync with DB - Executes SQL immediately, Does NOT commit transaction
+	9. refresh() – Reload from DB - Discards local changes, Reloads entity from DB
+   
+🔥 persist() vs merge() (MOST ASKED)
+| Feature         | persist | merge             |
+| --------------- | ------- | ----------------- |
+| New entity      | ✅       | ✅              |
+| Detached entity | ❌       | ✅              |
+| Return value    | void    | Managed entity    |
+| Attaches entity | Yes     | No (copies state) |
+| Use case        | Create  | Update            |
+
+
+
+HIBERNATE - BEST ORM FRAMEWORK (OBJECT RELATIONAL MAPPING)
+		-> This framework is bascially used for mapping objects into particular table inside database using orm functionality;
+		Internal steps to make sure HIBERNATE work.
+		
+		Alien alien = new Alien();        // this is the Entity that is mapped to database.
+    	alien.setId(102);
+    	alien.setName("Rangoli");
+    	alien.setColor("red");
+		
+		
+		1. Configuration con = new Configuration().configure().addAnnotatedClass(Alien.class);
+		2. SessionFactory sf = con.buildSessionFactory();
+		3. Session session = sf.openSession();
+		4. Transaction tn = session.beginTransaction();
+		5. session.save(tn);
+		6. tn.commit();
+		
+	-> this is how hibernate works internally by using "hibernate.cfg.xml" file if we intensionally want to change the name we need to add the name in configure() method in 
+		Configuration (Configuration con = new Configuration().configure("hibernate.xml").addAnnotatedClass(Alien.class))
+	
+	-> How "hibernate.cfg.xml" file looks and different properties =>
+	
+			<?xml version="1.0" encoding="UTF-8"?>
+		<!DOCTYPE hibernate-configuration PUBLIC
+			"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+			"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+		<hibernate-configuration>
+			<session-factory>
+				<!-- MySQL database connection settings -->
+				<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+				<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/practice</property>
+				<property name="hibernate.connection.username">hcn</property>
+				<property name="hibernate.connection.password">admin@123</property>
+				
+				<!-- Hibernate dialect -->
+				<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+				<!-- Other optional Hibernate properties -->
+				<property name="hibernate.show_sql">true</property>
+				<property name="hibernate.format_sql">true</property>
+				<property name="hibernate.hbm2ddl.auto">update</property>
+				
+			</session-factory>
+		</hibernate-configuration>
+		
+		Properties : 
+		
+		1. show_sql : true -> means we want to see what are the tables being created or updated or deleted inside the console
+		2. format_sql : true -> format the hibernate query into a more readable way.
+		3. i). hbm2ddl.auto : update -> everytime we run the application if the table exists if there are any entity level changes the table will be updated.
+			ii). hbm2ddl.auto : create -> everytime we run the application the table will be created again & again and the existing data will be lost. so always we need to use update.
+			
+			
+	Annotations:
+	
+	Example: 
+	
+		@Entity
+		@Table
+		public class Alien {}      -> By default if we dont mention any name the hibernate uses class name as the table name.
+		
+		(i).	@Entity without name:
+				JPQL: Uses the class name (Alien).
+				Table: Uses the class name (converted to lowercase in most cases, e.g., alien).
+		
+		
+		(ii).  @Entity(name = "ALIEN")
+				@Table
+				public class Alien {}   -> name on @Entity is used for writing queries in jpql and not used by database tables and uses class name;
+				
+				@Entity(name = "ALIEN"):
+				JPQL: Uses the specified name (ALIEN).
+				Table: Still uses the class name (Alien or alien).
+		
+		
+		(iii).	@Entity
+				@Table(name = "ALIEN")
+				public class Alien {}   -> name on @Table is used by database table and is widely used and for jpql we need to use class name;
+				
+				@Table(name = "ALIEN"):
+				JPQL: Uses the class name (Alien).
+				Table: Uses the specified table name (ALIEN).
+				
+	@Transient -> this annotation is used to hide the particular variable to not create in database;
+	@Embeddable  -> this annotation is used to reference another class whose reference is in main class 
+		Example : private FullName fullname;  (main class)
+		
+				@Embeddable
+				public class FullName {           -> child class whose reference resides in main class (Alien)
+					private String first_name;
+					private String last_name;
+				}
+				
+	
+	Mappings -> 4 types (i). one to one, (ii). one to many, (iii). many to one, (iv). many to many.
+	
+	@OneToOne -> This is a one-to-one relationship between two entities. In the database, one row in the first table corresponds to exactly one row in the second  table. 
+	The foreign key is typically stored in one of the tables (the parent table).
+	
+		Example : -> Here we referenced Student and Laptop where student having laptop object with onetoone relation to referene laptop class.
+		
+			@Entity
+			public class Student {
+				
+				@Id
+				@GeneratedValue(strategy = GenerationType.IDENTITY)
+				@Column(name="ID")
+				private Integer id;
+				
+				private String name;
+				private Integer marks;
+				
+				@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+				@JoinColumn(name = "LAPTOP_ID", referencedColumnName = "ID")
+				private Laptop laptop;
+			}
+	
+	
+	@OneToMany -> In this relationship, one entity (parent) can be related to multiple instances of another entity (child). The foreign key is stored in the child table to 
+	reference the parent.
+	
+		Example : -> One Student can have multiple Laptops, and the foreign key STUDENT_ID is stored in the Laptop table to establish the relationship.
+		
+			@Entity
+			public class Student {
+				
+				@Id
+				@GeneratedValue(strategy = GenerationType.IDENTITY)
+				@Column(name="ID")
+				private Integer id;
+				
+				private String name;
+				private Integer marks;
+				
+				@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+				@JoinColumn(name = "STUDENT_ID")
+				private List<Laptop> laptop = new ArrayList<>();
+			}
+	
+	@ManyToOne  -> This is the reverse of the One-to-Many relationship. Many child entities are related to one parent entity. The foreign key is stored in the child table.
+	
+		Example : -> Many Laptop entities can be associated with one Student, and the foreign key STUDENT_ID is stored in the Laptop table.
+		
+			@Entity
+			public class Student {
+
+				@Id
+				@GeneratedValue(strategy = GenerationType.IDENTITY)
+				@Column(name="ID")
+				private Integer id;
+				
+				private String name;
+				private Integer marks;
+
+				@OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+				private List<Laptop> laptops = new ArrayList<>();
+			}
+		
+			@Entity
+			public class Laptop {
+
+				@Id
+				@GeneratedValue(strategy = GenerationType.IDENTITY)
+				@Column(name="ID")
+				private Integer id;
+				
+				private String model;
+				
+				@ManyToOne
+				@JoinColumn(name = "STUDENT_ID")  // Foreign key in the "Laptop" table refers to "Student" ID
+				private Student student;
+			}
+
+			
+			
+	@ManyToMany  -> Here we will be having a seperate table to store data from both the entities for a many to many relation.
+	
+		Example : -> Here we referenced Student and Laptop where student having laptop object with onetoone relation to referene laptop class.
+		
+			@Entity
+			public class Student {
+				
+				@Id
+				@GeneratedValue(strategy = GenerationType.IDENTITY)
+				@Column(name="ID")
+				private Integer id;
+				
+				private String name;
+				private Integer marks;
+				
+				@ManyToMany(cascade = CascadeType.ALL)
+				@JoinTable(name = "student_laptop", 
+					joinColumns = @JoinColumn(name = "student_id"), 
+					inverseJoinColumns = @JoinColumn(name = "laptop_id"))
+				private List<Laptop> laptop = new ArrayList<>();
+			}
+			
+			@Entity
+			public class Laptop {
+
+				@Id
+				@GeneratedValue(strategy = GenerationType.IDENTITY)
+				@Column(name="ID")
+				private Integer id;
+				
+				private String model;
+				
+				@ManyToMany(mappedBy = "laptop", cascade = CascadeType.ALL)
+				private List<Student> student = new ArrayList<>();
+			}
+			
+	EAGER LOADING AND LAZY LOADING : By default the hibernate fires query in lazy loaded manner and we explicitly need to make the hibernate eager load while fetching data.
+		(i). to make the hibernate to eager load the data we can use fetch=FetchType.EAGER.
+		(ii). by default Hibernate is lazy loaded because it things we only want data from one single table not from child table so it just queries to lazy load the data.
+		
+		Example : -> One Student can have multiple Laptops, and the foreign key STUDENT_ID is stored in the Laptop table to establish the relationship. so by using fetchType 
+					eager we can make sure that the parent table data and child table data is retrived from the database using hibernate.
+		
+			@Entity
+			public class Student {
+				
+				@Id
+				@GeneratedValue(strategy = GenerationType.IDENTITY)
+				@Column(name="ID")
+				private Integer id;
+				
+				private String name;
+				private Integer marks;
+				
+				@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
+				@JoinColumn(name = "STUDENT_ID")
+				private List<Laptop> laptop = new ArrayList<>();
+			}
+			
+			
+			
+	HIBERNATE CACHING: -> Hibernate provides several caching mechanisms to optimize the database by reducing the number of database queries. there are two levels of caching in 
+						hibernate. (i). First-Level cache (session cache), (ii). Second-Level cache (SessionFactory cache), (iii). query cache.
+
+	1. First-Level cache (session cache) -> This is a cache technique which is enabled by default and cannot disable this cache. In this caching technique when inside an api 
+											call which we can take it as session when opened to make transactions when the api is fetching the data from same entity the data will 
+											be cached inside the session and that cache provides data without making db call until the session is closed. In between the session if 
+											the same entity is called multiple times hibernate will not query the database and returns data from the stored cache from that session.
+		(a). Transaction-scoped.
+		(b). Automatically managed by Hibernate.
+		(c). Cannot be disabled.
+		
+	2. Second-Level Cache (SessionFactory cache)  -> Second level cache is available for different sessions in the application until or 
+													unless the data is updated and we need to set that using @cache(usage = CacheConcurrencyStrategy.READ_WRITE) with this when the 
+													cache data is overwritten in the database then cache is marked as needed to be refreshed and this cache is not available until 
+													cached again or queried to database for updated data.
+	-> This is a Entity level cache so only entities marked with @Cacheable and @Cache(usage=CacheConcurrencyStrategy.READ_WRITE) can be cached to SessionFactory.
+	
+		(a). SessionFactory-scoped.
+		(b). Can be shared across sessions.
+		(c). Helps to avoid repeated queries across multiple transactions.
+		(d). Must be explicitly configured.
+		
+		1. READ_ONLY:
+			Best for data that doesn't change (e.g., reference or lookup data).
+			Suitable for highly read-intensive scenarios.
+			Updates to cached entities are not allowed.
+			
+		2. READ_WRITE:
+			Allows reading and writing of cached entities.
+			Ensures strong consistency by using transactional guarantees, typically with locks.
+			
+		3. NONSTRICT_READ_WRITE:
+			Data can be read from the cache and updated, but it doesn't guarantee strong consistency.
+			Some stale data may be present if one session updates the entity and another reads before the changes are flushed.
+			
+		4. TRANSACTIONAL:
+			Provides the strongest consistency guarantees using underlying transaction management.
+			Usually, it integrates with JTA (Java Transaction API) to maintain cache consistency in distributed systems.
+			
+		-> We need to use third-party cache provides for second_level cache most used are -> 1. EHCache, 2. Redis, 3. Infinispan, 4. Hazelcast
+		
+		Example : 
+				@Entity
+				@Cacheable
+				@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+				public class Alien {}
+	
+	2.1). Hibernate Caching with query -> 
+	
+	
+	Hibernate Query Language ->
+			We can do write queries with hql same as sql and also do joins, group by, and everything which is possible with sql queries.
+	
+	
+	3. HIBERNATE OBJECT STATES / PERSISTANCE LIFE CYCLES
+	
+	new -> Transient -> garbage collection
+	
+	Transient -> persistant (save() or persist()) -> detach()
+			
+
+   Difference between get and load methods in Hibernate :
+   1. Get will give you data when we make a get call directly and when data is not found in case of getById throws NullPointerException.
+   2. Load will give you data when we make a load call with the usage of that particular object if there is no usage load will not work and throws ObjectNotFound exception when 
+	  the load with id not found.
+
+   SPRING FRAMEWORK :
+   -> Spring framework can create two types of containers based on our requirements. 1). Bean Factory, 2). Application context.
+   -> Spring framework is bascially a 
+   
+	
+	SPRING CORE : 
+	
+	-> Spring core contains two types of scopes and spring framework a lot of scopes. But lets talk about spring core scopes here 
+		1. Singleton Scope : This Scope follows singleTon Design pattern meaning it has only one instance or gives only single object for any instances and it is by default 
+		behaviour of singleton scope. When we put @Component the singleTon scope will create a object when the container is initialized.
+
+		2. Prototype Scope : This Scope follows prototype Design pattern meaning it creates new object for every new instance with that class and it not by default available in 
+			spring and we need to enable this scope. only when we create a new object the new object will be created by spring for us to use by prototype scope.
+
+
+	-> Setter Injection : 
+			Definition: The dependency is injected into the class through a setter method after the object is created.
+
+			Use Case:
+
+			Best suited for optional dependencies (dependencies that might not always be required).
+			Allows you to modify dependencies post-object creation.
+			Useful when dependencies can change or are dynamically configured at runtime.
+			Advantages:
+
+			More flexible; you can set or modify dependencies as needed.
+			Better for complex configurations where some dependencies may be optional.
+	-> Constructor Injection: If there are values that are not being initialized dont go for constructor injection.
+
+	@Component
+	public class MyService {
+		private final MyRepository myRepository; // required
+		private String optionalValue;            // optional
+
+		// Constructor injection (not suitable for optionalValue)
+		@Autowired
+		public MyService(MyRepository myRepository, String optionalValue) {
+			this.myRepository = myRepository;
+			this.optionalValue = optionalValue;
+		}
+	}
+		Definition: The dependency is provided at the time of object creation through the constructor.
+
+			Use Case:
+
+			Best for mandatory dependencies (those required to create a fully initialized object).
+			Should not be used when certain dependencies might remain uninitialized or optional.
+			Advantages:
+
+			Ensures immutability: once the object is constructed, its state cannot be changed.
+			Guarantees that the object is in a fully initialized state after creation.
+			Drawback:
+
+			If there are optional dependencies, constructor injection is not suitable because it forces you to provide all dependencies upfront.
+	
+	@Autowired : 
+			@Autowired is a Spring annotation used for dependency injection. It allows Spring to resolve and inject the necessary beans automatically into a class.
+			
+			1. Injects Dependencies Automatically:
+
+				Spring scans the context and finds a matching bean by type (default behavior).
+				It then injects the bean into the annotated field, constructor, or setter method.
+			2. Injection Types:
+
+				Field Injection: Injecting directly into class fields.
+				Setter Injection: Injecting through a setter method.
+				Constructor Injection: Injecting through a constructor.
+				
+			a).  Field Injection
+				import org.springframework.beans.factory.annotation.Autowired;
+				import org.springframework.stereotype.Component;
+
+				@Component
+				public class MyService {
+					@Autowired
+					private MyRepository myRepository;
+
+					public void doSomething() {
+						myRepository.saveData();
+					}
+				}
+			
+			b). Setter Injection
+			
+				import org.springframework.beans.factory.annotation.Autowired;
+				import org.springframework.stereotype.Component;
+
+				@Component
+				public class MyService {
+					private MyRepository myRepository;
+
+					@Autowired
+					public void setMyRepository(MyRepository myRepository) {
+						this.myRepository = myRepository;
+					}
+
+					public void doSomething() {
+						myRepository.saveData();
+					}
+				}
+				
+			c). Constructor Injection
+			
+				import org.springframework.beans.factory.annotation.Autowired;
+				import org.springframework.stereotype.Component;
+
+				@Component
+				public class MyService {
+					private final MyRepository myRepository;
+
+					@Autowired
+					public MyService(MyRepository myRepository) {
+						this.myRepository = myRepository;
+					}
+
+					public void doSomething() {
+						myRepository.saveData();
+					}
+				}
+				
+		Key Points
+		
+			1. Default Behavior: By default, @Autowired performs injection by type.
+
+			->	If multiple beans of the same type exist, you can use the @Qualifier annotation to specify the bean.
+			
+			Example : 
+				@Autowired
+				@Qualifier("specificBean")
+				private MyRepository myRepository;
+				
+				
+			2. Required vs. Optional:
+			
+				By default, @Autowired is required, meaning Spring will throw an exception if no bean is found.
+				To make it optional, set required = false
+			Example : 
+				@Autowired(required = false)
+				private MyRepository myRepository;
+				
+			3. Circular Dependencies: If two beans depend on each other, Spring may throw a circular dependency error. Consider refactoring your design or use @Lazy.
+			
+			4. Primary Bean: If multiple beans of the same type exist and no @Qualifier is provided, you can mark one bean as the primary one using @Primary:
+			
+				Example : 
+				@Primary
+				@Component
+				public class DefaultRepository implements MyRepository {
+					// Implementation
+				}
+
+
+
+
+
+	
+	@Primary :
+		In Spring Framework, the primary annotation refers to @Primary, which is used to mark a bean as the preferred candidate for dependency injection when multiple beans of 
+		the same type exist.
+
+		Key Features of @Primary:
+		
+		1.Default Bean Selection:
+			When multiple beans of the same type are defined in the Spring context, @Primary helps Spring decide which bean to inject by default without requiring further 
+			qualification.
+		
+		2. Override with @Qualifier:
+			Even if a bean is marked as @Primary, you can override the default selection using the @Qualifier annotation.
+			
+		3. Usage in Configuration Classes:
+			Commonly used in @Configuration classes to specify which bean should be the primary choice when there are multiple beans of the same type.
+			
+		Exmaple : 
+		
+			@Configuration
+			public class AppConfig {
+
+				@Bean
+				public DataSource dataSource1() {
+					return new HikariDataSource(); // Bean 1
+				}
+
+				@Bean
+				@Primary
+				public DataSource dataSource2() {
+					return new BasicDataSource(); // Bean 2, marked as Primary
+				}
+			}
+			
+			Injecting beans with above configuration
+			
+			@Service
+			public class MyService {
+
+				private final DataSource dataSource;
+
+				public MyService(DataSource dataSource) {
+					this.dataSource = dataSource; // Injects dataSource2 (marked as @Primary)
+				}
+			}
+			
+		Overriding @Primary with @Qualifier:
+		
+			@Service
+			public class AnotherService {
+
+				private final DataSource dataSource;
+
+				public AnotherService(@Qualifier("dataSource1") DataSource dataSource) {
+					this.dataSource = dataSource; // Explicitly injects dataSource1
+				}
+			}
+			
+		When to Use @Primary:
+			Use @Primary when there is a logical default bean, and you want to avoid specifying @Qualifier everywhere.
+			Avoid overusing it in scenarios where it could lead to confusion or ambiguity.
+
+
+
+	
+	Spring boot jdbc -> Spring boot gives JdbcTemplate which gives all the methods for the connection with the database we can inject this jdbcTemplate class and use it's features.
+	
+		JdbcTemplate is a helper class provided by Spring that simplifies the usage of JDBC (Java Database Connectivity) for executing SQL queries, updates, and other database 
+		operations. It abstracts the repetitive boilerplate code like establishing connections, preparing statements, handling exceptions, and closing resources.
+
+		Key Features of JdbcTemplate:
+		
+		1. Simplified Database Access:
+			Automatically handles connection management.
+			Reduces boilerplate code for JDBC operations.
+		
+		2. Convenient Query Execution:
+			Supports all SQL operations: SELECT, INSERT, UPDATE, DELETE.
+			Provides methods for querying and mapping results to objects.
+		
+		3. Exception Handling:
+			Converts SQLExceptions into Spring's DataAccessException, a runtime exception hierarchy that simplifies error handling.
+		
+		4. Transaction Management:
+			Works seamlessly with Spring's transaction management.
+
+	
+	ModelAndView
+	Model
+	ModelMap
+	@ModelAttribute
+	
+	@ModelAttribute at method level this is the first method called when spring initializes and create a model for us.
+	
+	
+INTERSERVICE COMMUNICATION : communication between the microservices. ways to Implement Interservice communication.
+	-> SYNCHRONOUS COMMUNICATION : Synchronous communication mode uses synchronous request, response mechanism where a client waits for a response from the server before proceeding.
+		 this can be achieved through http protocols like rest or soap.
+	
+	1.REST TEMPLATE : (old and almost not used)
+			1. Abstraction
+			2. versatility
+			3. conversion
+			4. error handling
+			5. Integration
+	
+	-> ASYNCHRONOUS COMMUNICATION : In Asynchronous communication microservices work asynchronously and can communicate with message queues or message brokers like rabbitmq, 
+		apache kafka, aws simple queueing service.
+
+	// Example: Using WebClient to call an external API in Spring Boot
+
+	import org.springframework.stereotype.Service;
+	import org.springframework.web.reactive.function.client.WebClient;
+	import reactor.core.publisher.Mono;
+
+	@Service
+	public class ApiService {
+		private final WebClient webClient;
+
+		public ApiService(WebClient.Builder webClientBuilder) {
+			this.webClient = webClientBuilder.baseUrl("https://api.example.com").build();
+		}
+
+		public Mono<String> getDataFromApi() {
+			return webClient.get()
+				.uri("/data")
+				.retrieve()
+				.bodyToMono(String.class);
+		}
+	}
+
+	// Usage in a controller
+	/*
+	@RestController
+	public class ApiController {
+		private final ApiService apiService;
+
+		public ApiController(ApiService apiService) {
+			this.apiService = apiService;
+		}
+
+		@GetMapping("/fetch-data")
+		public Mono<String> fetchData() {
+			return apiService.getDataFromApi();
+		}
+	}
+	*/
+
+	2. WebClient : 
+			1. Non-blocking
+			2. Reactive
+			3. Versatile
+			4. Error Handling
+			5. Integration with Reactive Streams
+	In Spring WebFlux (reactive programming):
+
+	=> Mono: Represents a single value or no value (like 0 or 1 result).
+	Example: an HTTP request that returns one object.
+
+	=> Flux: Represents a stream of 0 to many values (like a list or sequence).
+	Example: an HTTP request that returns a list of objects or a stream of events.
+
+	=> Both are part of Project Reactor and are used for asynchronous, non-blocking programming in Spring Boot.
+
+	=> Use Mono for single results.
+	=> Use Flux for multiple results.
+		
+EXCEPTION HANDLING IN SPRING BOOT : Spring internally has SpringErrorHandler class that can handle the minor exceptions but for specific exception that need to be implemented 
+									we need to use @ControllerAdvice on framework level for spring to intercept all the exceptions thrown at controller level.
+
+-> @ControllerAdvice -> Handles Exceptions from both RestController and Controller
+-> @ControllerAdvice(annotations = RestController.class) -> Handles Exceptions only comes from RestControllers.
+-> @ControllerAdvice(annotations = Controller.class) -> Handles Exceptions only from Controllers
+-> @Order(Ordered.HIGHEST_PRECEDENCE) -> this gives the higest priority to this current class annotated with @ControllerAdvice to handle exceptions.
+-> @ExceptionHandler(Exception.class) -> this is a method level annotation used to specify the type of exception that method should be handling
+
+1. It is a specialized annotation used to handle exceptions thrown by controllers.
+2. It works globally unless scoped to specific packages or controllers.
+3. You can define multiple exception handlers for different exception types.
+
+@Order(Ordered.HIGHEST_PRECEDENCE)
+@ControllerAdvice
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleAllExceptions(Exception ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred");
+    }
+}
+
+-> Real time example -> 
+	@ExceptionHandler(ConstraintViolationException.class)
+	protected ResponseEntity<Object> handleConstraintViolation(javax.validation.ConstraintViolationException ex, WebRequest request) {
+		logger.error("Exception in handleConstraintViolation : ",ex);
+		
+		ServletWebRequest servletWebRequest = (ServletWebRequest) request;
+
+		ConfirmMessage confirmMessage = new ConfirmMessage();
+		confirmMessage.setConfirmMessageID(ServiceContext.getTransactionId());
+		confirmMessage.setCreationDateTime(new Timestamp(System.currentTimeMillis()));
+		confirmMessage.setRequestMethod(servletWebRequest.getHttpMethod());
+		confirmMessage.setStatusCode(HttpStatus.BAD_REQUEST);
+
+		List<UserMessage> messages = new ArrayList<UserMessage>();
+		for(ConstraintViolation cv : ex.getConstraintViolations()) {
+			UserMessage userMessage = new UserMessage();
+			userMessage.setDebugMessage("Constraint Violations For Group");
+			//userMessage.setAction(cv.getCode());
+			userMessage.setCodeValue(cv.getRootBeanClass().getSimpleName());
+			userMessage.setField(cv.getPropertyPath().toString());
+			userMessage.setMessageTxt(cv.getMessage());
+			messages.add(userMessage);
+			
+		}
+		confirmMessage.setUserMessages(messages);
+
+		return new ResponseEntity<>(confirmMessage, HttpStatus.BAD_REQUEST);
+	}
+
+-> For a class to Exception handler in spring it need to be having @ControlAdvice and to override default ResposeEntityExceptionHandler methods we need to extends 
+	ResponseEntityExceptionHandler class.
+
+@Order(Ordered.HIGHEST_PRECEDENCE)
+
+
+SPRING BOOT  -> Spring boot is a spring based framework which runs on java
+-> spring boot = spring + prebuild configuration + embeeded servers
+
+components of spring boot :
+1. spring boot starters -> these are a set of convinient dependencies that can be included in our machine
+2. Auto Configuration -> auto configuration attempts configuration automatically based on the dependencies that we added
+3. spring boot actuator -> monitoring the things like how many api calls are happening and something like will be taken care 
+4. embedded server
+5. spring boot devtools
+
+SPRING BOOT ARCHITECTURE :
+1. Presentation layers
+2. Service layers
+3. Data access layer
+
+SPRING BOOT ACTUATOR : 
+-> Spring boot acuator provides built-in production ready features to monitor and manage your application.
+FEATURES : 
+1. Built in endpoints                 ("/metrics")
+2. ability to view real time metrics
+3. customizable
+-> In spring boot, actuator is used in tracking the application health, caches, application metrics etc.
+
+{
+  "_links": {
+    "self": {
+      "href": "http://localhost:8080/actuator",
+      "templated": false
+    },
+    "health": {
+      "href": "http://localhost:8080/actuator/health",
+      "templated": false
+    },
+    "health-path": {
+      "href": "http://localhost:8080/actuator/health/{*path}",
+      "templated": true
+    }
+  }
+}
+
+these are the basic end points that spring boot actuator exposes by default. if we want to expose all the end points then we can use "management.endpoints.web.exposure.include=*" 
+with this all the actuator end points will be exposed and not recomanded because of the data leaks.
+
+Different end points and its usage
+1. /health -> shows application health information, useful for checking the status of the application such as database connectivity, disk space and custom health checks.
+2. /info -> Displays arbitrary application information, commonly used to display application version, git commit information etc.
+3. /metrics -> the show the information of the performance and behaviour of the running application.
+4. /loggers -> allows you to query and modify the logging level of your application's loggers (bascially used to change the log in levels of the user at run time)
+5. /beans -> provides a complete list of all the spring beans in your application
+6. /shutdown -> Allows your application to be gracefully shut down.
+
+
+Interservice Communication : 
+1. synchronous communication.
+-> by using RestTemplate or WebClient we can communicate with other microservices
+
+2. asynchronous communication.
+-> Can be done using WebClient, Kafka, RabbitMq etc.
+
+SERVICE REGISTRY : 
+  -> A service registry is used in microservices architecture to enable dynamic service discovery
+  => Spring cloud eureka is the most popular service registry.
+  
+  @LoadBalanced -> load balanced in eureka service registry is used to locate the specific id of the service and is used in inter-service communication (rest template) in 
+  microservices architecture.
+
+	How Services Connected with Eureka Server ?
+	-> By using heartBeats signals that is requests to the eureka server at certain time intervals all microservices communicate with service registry that is eureka server.
+	
+
+OPEN FAIGN : 
+	 Feign is a declarative web service client designed to make writing Http clients easier.
+	 USES : 1. Ease Of Use, 2. Integration with Eureka, 3. Built-in Load Balancing with ribbon (Client Side), 4. Support for fallBacks and Circuit Breakers.
+	 
+	 1. <dependency>
+	      <groupId>org.springframework.cloud</groupId>
+	      <artifactId>spring-cloud-starter-openfeign</artifactId>
+	    </dependency>
+	 
+	2. @EnableFeignClients
+	   @SpringBootApplication
+
+	3. @FeignClient (for interface level)
+
+-> It has builtin load Balancer where with FeignClient comes with ribbon a technology used for load balancing but when it comes to web Client or RestTemplate we need to annotate 
+the method where we declare webclient or restTemplate with @LoadBalanced to make them loadBalanced.
+	 
+	 
+ZIPKIN : 
+	-> Zipkin is a distributed tracing system that helps gather and visualize latency data across microservices. Below is an explanation of how it works internally, along with a 
+	diagram.
+	
+	Zipkin Internal Components
+1. Instrumented Client / Service
+	Applications (microservices) are instrumented with Zipkin libraries.
+	These libraries generate tracing data and send it to Zipkin.
+	Communication can be via HTTP, Kafka, RabbitMQ, or gRPC.
+	
+2.Zipkin Collector
+
+	Receives trace data from instrumented services.
+	Data can be received via HTTP, Kafka, or other transport protocols.
+	Stores trace data in a database.
+	
+3.Storage Backend
+	Zipkin supports multiple databases like MySQL, Cassandra, Elasticsearch.
+	Stores the trace information for later retrieval.
+	
+4. Zipkin Query Service
+	Exposes APIs for fetching trace data.
+	Queries stored trace data from the backend.
+	
+5. Zipkin UI
+	A web-based interface to visualize traces.
+	Helps developers analyze request flow and identify bottlenecks.
+	
+=> Zipkin Internal Flow
+	A request is initiated from one service to another.
+	The Zipkin instrumentation records metadata (trace ID, span ID, timestamps).
+	Tracing data is sent to Zipkin Collector.
+	Zipkin Collector stores the traces in the storage backend.
+	Zipkin Query Service fetches the trace data when requested.
+	Zipkin UI visualizes the complete request flow.
+	
++----------------------------+
+|     Instrumented Service   |
+|        (Microservice A)    |
++------------+---------------+
+             |
+             | Trace Data (HTTP/gRPC/Kafka)
+             v
++----------------------------+
+|     Zipkin Collector       |
++------------+---------------+
+             |
+             | Stores Traces
+             v
++----------------------------+
+|      Storage Backend       |
+|  (MySQL / Cassandra / ES)  |
++------------+---------------+
+             |
+             | Query Requests
+             v
++----------------------------+
+|      Zipkin Query API      |
++------------+---------------+
+             |
+             | Fetches Data
+             v
++----------------------------+
+|        Zipkin UI           |
+|  (Visualizes Trace Data)   |
++----------------------------+
+
+-> for every request it creates a trace id and for every microservice that request interacts in microservice communication it creates span id so that zipkin analysis the data 
+when span id passes through each microservice it calculates everything like speed, data coming and all. 
+
+MICROMETER WORKING WITH ZIPKIN : (while micrometere gives application level metrics zipkin gives each request level metrics)
+	Micrometer provides insights that help you keep tabs on your applications performance.
+=> How micrometer helps :
+ 1. Helps you collect metrics from your application.
+ 2. Acts as a middleman or a bridge between your application and the metrics collection systems.
+ 3. it offers a vendor-neutral interface.
+ 4. you can abstract away the complexities of interacting with different metrics collection systems.
+ 5. micrometer simplifies the process of collecting metrics from your application.
+
+HOW TO USE :
+
+1. <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-tracing-bridge-brave</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.zipkin.reporter2</groupId>
+      <artifactId>zipkin-reporter-brave</artifactId>
+    </dependency>
+	<dependency>
+		<groupId>io.github.openfeign</groupId>   <!-- this dependency is because we are using openfeign -->
+		<artifactId>feign-micrometer</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-actuator</artifactId>
+	</dependency>
+
+-> Here in above dependencies micrometer-tracing-bridge-brave acts as an bridge that connects micrometer with brave, where micrometer is an metrics instrumentation library 
+	for jvm based applications and brave is a java tracing library which is compatible with zipkin.
+-> second dependency acts as an metrics collector which will send data to zipkin and zipkin uses that data for visualizaion.
+
+2. # zipkin
+management:
+  tracing:
+    sampling:
+      probability: 1.0  # 100% tracing if we keep this 0.6 this will track 60% of the requests currently 1.0 specifies we are tracking 100% requests.
+
+BEST PRACTICES FOR USE OF DISTRIBUTED TRACING WITH TOOLS LIKE ZIPKIN : 
+1. use consistent nameing conventions.
+2. secure your zipkin server.
+3. know that - distributed tracing does come with performanec impact due to computations required by microservice so put sampling rate to 0.6 that is 60% when in production.
+
+
+CONFIGURATION MANAGEMENT IN MICROSERVICES : 
+	-> means managing and controlling the congifurations of each microservice in the system.
+	-> Configuration may include details such as database connections, external service urls, caching settings, and more.
+	-> Challange : As the number of microservices increases in your architecture, managing the individual configurations can become a complex task.
+	-> A centralized Config server provides a central place for managing configurations across all the microservices.
+	-> it simplifies configuration management and increases operational efficiency.
+
+	Features of a config server : 
+	1. centralized and versioned configuration.
+	2. dynamic updates.
+	3. security.
+	4. application and profile specific configuraion.
+
+	Benefits of a config server : 
+	1. single source of truth.
+	2. easier to manage and update configurations.
+	3. enhances security and control.
+	4. easy to deploy and scale microservices.
+
+	SPRING CLOUD CONFIG SERVER : It is a part of the spring cloud project, a suite of tools specifically designed for building and manageing cloud-native applications.
+	
+FAULT TOLERANCE : 
+  -> Ability to continue operating without interruption.
+
+  NEED FOR FAULT TOLERANCE :
+   -> Fault isolation.
+   -> Network Latency.
+   -> Deployment issues.
+   -> Increased Complexity.
+   -> Elasicity    -   how microservices can scale
+   -> Tolerating External Failures -  dependent on external options in request.
+
+RESILIENCE4J : 
+  -> Ability or capacity to recover quickly from difficulties.
+  -> Resilience4j is a light weight, easy-to-use fault tolerance library.
+  -> Easy to integration with spring boot.
+  -> Built for funcitonal programming paradigms.
+
+  TECHNIQUES : 
+  1. Retries
+  2. Rate Limiting.  (preventing request to certain number)
+  3. Bulkheads
+  4. Circuit Breakers
+  5. Fallbacks (when microservice is not available)
+  6. timeouts (taking long than usual to return the response)
+  7. Graceful Degradation  (Ability to decrease functionality or resource intensive components will be disabling)
+
+  RESILIENCE4J MODULES: 
+  1. RETRY MODULE : 
+	-> it's not uncommon for a network call or a method invocation to fail temporarily.
+	-> we might want to retry the operation of few times before giving up.
+	-> Retry module enables to easily implement retry logic in our applications.
+
+  2. RATE LIMITER :
+	-> we might have a service which can handle only a certain number of requests in given time.
+	-> RateLimiter module allows us to enforce restrictions and protect our services from too many requests.
+
+	USE CASES :
+		1. Limits apis to make certain amount of calls and limits continuous api calls.
+		2. web scraping - making bulk attempts of api requests to down the server.
+		3. login attempts if user is entering wrong password and trying to login again and again rate limiter stops that user for certain time.
+
+  3. BULKHEAD :
+	-> Isolates failures and prevents them from cascading through the system.
+	-> Limits the amount of parallel executions or concurrent calls to prevent system resources from being exhausted.
+
+  4. CIRCUITBREAKER : 
+	-> used to prevent a network or service failure from cascading to other services.
+	-> Circuit breaker trips or opens and prevents further calls to the service.
+	 
+	 
+	 
+CIRCUIT BREAKERS : 
+
+	A circuit breaker is a design pattern commonly used in distributed systems to enhance the resilience and fault tolerance of applications. It acts as a safeguard to 
+	prevent an application from repeatedly trying to perform an operation that is likely to fail, thus avoiding unnecessary strain on system resources.
+
+	How it Works:
+	The circuit breaker monitors the interactions between services and tracks failures. It has three main states:
+	
+	Closed:
+	In this state, the circuit breaker allows requests to flow through to the service.
+	It monitors the success and failure rates.
+	If failures exceed a predefined threshold within a specified time, the circuit breaker trips to the Open state.
+	
+	Open:
+	In this state, the circuit breaker blocks all requests to the service.
+	This prevents overloading the failing service and allows it time to recover.
+	After a certain time, the circuit breaker transitions to the Half-Open state to test the service.
+	
+	Half-Open:
+	In this state, the circuit breaker allows a limited number of test requests to the service.
+	If these requests succeed, the circuit breaker transitions back to Closed.
+	If they fail, it goes back to the Open state.
+	
+	Benefits of Circuit Breakers:
+	Improved Resilience: Prevents cascading failures in distributed systems.
+	Resource Optimization: Reduces load on failing services and frees resources for other tasks.
+	Faster Recovery: Allows failing services time to recover before resuming normal operation.
+	Better User Experience: Provides fallback responses rather than letting requests hang indefinitely.
+	Real-World Analogy:
+	A circuit breaker in an electrical circuit cuts off power to prevent overload and damage. Similarly, a software circuit breaker "trips" to protect a system from 
+	continuous failed interactions.
+
+	Implementation in Spring Cloud:
+	Spring Cloud provides built-in support for circuit breakers via libraries like:
+
+	Resilience4j: A lightweight and modular framework for circuit breakers and other fault tolerance patterns.
+	
+			@RestController
+		public class MyController {
+
+			@GetMapping("/example")
+			@CircuitBreaker(name = "exampleService", fallbackMethod = "fallbackMethod")
+			public String exampleService() {
+				// Simulating a remote service call
+				return externalServiceCall();
+			}
+
+			public String fallbackMethod(Exception e) {
+				return "Fallback response due to service failure!";
+			}
+		}
+
+
+MESSAGE QUEUES : 
+	Message Queues act as an medium between the microservices and decouple the microservices architecture that is microservices can work independently with asynchronous 
+	communication.
+
+	1. Decoupling
+	2. Asynchronous Communication
+	3. Scalability
+	4. Event Driven architecture
+	5. Time Decoupling
+
+RABBITMQ (Message Broker) : 
+
