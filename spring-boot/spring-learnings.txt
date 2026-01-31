@@ -94,14 +94,40 @@ WHAT IS @SpringBootApplication internally does:
 	1. @SpringBootConfiguration
 	2. @EnableAutoConfiguration
 	3. @ComponentScan
--> @SpringBootConfiguration (it internally has 2 main annotations) 1. → @Configuration, 2. → @Component 
+-> @SpringBootConfiguration (it internally has is)  → @Configuration and (contains) → @Component 
 	So Spring treats this class as a source of beans.
 
--> @ComponentScan - @Component, @Service, @Repository, @Controller, @RestController
+-> @ComponentScan - scans for stereotype annotations - These annotations are meta-annotated with @Component - @Component, @Service, @Repository, @Controller, @RestController
 	Default scan base package = package of the main class + subpackages
 
--> @EnableAutoConfiguration - It enables conditional, classpath-based configuration. beans that are not available in ioc container are created automatically by conditions
-	in ioc container through configuration in autoconfiguration/imports package in metainf.
+-> @EnableAutoConfiguration - It enables conditional, classpath-based configuration. It creates beans ONLY IF CONDITIONS MATCH in IOC container automatically by conditions
+	through configuration in autoconfiguration/imports package in metainf.
+
+	1. @EnableAutoConfiguration
+	2. Internally uses: @Import(AutoConfigurationImportSelector.class)
+	3. This selector: Reads: META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports (Spring Boot 3+)
+	4. Earlier versions used: spring.factories
+	5. Each auto-config class is guarded by: @ConditionalOnClass, @ConditionalOnMissingBean, @ConditionalOnProperty, @ConditionalOnWebApplication
+
+	Example
+	@ConditionalOnClass(DataSource.class)
+	@ConditionalOnMissingBean(DataSource.class)
+	public class DataSourceAutoConfiguration
+
+	Creates DataSource only if: JDBC is on classpath, No DataSource bean already exists
+
+
+
+@SpringBootApplication is a meta-annotation that combines
+@SpringBootConfiguration, @EnableAutoConfiguration, and @ComponentScan.
+
+@SpringBootConfiguration is a specialized version of @Configuration, which makes the class a source of bean definitions.
+
+@ComponentScan scans the package of the main class and its sub-packages for stereotype annotations like @Component, @Service, @Repository, and @Controller.
+
+@EnableAutoConfiguration enables classpath-based, conditional configuration.
+It loads auto-configuration classes from META-INF/spring/...AutoConfiguration.imports and creates beans only when conditions such as @ConditionalOnClass and 
+@ConditionalOnMissingBean are satisfied.
 
 SPRING BEAN LIFE-CYCLE:
  -> What is Spring Bean - A Spring Bean is an object whose complete lifecycle (creation, initialization, usage, and destruction) is managed by the Spring IoC container. 
