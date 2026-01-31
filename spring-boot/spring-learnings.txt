@@ -100,8 +100,8 @@ WHAT IS @SpringBootApplication internally does:
 -> @ComponentScan - scans for stereotype annotations - These annotations are meta-annotated with @Component - @Component, @Service, @Repository, @Controller, @RestController
 	Default scan base package = package of the main class + subpackages
 
--> @EnableAutoConfiguration - It enables conditional, classpath-based configuration. It creates beans ONLY IF CONDITIONS MATCH in IOC container automatically by conditions
-	through configuration in autoconfiguration/imports package in metainf.
+-> @EnableAutoConfiguration - It enables conditional, classpath-based configuration. It creates beans ONLY IF CONDITIONS MATCH in IOC container automatically through 
+	configuration in autoconfiguration/imports package in metainf.
 
 	1. @EnableAutoConfiguration
 	2. Internally uses: @Import(AutoConfigurationImportSelector.class)
