@@ -94,14 +94,16 @@ WHAT IS @SpringBootApplication internally does:
 	1. @SpringBootConfiguration
 	2. @EnableAutoConfiguration
 	3. @ComponentScan
--> @SpringBootConfiguration (it internally has is)  → @Configuration and (contains) → @Component 
-	So Spring treats this class as a source of beans.
+@SpringBootApplication is a meta-annotation that combines
+	@SpringBootConfiguration, @EnableAutoConfiguration, and @ComponentScan.
 
--> @ComponentScan - scans for stereotype annotations - These annotations are meta-annotated with @Component - @Component, @Service, @Repository, @Controller, @RestController
-	Default scan base package = package of the main class + subpackages
+	@SpringBootConfiguration is a specialized version of @Configuration, which makes the class a source of bean definitions.
 
--> @EnableAutoConfiguration - It enables conditional, classpath-based configuration. It creates beans ONLY IF CONDITIONS MATCH in IOC container automatically through 
-	configuration in autoconfiguration/imports package in metainf.
+	@ComponentScan scans the package of the main class and its sub-packages for stereotype annotations like @Component, @Service, @Repository, and @Controller.
+
+	@EnableAutoConfiguration enables classpath-based, conditional configuration.
+	It loads auto-configuration classes from META-INF/spring/...AutoConfiguration.imports and creates beans only when conditions such as @ConditionalOnClass and 
+	@ConditionalOnMissingBean are satisfied.
 
 	1. @EnableAutoConfiguration
 	2. Internally uses: @Import(AutoConfigurationImportSelector.class)
@@ -115,19 +117,6 @@ WHAT IS @SpringBootApplication internally does:
 	public class DataSourceAutoConfiguration
 
 	Creates DataSource only if: JDBC is on classpath, No DataSource bean already exists
-
-
-
-@SpringBootApplication is a meta-annotation that combines
-@SpringBootConfiguration, @EnableAutoConfiguration, and @ComponentScan.
-
-@SpringBootConfiguration is a specialized version of @Configuration, which makes the class a source of bean definitions.
-
-@ComponentScan scans the package of the main class and its sub-packages for stereotype annotations like @Component, @Service, @Repository, and @Controller.
-
-@EnableAutoConfiguration enables classpath-based, conditional configuration.
-It loads auto-configuration classes from META-INF/spring/...AutoConfiguration.imports and creates beans only when conditions such as @ConditionalOnClass and 
-@ConditionalOnMissingBean are satisfied.
 
 SPRING BEAN LIFE-CYCLE:
  -> What is Spring Bean - A Spring Bean is an object whose complete lifecycle (creation, initialization, usage, and destruction) is managed by the Spring IoC container. 
@@ -246,7 +235,7 @@ A suite of tools for building microservices, including support for service disco
 | SUPPORTS           | Join if exists, else non-transactional    |
 | NOT_SUPPORTED      | Suspend tx and run non-transactionally    |
 | NEVER              | Throw exception if tx exists              |
-| NESTED             | Savepoint-based (DB dependent)            |
+| NESTED             | Savepoint-based (DB dependent)            | - NESTED starts a sub-transaction using a database savepoint inside an existing transaction.
 
 Transaction Isolation Levels
 
@@ -255,6 +244,15 @@ Transaction Isolation Levels
 | Dirty Read          | Read uncommitted data              |
 | Non-Repeatable Read | Same query gives different results |
 | Phantom Read        | New rows appear in same query      |
+
+Isolation levels vs anomalies (clear mapping)
+
+| Isolation Level  | Dirty Read  | Non-Repeatable | Phantom     |
+| ---------------- | ----------- | -------------- | ----------- |
+| READ_UNCOMMITTED |  allowed    |  allowed       |  allowed    |
+| READ_COMMITTED   |  prevented  |  allowed       |  allowed    |
+| REPEATABLE_READ  |  prevented  |  prevented     |  allowed*   |
+| SERIALIZABLE     |  prevented  |  prevented     |  prevented  |
 
 ISOLATION LEVELS:
 1. READ_UNCOMMITED - Allows dirty reads - @Transactional(isolation = Isolation.READ_UNCOMMITTED)
@@ -282,23 +280,23 @@ WHAT IS JPA (Java Persistance API) :
    new → transient → managed → detached → removed
 
 JPA CORE METHODS:
-	1. persist() – INSERT only - Makes a new entity managed, Schedules INSERT
+	1. persist() - INSERT only - Makes a new entity managed, Schedules INSERT
 
 	Behavior
 	Works only for new (transient) entities
 	Throws exception if entity already exists
 	No immediate DB insert (happens at flush/commit)
 
-	2. merge() – UPDATE or INSERT (Most Confusing) - Copies state of detached entity into a managed one, Returns managed instance
-	3. find() – Fetch Entity (Managed) - Returns managed entity, Changes auto-persisted, Returns null if not found
-	4. getReference() – Lazy Proxy - Returns proxy, DB hit happens on access, Throws EntityNotFoundException if not found
-	5. remove() – DELETE - Entity must be managed, Deletion happens at commit
+	2. merge() - UPDATE or INSERT (Most Confusing) - Copies state of detached entity into a managed one, Returns managed instance
+	3. find() - Fetch Entity (Managed) - Returns managed entity, Changes auto-persisted, Returns null if not found
+	4. getReference() - Lazy Proxy - Returns proxy, DB hit happens on access, Throws EntityNotFoundException if not found
+	5. remove() - DELETE - Entity must be managed, Deletion happens at commit
 		❌ Invalid - entityManager.remove(detachedEntity); // IllegalArgumentException
 		✔ Fix - entityManager.remove(entityManager.merge(detachedEntity));
-	6. detach() – Stop Tracking - Entity becomes detached, Changes are not saved
-	7. clear() – Detach All - Clears entire persistence context
-	8. flush() – Sync with DB - Executes SQL immediately, Does NOT commit transaction
-	9. refresh() – Reload from DB - Discards local changes, Reloads entity from DB
+	6. detach() - Stop Tracking - Entity becomes detached, Changes are not saved
+	7. clear() - Detach All - Clears entire persistence context
+	8. flush() - Sync with DB - Executes SQL immediately, Does NOT commit transaction
+	9. refresh() - Reload from DB - Discards local changes, Reloads entity from DB
    
 🔥 persist() vs merge() (MOST ASKED)
 | Feature         | persist | merge             |
@@ -1061,8 +1059,7 @@ SERVICE REGISTRY :
   -> A service registry is used in microservices architecture to enable dynamic service discovery
   => Spring cloud eureka is the most popular service registry.
   
-  @LoadBalanced -> load balanced in eureka service registry is used to locate the specific id of the service and is used in inter-service communication (rest template) in 
-  microservices architecture.
+  @LoadBalanced -> load balanced in eureka service registry is used to locate the specific id of the service and is used in inter-service communication in microservices architecture.
 
 	How Services Connected with Eureka Server ?
 	-> By using heartBeats signals that is requests to the eureka server at certain time intervals all microservices communicate with service registry that is eureka server.
