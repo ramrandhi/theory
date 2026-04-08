@@ -1,0 +1,81 @@
+Apache Kafka is an open source distributed event streaming platform.
+
+what is event streaming: It is a way of producing and consuming data.
+
+Event Streaming means continuously capturing events(data) in real-time, storing them in a log(like a timeline), and allowing systems
+to react to them - either immediately or later.
+
+Kafka Helps by: 
+1. decoupling services
+2. Scalability
+3. Replayability
+4. Efficiency
+
+
+DIFFERENT WAYS IN WHICH DATA CAN BE TRANSFERED:
+
+| **Mode**             | **Description**                                                              | **Use Case Example**                          | **Protocol/Tech**                |
+| -------------------- | ---------------------------------------------------------------------------- | --------------------------------------------- | -------------------------------- |
+| **Request/Response** | Client sends a request and waits for an immediate response from the server.  | Fetching user data, submitting a form.        | REST (HTTP), GraphQL, gRPC       |
+| **Batch Processing** | Client sends multiple records in one request; server processes them in bulk. | Uploading a CSV of users or transactions.     | REST (POST), Scheduled Jobs      |
+| **Message Queues**   | Messages are sent asynchronously and stored in a queue for later processing. | Order processing, background tasks.           | RabbitMQ, Amazon SQS, Kafka      |
+| **Event Streaming**  | Continuous flow of events/data, often consumed in real-time by subscribers.  | Real-time analytics, activity tracking.       | Apache Kafka, AWS Kinesis, NATS  |
+| **Webhooks**         | Server sends data to a client endpoint when a specific event occurs.         | Payment success notifications, GitHub events. | HTTP (push-based)                |
+| **Polling**          | Client repeatedly requests the server for updates at regular intervals.      | Checking job status, email notifications.     | REST (GET)                       |
+| **Long Polling**     | Client sends a request; server holds it open until data is available.        | Chat applications, alert systems.             | REST (GET with delayed response) |
+| **WebSockets**       | Full-duplex communication channel over a single TCP connection.              | Real-time chat, live dashboards.              | WebSocket protocol               |
+
+KAFKA ARCHITECTURE AND COMPONENS:
+1. Event: something happend + data.
+2. Producer: A producer is some service that sends data to kafka. there can have N number of producers.
+3. Consumer: A consumer is some service that consumes data from kafka. eg: a notification that comes when a payment is completed.  there can have N number of Consumers.
+4. Topics: A Topic is like channel to send data to particular microservice. each topic has it's own configuration to send data to particular microservice.
+5. Partitions: Inside the topics there are partitions that took place when there a huge load data to be send to consumer to scale the topic we use Partitions.
+    Example: we can Partition a Kafka Topic when there is a black friday sale and there are lots of orders and if we need to send customer order confirmation message then we can
+             partitions to scale the topics to each particular microservices in distributed environment. that consumer microservices is grouped to consume data.
+6. Consumer Rebalancing: It is a process where redistributing the topic partition within the consumer group. this ensures that consumer is assigned a fair share of partitions to
+                            read and process the data.
+7. Offsets: In kafka the offset is a number showing the position of last message read.
+8. Cluster: A Kafka Cluster contains the Kafka brokers(Kafka Instances) running inside it.
+9. Broker: A kafka Instance is also called Kafka Broker.
+10. Zoopkeeper: Manages the data throughout the brokers or Instances. (In newer version Zookeeper is moving away from different software and integrated inside the kafka)
+
+some Kafka concepts:
+
+| Concept               | Purpose                                                   |
+| --------------------- | --------------------------------------------------------- |
+| **Retention**         | How long Kafka stores messages                            |
+| **Replication**       | Ensures message durability and fault tolerance            |
+| **Producer acks**     | Controls write durability and performance trade-offs      |
+| **Dead Letter Queue** | Stores unprocessable messages for later inspection        |
+| **Kafka Connect**     | Simplifies integration between Kafka and external systems |
+| **Kafka Streams**     | Enables real-time stream processing in applications       |
+
+
+DOCKER IMages: 
+
+docker run -d --name zookeeper -p 2181:2181 -e ZOOKEEPER_CLIENT_PORT=2181 -e ZOOKEEPER_TICK_TIME=2000 confluentinc/cp-zookeeper:7.5.0
+docker run -d --name kafka -p 9092:9092 -e KAFKA_BROKER_ID=1 -e KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 -e 
+    KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 --link zookeeper confluentinc/cp-kafka:7.5.0
+
+CREATE TOPICS INSIDE RUNNING KAFKA USING DOCKER: (Commands not very important)
+to create cli we need to run : docker exec -it kafka bash
+CREATE PARTITION: kafka-topics --create --topic my-topic --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1
+                  kafka-topics --create --topic new-topic --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1
+
+TO SEE ALL THE PARTITIONS INSIDE THE TOPIC : kafka-topics --list --bootstrap-server localhost:9092
+TO CHECK THE DETAILS OF THE PARTITIONS INSIDE A TOPIC : kafka-topics --describe --topic my-topic --bootstrap-server localhost:9092
+
+TO CHECK ALL THE PARTITIONS INSIDE THE TOPIC: kafka-topics --describe --topic my-topic --bootstrap-server localhost:9092
+
+-> In Kafka, consumers that share the same group.id will form a consumer group, and Kafka will ensure that each partition of a topic is consumed by only one consumer in 
+   the group (this is called load balancing).
+
+SPRING CLOUD STREAM: 
+    Lets you write plain java functions and then "bind" them to messaging destinations(topics, queues) without writing any broker-specific code.
+    -> So it bascially works with either kafka or rabbitmq without changeing code as code was internally implemented and supports various messaging systems like kafka.
+
+
+
+
+
