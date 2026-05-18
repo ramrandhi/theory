@@ -1,0 +1,2 @@
+Agents - AI Agents are autonomous agents that process the environment, understand intent and take actions 
+        to achieve goals with minimum human interaction.
