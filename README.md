@@ -53,6 +53,8 @@ public class Main {
     vehicle2.stop();
   }
 }
-====> this is bascially better way of writing the factory class so we just need to create 
+====> this is bascially better way of writing the factory class so we just need to create one VehicleFactory class and if
+      new vehicle sub-types are added then we can just introduce if condition on VehicleFactory class and no new changes
+      elsewhere in code is required.
 
       
