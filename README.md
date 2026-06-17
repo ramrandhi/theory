@@ -158,6 +158,7 @@ public class Car {
         + ", color=" + color + ", sunroof=" + sunroof
         + ", navigationSystem=" + navigationSystem + "]";
   }
+  // why CarBuilder class is static because we don't need to create a new object just call the build method and thats it.
   public static class CarBuilder {
     private String engine;
     private int wheels = 4; // Default value
@@ -215,5 +216,31 @@ public class Main {
     System.out.println(car2);
   }
 }
+
+4. Singleton Design Pattern - ensuring only one instance for the entire system.
+   lets take an example with logger functionality
+
+   public class Logger {
+     private static Logger logger;
+     private Logger() {}
+     public static Logger getLogger() {
+      if(logger == null) {
+        logger = new Logger();
+      }
+     return logger;
+    }
+     public void log(String message) {
+      System.out.println("logged info : " + message);
+     }
+   }
+
+   public class Application {
+    public static void main(String[] args) {
+      Logger logger = Logger.getLogger();
+       logger.log("Application started : ");
+    }
+   }
+
+
     
       
