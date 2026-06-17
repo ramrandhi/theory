@@ -241,6 +241,72 @@ public class Main {
     }
    }
 
+// In multi threading scenarios we need to implement synchronization because there are multiple threads accessing the code
+public class Logger{
+  private static volatile Logger logger = null;
+  private Logger() {}
+  public static Logger getLogger() {
+    if(logger == null) {
+      synchronized(Logger.class) {
+        if(logger == null) { // we don't know if there is previous thread already created the thread or not so double check
+          logger = new Logger();
+        }
+      }
+    }
+    return logger;
+  }
+
+6. Prototype Design Pattern - This pattern is useful when we are creating prototypes without reling on creating new object     manually.
+
+public class Character implements Clonable {
+  private String name;
+  private int health;
+  private int attackPower;
+  private int level;
+  public Character(String name, int health, int attackPower, int level) {
+    this.name = name;
+    this.health = health;
+    this.attackPower = attackPower;
+    this.level = level;
+  }
+
+  @Override
+  public Character clone() throws CloneNotSupportedException {
+    return (Character) super.clone(); // Shallow copy of the character object
+  }
+
+  public void showCharacterInfo() {
+    System.out.println("Character [Name=" + name + ", Health=" + health
+        + ", AttackPower=" + attackPower + ", Level=" + level + "]");
+  }
+}
+
+public class CloneFactory {
+  private Character prototypeCharacter;
+  public CharacterFactory() {
+    prototypeCharacter = new Character("DefaultName", 100, 50, 1);
+  }
+  public Character createCharacterWithNewName(String name)
+      throws CloneNotSupportedException {
+    Character clonedCharacter = prototypeCharacter.clone();
+    clonedCharacter = new Character(name, clonedCharacter.health, clonedCharacter.attackPower, clonedCharacter.level);
+    return clonedCharacter;
+  }
+
+  public Character createCharacterWithNewLevel(int level)
+      throws CloneNotSupportedException {
+    Character clonedCharacter = prototypeCharacter.clone();
+    clonedCharacter = new Character(clonedCharacter.name, clonedCharacter.health, clonedCharacter.attackPower, level);
+    return clonedCharacter;
+  }
+
+  public Character createCharacterWithNewAttackPower(int attackPower)
+      throws CloneNotSupportedException {
+    Character clonedCharacter = prototypeCharacter.clone();‍ 
+    clonedCharacter = new Character(clonedCharacter.name, clonedCharacter.health, attackPower, clonedCharacter.level);
+    return clonedCharacter;
+  }
+}
 
     
       
