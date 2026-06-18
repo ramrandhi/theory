@@ -308,5 +308,45 @@ public class CloneFactory {
   }
 }
 
+
+BEHAVIOURAL DESIGN PATTERNS - Enhance the communication between the object.
+1. Stragegy Design Pattern - strategy design pattern bascially solves the problem of which class or object to pick.
+    => Example - We can see multiple payments in ecommerce website if lets say all the payments are in the same class it will be messy to manage if we suppose to add new payment types we need to add more methods which is a nightmare to manage.
+
+Interface PaymentStrategy {
+  void pay(int amount);
+}
+
+class CreditCard implements PaymentStrategy {
+  public void pay(int amount) {
+    System.out.println("payment of " + amount + " doint using creditCard));
+  }
+}
+
+class Upi implements PaymentStrategy {
+  public void pay(int amount) {
+    System.out.println("payment of " + amount + " doint using upi));
+  }
+}
+
+class ShoppingCart {
+  private PaymentStrategy paymentStrategy;
+  public void setPaymentStrategy(PaymentStrategy paymentStrategy) {
+    this.paymentStrategy = paymentStrategy;
+  }
+  public void checkout(int amount) {
+    paymentStrategy.pay(amount);
+  }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        ShoppingCart cart = new ShoppingCart();
+        cart.setPaymentStrategy(new CreditCardPayment());
+        cart.checkout(100);
+        cart.setPaymentStrategy(new PayPalPayment());
+        cart.checkout(200);
+    }
+}
     
       
